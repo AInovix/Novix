@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
 [![Docker](https://img.shields.io/badge/Docker-Ready-success)](https://docker.com)
 
-[![Novix-banner.png](https://imgur.com/undefined)
+[![Novix-banner.png](https://imgur.com/a/3vydOrV)
 
 ---
 
