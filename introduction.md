@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
 [![Docker](https://img.shields.io/badge/Docker-Ready-success)](https://docker.com)
 
-![Novix Banner](https://via.placeholder.com/1200x400?text=Novix+AI+Automation+Platform) *(Replace with actual banner URL)*
+[![Novix-banner.png](https://i.postimg.cc/hG8kKqpX/Novix-banner.png)](https://postimg.cc/SXsTGH04)
 
 ---
 
@@ -64,16 +64,55 @@ docker-compose up --build
 # Or run natively
 python start.py
 ```
-Access Interfaces:
+## Access Interfaces
 
-🔗 Web UI: http://localhost:3437
+- 🔗 [Web UI](http://localhost:3437)  
+- 📊 [Management Dashboard](http://localhost:8501)  
+- 📚 [API Docs](http://localhost:7437)  
 
-📊 Management Dashboard: http://localhost:8501
+## 🔒 Security
 
-📚 API Docs: http://localhost:7437
+| **Feature**               | **Implementation**                              |
+|---------------------------|-------------------------------------------------|
+| API Key Management         | Env-based storage with encryption               |
+| Authentication             | OAuth (Google/GitHub/Microsoft)                 |
+| Data Protection            | End-to-end encryption for I/O, minimal sensitive storage |
 
-🔒 Security
-Feature	Implementation
-API Key Management	Env-based storage with encryption
-Authentication	OAuth (Google/GitHub/Microsoft)
-Data Protection	End-to-end encryption for I/O, minimal sensitive storage
+
+## 🌐 Architecture
+graph TD
+  A[User Interface] --> B[Smart Instruct Engine]
+  B --> C{AI Providers}
+  C --> D[OpenAI]
+  C --> E[Hugging Face]
+  C --> F[Google Gemini]
+  B --> G[Plugin System]
+  G --> H[Web Browsing]
+  G --> I[Voice I/O]
+  G --> J[Service Integrations]
+
+## 🤝 Contribute
+We welcome contributors! Follow these steps:
+
+1. Fork the repository
+
+2. Create a feature branch (git checkout -b feature/amazing-feature)
+
+3. Commit changes (git commit -m 'Add amazing feature')
+
+4. Push to branch (git push origin feature/amazing-feature)
+
+5. Open a Pull Request
+
+Community Guidelines:
+
+* Report bugs via GitHub Issues
+
+* Join our Discord Server
+
+* Review CONTRIBUTING.md for coding standards
+
+## 📜 License
+MIT License - See LICENSE for details.
+
+Novix is not affiliated with any third-party AI providers.
