@@ -67,6 +67,7 @@ class NovixAgent:
 ```
 ## Enhanced Accuracy Strategies
 1. Provider Selection Guide
+   
 | Task Type          | Recommended Provider | Rationale                                    |
 |--------------------|----------------------|----------------------------------------------|
 | Code Generation    | DeepSeek-Coder       | 128k context, code optimization             |
