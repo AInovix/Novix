@@ -64,3 +64,16 @@ docker-compose up --build
 # Or run natively
 python start.py
 ```
+Access Interfaces:
+
+🔗 Web UI: http://localhost:3437
+
+📊 Management Dashboard: http://localhost:8501
+
+📚 API Docs: http://localhost:7437
+
+🔒 Security
+Feature	Implementation
+API Key Management	Env-based storage with encryption
+Authentication	OAuth (Google/GitHub/Microsoft)
+Data Protection	End-to-end encryption for I/O, minimal sensitive storage
