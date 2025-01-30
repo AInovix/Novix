@@ -15,6 +15,7 @@ for chunk in chunks:
     response = process_chunk(chunk)
 ```
 Token Limit Strategies
+```
 ----------------------------------------------------------------------
 Scenario  |	Challenge  | Solution
 ----------------------------------------------------------------------
@@ -24,6 +25,7 @@ Specific Queries |	Requires precision |	Metadata tagging system
 ----------------------------------------------------------------------
 Real-time Processing |	Latency issues	 | Streaming token handling
 ----------------------------------------------------------------------
+```
 
 Local Model Constraints
 ```mermaid
