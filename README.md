@@ -14,4 +14,3 @@ Novix redefines AI automation as a **universal nervous system** for AI workflows
 ```bash
 # Deploy in 60 seconds
 curl -sSL https://get.novix.ai | bash -s -- --with-llm openai,gemini --enable-tts
-```
