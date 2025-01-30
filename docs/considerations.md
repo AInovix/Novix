@@ -3,7 +3,7 @@
 ## 🧠 LLM Operational Considerations
 
 ### Context Window Management
-![Token Limit Analogy](https://via.placeholder.com/800x200.png?text=Token+Limits+Analogy+-+Like+a+Speed+Reader)
+![Token Limit Analogy](https://placehold.co/800x200?text=Token+Limits+Analogy+-+Like+a+Speed+Reader)
 
 ```python
 # Example of text chunking for large documents
