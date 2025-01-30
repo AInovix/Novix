@@ -24,12 +24,12 @@ Specific Queries 	  Requires precision 	    Metadata tagging system
 --------------------------------------------------------------------------
 Real-time Processing  Latency issues	        Streaming token handling
 --------------------------------------------------------------------------
-| Type               Example                               Processing                
-|------------------------------------------------------------------------------------|
-| Text               `"Analyze this document"`             NLP models                |
-| Image URL          `https://example.com/image.jpg`       Vision models             |
-| Web Content        `https://news.com/latest`             Web scraping              |
-| Audio Files        `base64_audio_data`                   Speech-to-text            |
+| Type                Example                                Processing                |
+|-------------------|--------------------------------------|---------------------------|
+| Text                `"Analyze this document"`              NLP models                |
+| Image URL           `https://example.com/image.jpg`        Vision models             |
+| Web Content         `https://news.com/latest`              Web scraping              |
+| Audio Files         `base64_audio_data`                    Speech-to-text            |
 
 Local Model Constraints
 ```mermaid
