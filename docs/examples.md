@@ -1,6 +1,6 @@
 # Novix - Example Use Cases 🚀
 
-Explore practical implementations of Novix through these demonstrated scenarios. Contribute your own examples via [pull requests](https://github.com/yourorg/Novix/pulls)!
+Explore practical implementations of Novix through these demonstrated scenarios. Contribute your own examples via [pull requests](https://github.com/AInovix/Novix/pulls)!
 
 ---
 
