@@ -65,4 +65,4 @@ Community Support Forum
 
 [GitHub Issues](https://github.com/ainovix/novix/issues)
 
-License: MIT
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
