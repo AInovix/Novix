@@ -16,13 +16,13 @@ for chunk in chunks:
 ```
 Token Limit Strategies
 ----------------------------------------------------------------------
-Scenario	Challenge	Solution
+Scenario  |	Challenge  | Solution
 ----------------------------------------------------------------------
-Full Book Analysis	Exceeds context window	Implement RAG architecture
+Full Book Analysis	| Exceeds context window |	Implement RAG architecture
 ----------------------------------------------------------------------
-Specific Queries	Requires precision	Metadata tagging system
+Specific Queries |	Requires precision |	Metadata tagging system
 ----------------------------------------------------------------------
-Real-time Processing	Latency issues	Streaming token handling
+Real-time Processing |	Latency issues	 | Streaming token handling
 ----------------------------------------------------------------------
 
 Local Model Constraints
