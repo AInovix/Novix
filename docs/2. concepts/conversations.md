@@ -15,7 +15,7 @@ graph TD
     A[Old Conversation] -->|Start New| B[New Conversation]
     B -->|Same Agent| C[Continue Discussion]
 ```
-All conversations are automatically saved in the novix/conversations directory and can be accessed through the NeuraForge Streamlit Web UI for review and management.
+All conversations are automatically saved in the novix/conversations directory and can be accessed through the Novix Streamlit Web UI for review and management.
 ```mermaid
 graph TD
     A[Conversation Ends] --> B[Save in neuraforge/conversations]
