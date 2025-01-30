@@ -15,17 +15,15 @@ for chunk in chunks:
     response = process_chunk(chunk)
 ```
 Token Limit Strategies
-```
-----------------------------------------------------------------------
-Scenario  |	Challenge  | Solution
-----------------------------------------------------------------------
-Full Book Analysis	| Exceeds context window |	Implement RAG architecture
-----------------------------------------------------------------------
-Specific Queries |	Requires precision |	Metadata tagging system
-----------------------------------------------------------------------
-Real-time Processing |	Latency issues	 | Streaming token handling
-----------------------------------------------------------------------
-```
+--------------------------------------------------------------------------
+Scenario  	          Challenge                 Solution
+--------------------------------------------------------------------------
+Full Book Analysis	  Exceeds context window 	Implement RAG architecture
+--------------------------------------------------------------------------
+Specific Queries 	  Requires precision 	    Metadata tagging system
+--------------------------------------------------------------------------
+Real-time Processing  Latency issues	        Streaming token handling
+--------------------------------------------------------------------------
 
 Local Model Constraints
 ```mermaid
