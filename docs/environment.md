@@ -63,6 +63,6 @@ Official Documentation (Replace with actual URL)
 
 Community Support Forum
 
-GitHub Issues
+[GitHub Issues](https://github.com/ainovix/novix/issues)
 
 License: MIT
