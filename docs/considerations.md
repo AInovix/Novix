@@ -14,22 +14,14 @@ chunks = adaptive_chunker(document, model="gpt-4")
 for chunk in chunks:
     response = process_chunk(chunk)
 ```
-Token Limit Strategies
---------------------------------------------------------------------------    
-Scenario  	          Challenge                 Solution
---------------------------------------------------------------------------
-Full Book Analysis	  Exceeds context window 	Implement RAG architecture
---------------------------------------------------------------------------
-Specific Queries 	  Requires precision 	    Metadata tagging system
---------------------------------------------------------------------------
-Real-time Processing  Latency issues	        Streaming token handling
---------------------------------------------------------------------------
-| Type                Example                                Processing                |
-|-------------------|--------------------------------------|---------------------------|
-| Text                `"Analyze this document"`              NLP models                |
-| Image URL           `https://example.com/image.jpg`        Vision models             |
-| Web Content         `https://news.com/latest`              Web scraping              |
-| Audio Files         `base64_audio_data`                    Speech-to-text            |
+Token Limit Strategies  
+--------------------------------------------------------------------------  
+| Scenario           | Challenge                   | Solution                        |
+|--------------------|-----------------------------|---------------------------------|
+| Full Book Analysis | Exceeds context window      | Implement RAG architecture      |
+| Specific Queries   | Requires precision          | Metadata tagging system         |
+| Real-time Processing | Latency issues           | Streaming token handling        |
+--------------------------------------------------------------------------  
 
 Local Model Constraints
 ```mermaid
@@ -40,19 +32,15 @@ A --> D((Limited Reasoning))
 D --> E[Predefined Chains]
 D --> F[Command Restrictions]
 ```
-Capability Matrix
+Capability Matrix  
+------------------------------------------------  
+| Feature            | Local Model | Cloud Model |
+|--------------------|-------------|-------------|
+| Text Generation    | ✅ Excellent | ✅ Excellent |
+| Complex Reasoning  | ⚠️ Limited   | ✅ Strong    |
+| Command Execution  | ❌ Restricted| ✅ Allowed   |
+| Offline Operation  | ✅ Supported | ❌ Requires API |
 ------------------------------------------------
-Feature	Local Model	Cloud Model
-------------------------------------------------
-Text Generation	✅ Excellent	✅ Excellent
-------------------------------------------------
-Complex Reasoning	⚠️ Limited	✅ Strong
-------------------------------------------------
-Command Execution	❌ Restricted	✅ Allowed
-------------------------------------------------
-Offline Operation	✅ Supported	❌ Requires API
-------------------------------------------------
-
 ## 📦 ISO Distribution Pipeline
 Automated Build System
 ```bash
@@ -102,17 +90,13 @@ Playbook.com Deployment Checklist:
 gpg --verify novix-agent.iso.sig
 sha256sum -c sha256sums.txt
 ```
-## 🛠️ Support Framework
-Multi-Tier Support Channels
-------------------------------------------
-Level	Channel	Response Time	Scope
-------------------------------------------
-1️⃣	Community Forum	24-48h	General Q&A
-------------------------------------------
-2️⃣	Discord Support	<12h	Technical Issues
-------------------------------------------
-3️⃣	Enterprise SLA	<1h	Critical Systems
-------------------------------------------
+## 🛠️ Support Framework  
+**Multi-Tier Support Channels**  
+| Level | Channel           | Response Time | Scope             |
+|-------|-------------------|---------------|-------------------|
+| 1️⃣    | Community Forum   | 24-48h        | General Q&A       |
+| 2️⃣    | Discord Support   | <12h          | Technical Issues  |
+| 3️⃣    | Enterprise SLA    | <1h           | Critical Systems  |
 
 Issue Reporting Protocol
 * Reproduction Template
