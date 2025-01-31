@@ -65,11 +65,11 @@ docker-compose up --build
 python start.py
 ```
 ## Access Interfaces
-* 🔗 [Web UI]
+* 🔗 [Web UI] (TBA)
 
 * 📊 [Management Dashboard]
 
-* 📚 [API Docs]
+* 📚 [API Docs](https://github.com/AInovix/Novix)
 ## 🔒 Security
 | Feature              | Implementation                                      |
 |----------------------|----------------------------------------------------|
