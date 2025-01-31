@@ -35,7 +35,7 @@ Contributors
 | Development | 🔄 Running | main        | Continuous    |
 
 ## 🛠️ System Health
-```vegelite
+```vegalite
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Resource Usage",
@@ -52,5 +52,5 @@ Contributors
     "y": {"field": "usage", "type": "quantitative"}
   }
 }
-
+```
 Updated: <!-- TIMESTAMP:START -->2023-12-15 14:30 UTC<!-- TIMESTAMP:END -->
