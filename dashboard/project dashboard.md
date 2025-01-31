@@ -52,5 +52,5 @@ Contributors
     "y": {"field": "usage", "type": "quantitative"}
   }
 }
-```
+
 Updated: <!-- TIMESTAMP:START -->2023-12-15 14:30 UTC<!-- TIMESTAMP:END -->
