@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
 [![Docker](https://img.shields.io/badge/Docker-Ready-success)](https://docker.com)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/ainovix)
 
 [![Novix-banner.png](https://i.postimg.cc/hG8kKqpX/Novix-banner.png)](https://postimg.cc/SXsTGH04)
 
