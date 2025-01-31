@@ -80,6 +80,7 @@ python start.py
 
 
 ## 🌐 Architecture
+```mermaid
 graph TD
   A[User Interface] --> B[Smart Instruct Engine]
   B --> C{AI Providers}
@@ -90,7 +91,7 @@ graph TD
   G --> H[Web Browsing]
   G --> I[Voice I/O]
   G --> J[Service Integrations]
-
+```
 ## 🤝 Contribute
 We welcome contributors! Follow these steps:
 
