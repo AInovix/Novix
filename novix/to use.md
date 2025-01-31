@@ -7,9 +7,9 @@ docker-compose up
 ```
 2. **Access interfaces:**
 
-*Chat UI: http://localhost:8501
+* Chat UI: http://localhost:8501
 
-*Voice API: Use the VoiceEngine class in your code
+* Voice API: Use the VoiceEngine class in your code
 
 Example usage in code:
 
