@@ -68,7 +68,7 @@ python start.py
 ## Access Interfaces
 * 🔗 [Web UI] (TBA)
 
-* 📊 [Management Dashboard]
+* 📊 [Management Dashboard](https://github.com/AInovix/Novix/blob/main/dashboard/project%20dashboard.md)
 
 * 📚 [API Docs](https://github.com/AInovix/Novix)
 ## 🔒 Security
