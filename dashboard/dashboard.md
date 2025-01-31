@@ -14,7 +14,7 @@ jobs:
       - name: Update Contributors
         uses: contributoroom/contributors-svg@main
         with:
-          repo: yourusername/novix
+          repo: AInovix/novix
           path: DASHBOARD.md
           
       - name: Update Activity
