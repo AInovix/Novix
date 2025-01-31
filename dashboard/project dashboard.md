@@ -35,5 +35,5 @@ Contributors
 | Development | 🔄 Running | main        | Continuous    |
 
 ## 🛠️ System Health
-[![Resource Usage](https://raw.githubusercontent.com/yourusername/novix/main/assets/usage_chart.svg)](https://AInovix.github.io/novix/dashboard.html)
+![Resource Usage](https://quickchart.io/chart?c={type:'bar',data:{labels:['CPU','Memory','Storage'],datasets:[{label:'Usage%',data:[65,45,82]}]}})
 Updated: <!-- TIMESTAMP:START -->2023-12-15 14:30 UTC<!-- TIMESTAMP:END -->
