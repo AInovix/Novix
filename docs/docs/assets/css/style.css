@@ -1,0 +1,16 @@
+@layer utilities {
+    .dark-mode {
+        --bg-color: #1a202c;
+        --text-color: #f7fafc;
+    }
+    
+    .light-mode {
+        --bg-color: #ffffff;
+        --text-color: #1a202c;
+    }
+}
+
+/* Custom transitions */
+.transition-all {
+    transition: all 0.3s ease-in-out;
+}
