@@ -1,0 +1,14 @@
+services:
+  chatbot:
+    image: python:3.10
+    working_dir: /app
+    volumes:
+      - ./novix:/app/novix
+    ports:
+      - "8501:8501"
+    command: streamlit run app.py
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+    depends_on:
+      - api
+      
