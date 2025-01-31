@@ -1,4 +1,3 @@
-json
 const fs = require('fs');
 const { Converter } = require('showdown');
 const prism = require('prismjs');
