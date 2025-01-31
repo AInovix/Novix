@@ -1,0 +1,7 @@
+title: Novix Documentation
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+description: >-
+  Official documentation for Novix - Next-Gen AI Automation Platform
