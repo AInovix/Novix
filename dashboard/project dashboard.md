@@ -1,9 +1,9 @@
 # 📊 Novix Project Dashboard
 
-[![Project Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)](https://github.com/yourusername/novix)
-[![Last Commit](https://img.shields.io/github/last-commit/yourusername/novix?color=blue&style=flat-square)](https://github.com/yourusername/novix/commits/main)
-[![Open Issues](https://img.shields.io/github/issues-raw/yourusername/novix?color=critical&style=flat-square)](https://github.com/yourusername/novix/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-success?style=flat-square)](https://github.com/yourusername/novix/pulls)
+[![Project Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)](https://github.com/AInovix/novix)
+[![Last Commit](https://img.shields.io/github/last-commit/yourusername/novix?color=blue&style=flat-square)](https://github.com/AInovix/novix/commits/main)
+[![Open Issues](https://img.shields.io/github/issues-raw/yourusername/novix?color=critical&style=flat-square)](https://github.com/AInovix/novix/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-success?style=flat-square)](https://github.com/AInovix/novix/pulls)
 
 ## 📈 Activity Metrics
 ```mermaid
