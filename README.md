@@ -1,9 +1,9 @@
 # Novix: Next-Gen AI Automation Platform
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
-[![Docker](https://img.shields.io/badge/Docker-Ready-success)](https://docker.com)
-[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ainovix)
+[![License](https://img.shields.io/badge/License-MIT-2496ED?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-2496ED?style=for-the-badge)](https://python.org)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![X](https://img.shields.io/badge/X-2496ED?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ainovix)
 
 [![Novix-banner.png](https://i.postimg.cc/hG8kKqpX/Novix-banner.png)](https://postimg.cc/SXsTGH04)
 
