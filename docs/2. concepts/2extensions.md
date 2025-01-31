@@ -1,0 +1,183 @@
+# Novix Extensions Framework
+
+```mermaid
+graph TD
+    subgraph Novix Architecture
+        Core[Novix Core] --> Extensions
+        Extensions -->|Bolt-on| SDK[Novix SDK]
+        Extensions -->|Integrate| Services[3rd Party Services]
+        Services -->|API| GitHub
+        Services -->|API| Office365
+        Services -->|API| GoogleWorkspace
+    end
+```
+## Modular Extension System
+Enhanced AI capabilities through pluggable components powered by DeepSeek.
+```mermaid
+sequenceDiagram
+    participant User
+    participant Agent
+    participant Extension
+    participant Service
+    
+    User->>Agent: Request Service Operation
+    Agent->>Extension: Invoke Command
+    Extension->>Service: API Call
+    Service->>Extension: Return Data
+    Extension->>Agent: Structured Response
+    Agent->>User: Final Output
+```
+##Core Components
+**Authentication & Context Management**
+```python
+def __init__(self, **kwargs):
+    # Initialize with DeepSeek integration
+    self.ApiClient = NovixSDK(
+        base_uri=os.getenv("NOVIX_URI"),
+        api_key=kwargs.get("api_key", ""),
+        agent_engine="deepseek"  # DeepSeek integration
+    )
+    
+    # Context parameters
+    self.agent_name = kwargs.get("agent_name", "deepseek")
+    self.conversation_id = kwargs.get("conversation_id", None)
+    self.WORKING_DIRECTORY = kwargs.get("conversation_directory", "WORKSPACE")
+```
+**SDK Operations Matrix**
+```mermaid
+graph LR
+    SDK[Novix SDK] -->|Prompt| Agent[DeepSeek]
+    SDK -->|Store| Memory[Knowledge Base]
+    SDK -->|Execute| Chains[Workflow Chains]
+    SDK -->|Log| Activity[Conversation History]
+```
+Common Operations:
+**1. Agent Prompting**
+```python
+response = self.ApiClient.prompt_agent(
+    agent_name="deepseek",
+    prompt_name="Advanced Analysis",
+    prompt_args={
+        "user_input": query,
+        "websearch": True,
+        "browse_links": True
+    }
+)
+```
+**2. Memory Management**
+```python
+self.ApiClient.learn_text(
+    agent_name="deepseek",
+    text=research_data,
+    collection_number=1024
+)
+```
+**3. Chain Execution**
+```python
+result = self.ApiClient.run_chain(
+    chain_name="Data Pipeline",
+    agent_name="deepseek",
+    user_input=dataset
+)
+```
+## Control Flags Architecture
+```mermaid
+pie
+    title Flag Usage Distribution
+    "Command Control" : 40
+    "Resource Management" : 30
+    "Data Privacy" : 20
+    "Logging" : 10
+```
+**Flag Implementation Examples**
+```python
+# Research workflow with DeepSeek
+result = self.ApiClient.run_chain(
+    chain_name="Market Research",
+    chain_args={
+        "websearch": True,
+        "search_depth": 3,
+        "log_output": False
+    }
+)
+
+# Secure data processing
+analysis = self.ApiClient.prompt_agent(
+    prompt_args={
+        "disable_commands": True,
+        "analyze_user_input": True,
+        "tts": False
+    }
+)
+```
+## Extension Development Framework
+```mermaid
+graph TB
+    Template[Extension Template] -->|Implements| Methods
+    Methods --> Command1[Get Data]
+    Methods --> Command2[Process Info]
+    Methods --> Command3[Execute Action]
+    Methods -->|Uses| SDK[Novix SDK]
+```
+**Core Extensions**
+| Extension  | Key Capabilities          | DeepSeek Integration            |
+|------------|----------------------------|---------------------------------|
+| GitHub     | Code review, CI/CD         | PR analysis, Code gen           |
+| Office365  | Email automation           | Document generation             |
+| Oura Ring  | Sleep analytics            | Wellness recommendations        |
+| Memory     | Context retention          | Knowledge correlation           |
+
+**Security Architecture**
+```mermaid
+graph LR
+    Data[User Data] -->|Encrypted| Vault[Secure Vault]
+    API[External APIs] -->|OAuth2| Auth[Auth Service]
+    Code[Extensions] -->|Sandboxed| Docker[Container Runtime]
+    Logs[Activity Logs] -->|Anonymized| Audit[Audit System]
+```
+## Development Best Practices
+```mermaid
+flowchart TD
+    Start[Design] --> Doc[Documentation]
+    Doc --> Test[Unit Tests]
+    Test --> Secure[Security Review]
+    Secure --> Deploy[Containerize]
+    Deploy --> Monitor[Observability]
+```
+**1. Extension Template**
+```python
+class DeepSeekAnalytics(Extensions):
+    """Enhanced analytics with DeepSeek integration"""
+    
+    def __init__(self, API_KEY: str = "", **kwargs):
+        self.commands = {
+            "Analyze Dataset": self.advanced_analysis
+        } if API_KEY else {}
+        
+    async def advanced_analysis(self, dataset: str) -> dict:
+        """
+        Performs DeepSeek-powered data analysis
+        
+        Args:
+            dataset: Input data in CSV/JSON format
+            
+        Returns:
+            Analysis report with insights
+            
+        Example:
+            <execute>
+            <name>Analyze Dataset</name>
+            <dataset>sales_q3.csv</dataset>
+            </execute>
+        """
+        # Analysis logic using DeepSeek API
+```
+## Operational Guidelines
+| Consideration       | Implementation      | DeepSeek Integration            |
+|---------------------|--------------------|---------------------------------|
+| Rate Limiting       | Token Bucket       | Adaptive Query Optimization     |
+| Error Handling      | Exponential Backoff| Context-Aware Retries           |
+| Data Privacy        | Field-Level Encryption | Anonymization Patterns     |
+| Performance         | Async I/O          | Batch Processing                |
+
+
