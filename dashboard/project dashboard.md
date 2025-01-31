@@ -20,11 +20,11 @@ Contributors
 <!-- CONTRIBUTORS:END -->
 ## 📅 Recent Activity
 <!-- ACTIVITY:START -->
-* Latest Commit: Add dashboard feature - 2 hours ago
+* Latest Commit: [Add dashboard feature](https://github.com/AInovix/novix/commit) - 2 hours ago
 
-* Recent PR: Fix authentication bug - Merged
+* Recent PR: [Fix authentication bug](https://github.com/AInovix/novix/pull) - Merged
 
-* New Issue: Feature request: Voice integration - Open
+* New Issue: [Feature request: Voice integration](https://github.com/AInovix/novix/issues) - Open
 
 <!-- ACTIVITY:END -->
 ## 📦 Deployment Status
