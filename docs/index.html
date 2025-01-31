@@ -13,53 +13,78 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <img src="https://i.postimg.cc/hG8kKqpX/Novix-banner.png" class="h-12" alt="Novix Logo">
-                    <div class="hidden md:flex space-x-8 ml-10">
-                        <a href="#features" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 px-3 py-2">Features</a>
-                        <a href="#docs" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 px-3 py-2">Documentation</a>
-                        <a href="#community" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 px-3 py-2">Community</a>
-                    </div>
+                    <img src="assets/images/novix-banner.png" class="h-12" alt="Novix Logo">
                 </div>
                 <div class="flex items-center">
                     <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
-                        </svg>
+                        <!-- Theme toggle SVG -->
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Next-Gen AI Automation Platform</h1>
-            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">Transform your workflows with intelligent automation</p>
-            <div class="flex justify-center space-x-4">
-                <a href="#getting-started" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">Get Started</a>
-                <a href="https://github.com/AInovix/novix" class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700">View on GitHub</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Features Grid -->
-    <div id="features" class="py-16 bg-white dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Core Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">
-                    <div class="text-blue-600 mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white">AI-Powered Automation</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Smart workflows with adaptive memory and context awareness</p>
+    <div class="flex">
+        <!-- Documentation Sidebar -->
+        <aside class="w-64 bg-white dark:bg-gray-800 h-screen p-4 border-r border-gray-200 dark:border-gray-700">
+            <div class="space-y-2">
+                <div class="doc-section">
+                    <h3 class="text-lg font-semibold dark:text-white">Getting Started</h3>
+                    <ul class="ml-4 space-y-1">
+                        <li><a href="1-getting-started/1-quick-start-guide.md" class="doc-link">1. Quick Start Guide</a></li>
+                        <li><a href="1-getting-started/2-environment.md" class="doc-link">2. Environment Setup</a></li>
+                        <li><a href="1-getting-started/3-examples.md" class="doc-link">3. Examples</a></li>
+                        <li><a href="1-getting-started/4-considerations.md" class="doc-link">4. Considerations</a></li>
+                        <li><a href="1-getting-started/5-support.md" class="doc-link">5. Support</a></li>
+                    </ul>
                 </div>
-                <!-- Add more feature cards -->
+
+                <div class="doc-section">
+                    <h3 class="text-lg font-semibold dark:text-white">Core Concepts</h3>
+                    <ul class="ml-4 space-y-1">
+                        <li><a href="2-concepts/1-core-concept.md" class="doc-link">1. Core Concepts</a></li>
+                        <li><a href="2-concepts/2-architecture.md" class="doc-link">2. Architecture</a></li>
+                        <li><a href="2-concepts/3-providers.md" class="doc-link">3. Providers</a></li>
+                        <li><a href="2-concepts/4-agents.md" class="doc-link">4. Agents</a></li>
+                        <li><a href="2-concepts/5-chat-completions.md" class="doc-link">5. Chat Completions</a></li>
+                        <li><a href="2-concepts/6-extension-commands.md" class="doc-link">6. Extension Commands</a></li>
+                        <li><a href="2-concepts/7-prompts.md" class="doc-link">7. Prompts</a></li>
+                        <li><a href="2-concepts/8-chains.md" class="doc-link">8. Chains</a></li>
+                        <li><a href="2-concepts/9-conversations.md" class="doc-link">9. Conversations</a></li>
+                        <li><a href="2-concepts/10-agent-training.md" class="doc-link">10. Agent Training</a></li>
+                        <li><a href="2-concepts/11-agent-interactions.md" class="doc-link">11. Agent Interactions</a></li>
+                        <li><a href="2-concepts/12-extensions.md" class="doc-link">12. Extensions</a></li>
+                    </ul>
+                </div>
+
+                <div class="doc-section">
+                    <h3 class="text-lg font-semibold dark:text-white">AI Providers</h3>
+                    <ul class="ml-4 space-y-1">
+                        <li><a href="3-providers/1-anthropic-claude.md" class="doc-link">1. Anthropic Claude</a></li>
+                        <li><a href="3-providers/2-azure.md" class="doc-link">2. Azure</a></li>
+                        <li><a href="3-providers/3-deepseek.md" class="doc-link">3. DeepSeek</a></li>
+                        <li><a href="3-providers/4-ezlocalai.md" class="doc-link">4. ezLocalAI</a></li>
+                        <li><a href="3-providers/5-google-gemini.md" class="doc-link">5. Google Gemini</a></li>
+                        <li><a href="3-providers/6-openai.md" class="doc-link">6. OpenAI</a></li>
+                        <li><a href="3-providers/7-xai-grok.md" class="doc-link">7. xAI Grok</a></li>
+                        <li><a href="3-providers/8-hugging-face.md" class="doc-link">8. Hugging Face</a></li>
+                        <li><a href="3-providers/9-gpt4free.md" class="doc-link">9. GPT4Free</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <div class="prose dark:prose-invert max-w-4xl">
+                <h1 class="text-4xl font-bold mb-8">Novix Documentation</h1>
+                <div class="content-area" id="content">
+                    <!-- Dynamic content will be loaded here -->
+                    <h2>Welcome to Novix Documentation</h2>
+                    <p>Select a topic from the sidebar to get started</p>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script src="assets/js/script.js"></script>
