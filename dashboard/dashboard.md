@@ -15,7 +15,7 @@ jobs:
         uses: contributoroom/contributors-svg@main
         with:
           repo: AInovix/novix
-          path: DASHBOARD.md
+          path: PROJECT DASHBOARD.md
           
       - name: Update Activity
         run: |
