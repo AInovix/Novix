@@ -1,16 +1,23 @@
-@layer utilities {
-    .dark-mode {
-        --bg-color: #1a202c;
-        --text-color: #f7fafc;
-    }
-    
-    .light-mode {
-        --bg-color: #ffffff;
-        --text-color: #1a202c;
-    }
+.doc-section {
+    @apply mb-6;
 }
 
-/* Custom transitions */
-.transition-all {
-    transition: all 0.3s ease-in-out;
+.doc-section h3 {
+    @apply mb-2 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg;
+}
+
+.doc-link {
+    @apply block p-2 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors;
+}
+
+.doc-link:hover {
+    @apply text-blue-600 dark:text-blue-400;
+}
+
+.prose {
+    @apply text-gray-800 dark:text-gray-200;
+}
+
+.content-area {
+    @apply space-y-6;
 }
