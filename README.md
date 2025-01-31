@@ -44,7 +44,7 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/novix.git && cd novix
+git clone https://github.com/AInovix/novix.git && cd novix
 
 # Set up environment (Linux/Mac)
 python3 -m venv .venv && source .venv/bin/activate
