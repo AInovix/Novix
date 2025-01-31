@@ -1,4 +1,4 @@
-```json
+json
 const fs = require('fs');
 const { Converter } = require('showdown');
 const prism = require('prismjs');
@@ -14,4 +14,4 @@ function buildDocs() {
 }
 
 buildDocs();
-```
+
