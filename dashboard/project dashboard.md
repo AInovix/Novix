@@ -35,22 +35,5 @@ Contributors
 | Development | 🔄 Running | main        | Continuous    |
 
 ## 🛠️ System Health
-```vegalite
-{
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Resource Usage",
-  "data": {
-    "values": [
-      {"metric": "CPU", "usage": 65},
-      {"metric": "Memory", "usage": 45},
-      {"metric": "Storage", "usage": 82}
-    ]
-  },
-  "mark": "bar",
-  "encoding": {
-    "x": {"field": "metric", "type": "nominal"},
-    "y": {"field": "usage", "type": "quantitative"}
-  }
-}
-```
+[![Resource Usage](https://raw.githubusercontent.com/yourusername/novix/main/assets/usage_chart.svg)](https://AInovix.github.io/novix/dashboard.html)
 Updated: <!-- TIMESTAMP:START -->2023-12-15 14:30 UTC<!-- TIMESTAMP:END -->
