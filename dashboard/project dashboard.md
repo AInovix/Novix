@@ -35,7 +35,7 @@ Contributors
 | Development | 🔄 Running | main        | Continuous    |
 
 ## 🛠️ System Health
-```vegalite
+```json
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Resource Usage",
