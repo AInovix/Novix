@@ -27,7 +27,7 @@ sequenceDiagram
     Extension->>Agent: Structured Response
     Agent->>User: Final Output
 ```
-##Core Components
+## Core Components
 **Authentication & Context Management**
 ```python
 def __init__(self, **kwargs):
