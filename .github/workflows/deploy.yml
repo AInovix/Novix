@@ -23,10 +23,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: |
-            docs/*
-            !docs/node_modules
-            !docs/.gitignore
+          path: docs/*  # No need for negations here
           retention-days: 5
 
       - name: Deploy
