@@ -22,13 +22,12 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: |
-            docs/*
-            !docs/1.get started
-            !docs/2.concepts
-            !docs/3.providers
-            !docs/.gitignore
-          retention-days: 5
+          # Here we define what to include and exclude for the artifact upload
+          path: 'docs'
+          # If you want to exclude specific files or directories:
+          exclude: |
+            docs/node_modules/**
+            docs/.gitignore
 
       - name: Deploy
         uses: actions/deploy-pages@v4
