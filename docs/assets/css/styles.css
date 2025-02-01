@@ -100,3 +100,31 @@ body[data-theme='dark'] .content-area {
     font-size: 0.9rem;
     margin: 0.25rem 0;
 }
+
+/* Header Section */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+/* Adjust sidebar positioning */
+.sidebar {
+    position: fixed;
+    top: 80px; /* Match header height */
+    left: 0;
+    height: calc(100vh - 80px); /* Full height minus header */
+    overflow-y: auto;
+}
+
+/* Content Area */
+.content-area {
+    margin-left: 260px;
+    margin-top: 80px; /* Add top margin for header */
+    padding: 2rem;
+    min-height: calc(100vh - 160px); /* Adjust for header/footer */
+}
