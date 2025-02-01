@@ -1,94 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Novix Documentation</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Marked.js for markdown to HTML conversion -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-
 <body>
 
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <h1>Novix</h1>
-            <p>Documentation for the Future</p>
+            <h1>Novix Docs</h1>
+            <p>Welcome to the Novix Documentation</p>
         </div>
-
-        <div class="theme-toggle">
-            <label for="theme-switcher" class="toggle-label">🌙</label>
-            <input type="checkbox" id="theme-switcher" />
-            <label for="theme-switcher" class="toggle-label">🌞</label>
-        </div>
+        <!-- Light/Dark Mode Toggle -->
+        <label for="theme-switcher" class="theme-switcher-label">🌙</label>
+        <input type="checkbox" id="theme-switcher">
+        <label for="theme-switcher" class="theme-switcher-label">🌞</label>
     </header>
 
     <!-- Main Content Area -->
     <main>
-        <div class="container">
-            <nav class="sidebar">
-                <div class="nav-section">
-                    <h3>Getting Started</h3>
-                    <ul>
-                        <li><a href="#quick-start" data-md="docs/getting-started/1-quick-start.md">1. Quick Start</a></li>
-                        <li><a href="#environment" data-md="docs/getting-started/2-environment.md">2. Environment Setup</a></li>
-                        <li><a href="#examples" data-md="docs/getting-started/3-examples.md">3. Examples</a></li>
-                        <li><a href="#considerations" data-md="docs/getting-started/4-considerations.md">4. Considerations</a></li>
-                        <li><a href="#support" data-md="docs/getting-started/5-support.md">5. Support</a></li>
-                    </ul>
-                </div>
+        <nav class="sidebar">
+            <div class="nav-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="#quick-start" data-md="docs/getting-started/1-quick-start.md">1. Quick Start</a></li>
+                    <li><a href="#environment" data-md="docs/getting-started/2-environment.md">2. Environment Setup</a></li>
+                    <li><a href="#examples" data-md="docs/getting-started/3-examples.md">3. Examples</a></li>
+                    <li><a href="#considerations" data-md="docs/getting-started/4-considerations.md">4. Considerations</a></li>
+                    <li><a href="#support" data-md="docs/getting-started/5-support.md">5. Support</a></li>
+                </ul>
+            </div>
 
-                <div class="nav-section">
-                    <h3>Core Concepts</h3>
-                    <ul>
-                        <li><a href="#core-concept" data-md="docs/core-concepts/1-core-concept.md">1. Core Concepts</a></li>
-                        <li><a href="#architecture" data-md="docs/core-concepts/2-architecture.md">2. Architecture</a></li>
-                        <li><a href="#providers" data-md="docs/core-concepts/3-providers.md">3. Providers</a></li>
-                        <li><a href="#agents" data-md="docs/core-concepts/4-agents.md">4. Agents</a></li>
-                        <li><a href="#chat-completions" data-md="docs/concepts/5-chat-completions.md">5. Chat Completions</a></li>
-                        <li><a href="#extension-commands" data-md="docs/core-concepts/6-extension-commands.md">6. Extension Commands</a></li>
-                        <li><a href="#prompts" data-md="docs/core-concepts/7-prompts.md">7. Prompts</a></li>
-                        <li><a href="#chains" data-md="docs/core-concepts/8-chains.md">8. Chains</a></li>
-                        <li><a href="#conversations" data-md="docs/core-concepts/9-conversations.md">9. Conversations</a></li>
-                        <li><a href="#agent-training" data-md="docs/core-concepts/10-agent-training.md">10. Agent Training</a></li>
-                        <li><a href="#agent-interactions" data-md="docs/core-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
-                        <li><a href="#extensions" data-md="docs/core-concepts/12-extensions.md">12. Extensions</a></li>
-                    </ul>
-                </div>
+            <div class="nav-section">
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li><a href="#core-concept" data-md="docs/core-concepts/1-core-concept.md">1. Core Concepts</a></li>
+                    <li><a href="#architecture" data-md="docs/core-concepts/2-architecture.md">2. Architecture</a></li>
+                    <li><a href="#providers" data-md="docs/core-concepts/3-providers.md">3. Providers</a></li>
+                    <li><a href="#agents" data-md="docs/core-concepts/4-agents.md">4. Agents</a></li>
+                    <li><a href="#chat-completions" data-md="docs/concepts/5-chat-completions.md">5. Chat Completions</a></li>
+                    <li><a href="#extension-commands" data-md="docs/core-concepts/6-extension-commands.md">6. Extension Commands</a></li>
+                    <li><a href="#prompts" data-md="docs/core-concepts/7-prompts.md">7. Prompts</a></li>
+                    <li><a href="#chains" data-md="docs/core-concepts/8-chains.md">8. Chains</a></li>
+                    <li><a href="#conversations" data-md="docs/core-concepts/9-conversations.md">9. Conversations</a></li>
+                    <li><a href="#agent-training" data-md="docs/core-concepts/10-agent-training.md">10. Agent Training</a></li>
+                    <li><a href="#agent-interactions" data-md="docs/core-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
+                    <li><a href="#extensions" data-md="docs/core-concepts/12-extensions.md">12. Extensions</a></li>
+                </ul>
+            </div>
 
-                <div class="nav-section">
-                    <h3>AI Providers</h3>
-                    <ul>
-                        <li><a href="#anthropic" data-md="docs/providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
-                        <li><a href="#azure" data-md="docs/providers/2-azure.md">2. Azure</a></li>
-                        <li><a href="#deepseek" data-md="docs/providers/3-deepseek.md">3. Deepseek</a></li>
-                        <li><a href="#ezLocalai" data-md="docs/providers/4-ezLocalai.md">4. ezLocalai</a></li>
-                        <li><a href="#google-gemini" data-md="docs/providers/5-google-gemini.md">5. Google Gemini</a></li>
-                        <li><a href="#openAI" data-md="docs/providers/6-openAI.md">6. OpenAI</a></li>
-                        <li><a href="#xAI-grok" data-md="docs/providers/7-xAI-grok.md">7. xAI Grok</a></li>
-                        <li><a href="#hugging-face" data-md="docs/providers/8-hugging-face.md">8. Hugging Face</a></li>
-                        <li><a href="#gpt4Free" data-md="docs/providers/9-gpt4Free.md">9. gpt4Free</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <div class="nav-section">
+                <h3>AI Providers</h3>
+                <ul>
+                    <li><a href="#anthropic" data-md="docs/providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
+                    <li><a href="#azure" data-md="docs/providers/2-azure.md">2. Azure</a></li>
+                    <li><a href="#deepseek" data-md="docs/providers/3-deepseek.md">3. Deepseek</a></li>
+                    <li><a href="#ezLocalai" data-md="docs/providers/4-ezLocalai.md">4. ezLocalai</a></li>
+                    <li><a href="#google-gemini" data-md="docs/providers/5-google-gemini.md">5. Google Gemini</a></li>
+                    <li><a href="#openAI" data-md="docs/providers/6-openAI.md">6. OpenAI</a></li>
+                    <li><a href="#xAI-grok" data-md="docs/providers/7-xAI-grok.md">7. xAI Grok</a></li>
+                    <li><a href="#hugging-face" data-md="docs/providers/8-hugging-face.md">8. Hugging Face</a></li>
+                    <li><a href="#gpt4Free" data-md="docs/providers/9-gpt4Free.md">9. gpt4Free</a></li>
+                </ul>
+            </div>
+        </nav>
 
-            <section class="content-area">
-                <article id="dynamic-content">
-                    <h2>Documentation Content</h2>
-                    <p>Click on any item from the sidebar to load the content dynamically.</p>
-                </article>
-            </section>
-        </div>
+        <section class="content-area">
+            <article id="dynamic-content">
+                <h2>Documentation Content</h2>
+                <p>Click on any item from the sidebar to load the content dynamically.</p>
+            </article>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2025 Novix. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript for Theme Toggle and Content Loading -->
     <script src="main.js"></script>
 </body>
-
 </html>
