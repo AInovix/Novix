@@ -20,3 +20,23 @@ themeSwitcher.addEventListener('change', () => {
         localStorage.setItem('theme', 'light');
     }
 });
+// Fetch markdown content and render as HTML
+document.querySelectorAll('a[data-md]').forEach(anchor => {
+    anchor.addEventListener('click', function(event) {
+        event.preventDefault();
+        const mdFile = this.getAttribute('data-md');
+        
+        // Fetch the markdown file
+        fetch(mdFile)
+            .then(response => response.text())
+            .then(markdownContent => {
+                const contentArea = document.getElementById('dynamic-content');
+                // Use a simple markdown-to-HTML converter like marked.js
+                const htmlContent = marked(markdownContent);
+                contentArea.innerHTML = htmlContent;
+            })
+            .catch(error => {
+                console.error('Error loading markdown:', error);
+            });
+    });
+});
