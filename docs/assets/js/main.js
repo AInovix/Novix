@@ -35,11 +35,11 @@ document.querySelectorAll('a[data-md]').forEach(anchor => {
             .then(markdownContent => {
                 const contentArea = document.getElementById('dynamic-content');
                 // Use marked.js to convert markdown to HTML
-                const htmlContent = marked(markdownContent);
-                contentArea.innerHTML = htmlContent;
+                contentArea.innerHTML = marked(markdownContent);
             })
             .catch(error => {
-                console.error('Error loading markdown:', error);
+                console.error('Error loading markdown file:', error);
+                document.getElementById('dynamic-content').innerHTML = '<p>Error loading content.</p>';
             });
     });
 });
