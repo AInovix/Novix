@@ -117,3 +117,32 @@ input[type="checkbox"]:checked + label {
 input[type="checkbox"]:checked + label + label {
     background-color: #f5a623;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .content-area {
+        margin-left: 220px; /* Adjust content area when sidebar is collapsed */
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+        box-shadow: none;
+    }
+
+    .content-area {
+        margin-left: 0;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+    }
+}
