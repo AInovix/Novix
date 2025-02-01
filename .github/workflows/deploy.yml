@@ -17,13 +17,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify docs folder exists
+        run: |
+          echo "Checking if docs directory exists..."
+          if [ -d "docs" ]; then
+            echo "docs directory exists!"
+            ls -R docs  # List files inside docs directory to ensure it's populated
+          else
+            echo "docs directory does not exist!"
+            exit 1
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/*  # No need for negations here
+          path: docs/  # Upload the entire docs folder (not docs/*)
           retention-days: 5
 
       - name: Deploy
