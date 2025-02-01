@@ -1,0 +1,137 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Light/Dark Mode */
+body.dark-mode {
+    background-color: #181818;
+    color: #f4f4f4;
+}
+
+body.dark-mode a {
+    color: #66b3ff;
+}
+
+/* Header Styles */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+header .theme-toggle {
+    display: flex;
+    align-items: center;
+}
+
+header .theme-toggle input {
+    display: none;
+}
+
+header .theme-toggle label {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+header .theme-toggle input:checked + label:nth-child(2) {
+    color: #fff;
+}
+
+header .theme-toggle input:checked + label:nth-child(1) {
+    color: #fff;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.nav-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.nav-section ul {
+    list-style-type: none;
+}
+
+.nav-section ul li {
+    margin: 10px 0;
+}
+
+.nav-section ul li a {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Main Content Area */
+.container {
+    margin-left: 270px;
+    padding: 30px;
+}
+
+.content-area {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+    .container {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: relative;
+        box-shadow: none;
+    }
+}
