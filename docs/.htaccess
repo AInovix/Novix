@@ -2,3 +2,5 @@
     CheckCaseOnly On
     CheckSpelling On
 </IfModule>
+
+AddType text/markdown .md
