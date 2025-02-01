@@ -2,40 +2,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".sidebar-link");
     const contentArea = document.getElementById("dynamic-content");
 
-    // Function to load content
-    const loadContent = (filePath) => {
-        // Encode URI components to handle spaces and special characters
-        const encodedPath = encodeURI(filePath);
-        
-        fetch(encodedPath)
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.text();
-            })
-            .then(data => {
-                contentArea.innerHTML = marked.parse(data);
-                Prism.highlightAll(); // Optional: for code highlighting if needed
-            })
-            .catch(error => {
-                contentArea.innerHTML = `
-                    <div class="error-message">
-                        <h3>⚠️ Content Load Error</h3>
-                        <p>Failed to load: ${filePath}</p>
-                        <p>${error.message}</p>
-                    </div>
-                `;
-                console.error("Error loading file:", error);
-            });
+    // Function to load markdown content
+    const loadMarkdown = async (filePath) => {
+        try {
+            const response = await fetch(filePath);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const markdown = await response.text();
+            contentArea.innerHTML = marked.parse(markdown);
+        } catch (error) {
+            contentArea.innerHTML = `
+                <div class="error-message">
+                    <h3>📄 Content Loading Failed</h3>
+                    <p><strong>Path:</strong> ${filePath}</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>Please verify:</p>
+                    <ul>
+                        <li>File exists at specified path</li>
+                        <li>Server permissions allow file access</li>
+                        <li>Markdown file is properly formatted</li>
+                    </ul>
+                </div>
+            `;
+            console.error('Loading error:', error);
+        }
     };
 
-    // Click handler for sidebar links
+    // Click handlers
     links.forEach(link => {
-        link.addEventListener("click", (e) => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            loadContent(link.getAttribute("data-md"));
+            const filePath = link.dataset.md.replace(/ /g, '%20'); // Replace spaces with %20
+            history.pushState({}, '', window.location.pathname);
+            loadMarkdown(filePath);
         });
     });
 
     // Load initial content
-    loadContent("docs/1. getting started/1. quick start guide.md");
+    const initialFile = 'docs/1.%20getting%20started/1.%20quick%20start%20guide.md';
+    loadMarkdown(initialFile);
 });
