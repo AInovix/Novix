@@ -8,11 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
         link.addEventListener('click', function (event) {
             event.preventDefault();
             const filePath = this.getAttribute('data-md'); // Get the file path from the data-md attribute
-            
+
+            // Make sure the path is correct
+            console.log("Fetching markdown content from: ", filePath);
+
             fetch(filePath)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Error loading content.');
+                        throw new Error('Error loading content: ' + response.statusText);
                     }
                     return response.text();
                 })
@@ -21,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     contentArea.innerHTML = marked(mdContent);
                 })
                 .catch(error => {
-                    contentArea.innerHTML = `<p>Error loading content. Please check the link.</p>`;
+                    console.error('Error loading markdown file:', error);
+                    contentArea.innerHTML = `<p>Error loading content. Please check the link or try again later.</p>`;
                 });
         });
     });
