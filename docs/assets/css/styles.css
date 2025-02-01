@@ -1,115 +1,119 @@
-/* Base Styles */
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Light and Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Header */
 header {
-    background-color: #2c3e50;
-    padding: 20px;
+    background-color: #333;
     color: white;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+header .logo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header .theme-switcher-label {
+    cursor: pointer;
     font-size: 1.2rem;
 }
 
-header .logo {
-    font-size: 1.5rem;
-}
-
-.theme-switcher-label {
-    cursor: pointer;
-    font-size: 1.5rem;
-}
-
-.theme-switcher-label + input {
-    display: none;
-}
-
-/* Sidebar Styles */
+/* Sidebar */
 .sidebar {
     width: 250px;
-    background-color: #ecf0f1;
-    padding: 20px;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
+    background-color: #333;
+    padding-top: 2rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    z-index: 100;
 }
 
-.nav-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+.sidebar .nav-section {
+    margin: 2rem 0;
+    padding: 0 1rem;
 }
 
-.nav-section ul {
-    list-style-type: none;
+.sidebar .nav-section h3 {
+    font-size: 1.3rem;
+    color: white;
+}
+
+.sidebar ul {
+    list-style: none;
     padding-left: 0;
 }
 
-.nav-section li {
-    margin: 8px 0;
+.sidebar ul li {
+    margin: 0.5rem 0;
 }
 
-.nav-section a {
+.sidebar ul li a {
     text-decoration: none;
-    color: #2c3e50;
-    font-weight: bold;
+    color: white;
+    font-size: 1rem;
     display: block;
-    padding: 8px;
+    padding: 0.5rem 0;
 }
 
-.nav-section a:hover {
-    background-color: #3498db;
-    color: white;
+.sidebar ul li a:hover {
+    background-color: #555;
 }
 
 /* Content Area */
 .content-area {
-    margin-left: 260px;
-    padding: 20px;
+    margin-left: 270px; /* Ensure content doesn't get hidden by sidebar */
+    padding: 2rem;
+    transition: margin-left 0.3s;
 }
 
-#dynamic-content {
-    font-size: 1rem;
-}
-
-/* Light Mode Styles */
-body {
-    background-color: #ffffff;
-    color: #333333;
-}
-
-a {
-    color: #3498db;
-}
-
-footer {
-    background-color: #2c3e50;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-/* Dark Mode Styles */
-body.dark-mode {
+.dark-mode .content-area {
     background-color: #181818;
-    color: #ecf0f1;
 }
 
-body.dark-mode a {
-    color: #3498db;
-}
-
-body.dark-mode .sidebar {
-    background-color: #2c3e50;
-}
-
-body.dark-mode .nav-section a:hover {
-    background-color: #3498db;
+/* Footer */
+footer {
+    background-color: #333;
     color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Toggle Button */
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked + label {
+    background-color: #555;
+}
+
+input[type="checkbox"]:checked + label + label {
+    background-color: #f5a623;
 }
