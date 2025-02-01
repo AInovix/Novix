@@ -1,16 +1,18 @@
 // Light/Dark Mode Toggle Functionality
 const themeSwitcher = document.getElementById('theme-switcher');
 
-// Check for existing theme preference on load
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeSwitcher.checked = true;  // Ensure checkbox reflects stored theme
-} else {
-    document.body.classList.remove('dark-mode');
-    themeSwitcher.checked = false;  // Ensure checkbox reflects stored theme
-}
+// Check for existing theme preference from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeSwitcher.checked = true; // Set checkbox to checked if dark mode
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeSwitcher.checked = false; // Set checkbox to unchecked if light mode
+    }
+});
 
-// Listen for changes to the toggle and apply the selected theme
+// Event listener to toggle the theme
 themeSwitcher.addEventListener('change', () => {
     if (themeSwitcher.checked) {
         document.body.classList.add('dark-mode');
@@ -20,6 +22,7 @@ themeSwitcher.addEventListener('change', () => {
         localStorage.setItem('theme', 'light');
     }
 });
+
 // Fetch markdown content and render as HTML
 document.querySelectorAll('a[data-md]').forEach(anchor => {
     anchor.addEventListener('click', function(event) {
@@ -31,7 +34,7 @@ document.querySelectorAll('a[data-md]').forEach(anchor => {
             .then(response => response.text())
             .then(markdownContent => {
                 const contentArea = document.getElementById('dynamic-content');
-                // Use a simple markdown-to-HTML converter like marked.js
+                // Use marked.js to convert markdown to HTML
                 const htmlContent = marked(markdownContent);
                 contentArea.innerHTML = htmlContent;
             })
