@@ -1,52 +1,50 @@
-<!DOCTYPE html>
-<html lang="en" class="theme-light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novix Docs</title>
-    
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- Markdown & Syntax Highlighting -->
-    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
-</head>
-<body>
-    <div class="layout">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <img src="assets/novix-banner.png" alt="Novix Logo">
-            </div>
-            
-            <nav class="nav">
-                <div class="nav-section">
-                    <h3>Getting Started</h3>
-                    <ul>
-                        <li><a href="#quick-start" data-md="content/getting-started/1-quick-start.md">Quick Start</a></li>
-                        <li><a href="#environment" data-md="content/getting-started/2-environment.md">Environment Setup</a></li>
-                        <li><a href="#examples" data-md="content/getting-started/3-examples.md">Examples</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Repeat for other sections -->
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="content">
-            <div class="content-header">
-                <button id="theme-toggle" class="theme-btn">🌓</button>
-            </div>
-            <div id="doc-content" class="prose"></div>
-        </main>
+<nav class="nav">
+    <!-- Getting Started -->
+    <div class="nav-section">
+        <h3>Getting Started</h3>
+        <ul>
+            <li><a href="#quick-start" data-md="content/getting-started/1-quick-start.md">1. Quick Start</a></li>
+            <li><a href="#environment" data-md="content/getting-started/2-environment.md">2. Environment Setup</a></li>
+            <li><a href="#examples" data-md="content/getting-started/3-examples.md">3. Examples</a></li>
+            <li><a href="#considerations" data-md="content/getting-started/4-considerations.md">4. Considerations</a></li>
+            <li><a href="#support" data-md="content/getting-started/5-support.md">5. Support</a></li>
+        </ul>
     </div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-</body>
-</html>
+    <!-- Core Concepts -->
+    <div class="nav-section">
+        <h3>Core Concepts</h3>
+        <ul>
+            <li><a href="#core-concept" data-md="content/concepts/1-core-concept.md">1. Core Concepts</a></li>
+            <li><a href="#architecture" data-md="content/concepts/2-architecture.md">2. Architecture</a></li>
+            <li><a href="#providers" data-md="content/concepts/3-providers.md">3. Providers</a></li>
+            <li><a href="#agents" data-md="content/concepts/4-agents.md">4. Agents</a></li>
+            <li><a href="#chat-completions" data-md="content/concepts/5-chat-completions.md">5. Chat Completions</a></li>
+            <li><a href="#extension-commands" data-md="content/concepts/6-extension-commands.md">6. Extension Commands</a></li>
+            <li><a href="#prompts" data-md="content/concepts/7-prompts.md">7. Prompts</a></li>
+            <li><a href="#chains" data-md="content/concepts/8-prompts.md">8. Prompts</a></li>
+            <li><a href="#conversations" data-md="content/concepts/9-comversations.md">9. Conversations</a></li>
+            <li><a href="#agent-training" data-md="content/concepts/10-agent-training.md">10. Agent Training</a></li>
+            <li><a href="#agent-interactions" data-md="content/concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
+            <li><a href="#extensions" data-md="content/concepts/12-extensions.md">12. Extensions</a></li>
+            <!-- Add all other concept links -->
+        </ul>
+    </div>
+
+    <!-- AI Providers -->
+    <div class="nav-section">
+        <h3>AI Providers</h3>
+        <ul>
+            <li><a href="#anthropic" data-md="content/providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
+            <li><a href="#azure" data-md="content/providers/2-azure.md">2. Azure</a></li>
+            <li><a href="#deepseek" data-md="content/providers/3-deepseek.md">3. Deepseek</a></li>
+            <li><a href="#ezLocalai" data-md="content/providers/4-ezLocalai.md">4. ezLocalai</a></li>
+            <li><a href="#google-gemini" data-md="content/providers/5-google-gemini.md">5. Google Gemini</a></li>
+            <li><a href="#openAI" data-md="content/providers/6-openAI.md">6. OpenAI</a></li>
+            <li><a href="#xAI-grok" data-md="content/providers/7-xAI-grok.md">7. xAI Grok</a></li>
+            <li><a href="#hugging-face" data-md="content/providers/8-hugging-face.md">8. Hugging Face</a></li>
+            <li><a href="#gpt4Free" data-md="content/providers/9-gpt4Free.md">9. gpt4Free</a></li>
+            <!-- Add all other provider links -->
+        </ul>
+    </div>
+</nav>
