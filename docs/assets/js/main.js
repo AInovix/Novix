@@ -1,66 +1,49 @@
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get all links that have the 'data-md' attribute for dynamic content
-        const links = document.querySelectorAll('a[data-md]');
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all the sidebar links
+    const sidebarLinks = document.querySelectorAll('.nav-section a');
 
-        // Function to load the content from a markdown file and render it
-        async function loadContent(filePath) {
-            try {
-                const response = await fetch(filePath);
-                
-                // If the file doesn't exist or there is an error
-                if (!response.ok) {
-                    throw new Error('Content not found');
-                }
+    // Handle click event for loading markdown content dynamically
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default anchor behavior
 
-                const markdown = await response.text();
-                const contentArea = document.getElementById('content-area');
-                
-                // Here we can use a library like marked.js to convert markdown to HTML
-                // For simplicity, let's just wrap it in a <div>
-                contentArea.innerHTML = `<div class="markdown-content">${markdown}</div>`;
-
-                // Optionally, smooth scroll to the content area
-                contentArea.scrollIntoView({ behavior: "smooth" });
-            } catch (error) {
-                // Show an error message if the content failed to load
-                document.getElementById('content-area').innerHTML = `<p>Error loading content: ${error.message}</p>`;
-            }
-        }
-
-        // Add event listeners for all links with 'data-md' attribute
-        links.forEach(link => {
-            link.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default link behavior
-                
-                // Get the path of the markdown file from the 'data-md' attribute
-                const mdFile = link.getAttribute("data-md");
-                
-                // Load the content from the markdown file
-                loadContent(mdFile);
-                
-                // Highlight the active link in the navigation
-                setActiveLink(link);
-            });
+            // Get the target markdown file
+            const markdownPath = e.target.getAttribute('data-md');
+            loadMarkdownContent(markdownPath);
         });
-
-        // Smooth scroll for anchor links within the page
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener("click", function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute("href")).scrollIntoView({
-                    behavior: "smooth"
-                });
-            });
-        });
-
-        // Set the active link based on the current selection
-        function setActiveLink(activeLink) {
-            // Remove 'active' class from all links
-            links.forEach(link => link.classList.remove("active"));
-            
-            // Add 'active' class to the clicked link
-            activeLink.classList.add("active");
-        }
     });
-</script>
+
+    // Load the content dynamically by fetching the markdown file
+    function loadMarkdownContent(path) {
+        fetch(path)
+            .then(response => response.text())
+            .then(data => {
+                // Dynamically convert markdown to HTML and inject it into the content area
+                const contentArea = document.querySelector('#dynamic-content');
+                contentArea.innerHTML = markdownToHtml(data);
+            })
+            .catch(error => {
+                console.error('Error loading the markdown file:', error);
+                document.querySelector('#dynamic-content').innerHTML = "<p>Sorry, we couldn't load the content. Please try again later.</p>";
+            });
+    }
+
+    // Basic markdown to HTML converter
+    function markdownToHtml(markdown) {
+        let html = markdown;
+
+        // Convert headers
+        html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+        html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+        html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+        // Convert lists
+        html = html.replace(/^\* (.*$)/gim, '<ul><li>$1</li></ul>');
+        html = html.replace(/^\d+\. (.*$)/gim, '<ol><li>$1</li></ol>');
+
+        // Convert paragraphs
+        html = html.replace(/\n/gim, '<p>$1</p>');
+
+        return html.trim();
+    }
+});
