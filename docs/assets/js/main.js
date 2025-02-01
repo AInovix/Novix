@@ -29,9 +29,14 @@ document.querySelectorAll('a[data-md]').forEach(anchor => {
         event.preventDefault();
         const mdFile = this.getAttribute('data-md');
         
-        // Fetch the markdown file
+        // Corrected the path to fetch the markdown files
         fetch(mdFile)
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
             .then(markdownContent => {
                 const contentArea = document.getElementById('dynamic-content');
                 // Use marked.js to convert markdown to HTML
@@ -39,7 +44,7 @@ document.querySelectorAll('a[data-md]').forEach(anchor => {
             })
             .catch(error => {
                 console.error('Error loading markdown file:', error);
-                document.getElementById('dynamic-content').innerHTML = '<p>Error loading content.</p>';
+                document.getElementById('dynamic-content').innerHTML = '<p>Error loading content. Please check the link.</p>';
             });
     });
 });
