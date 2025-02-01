@@ -1,95 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novix Documentation</title>
-    <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css" rel="stylesheet">
+    <title>Novix Docs</title>
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Markdown & Syntax Highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-    <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <img src="assets/images/novix-banner.png" class="h-12" alt="Novix Logo">
-                </div>
-                <div class="flex items-center">
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <!-- Theme toggle SVG -->
-                    </button>
-                </div>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/novix-banner.png" alt="Novix Logo">
             </div>
-        </div>
-    </nav>
-
-    <div class="flex">
-        <!-- Documentation Sidebar -->
-        <aside class="w-64 bg-white dark:bg-gray-800 h-screen p-4 border-r border-gray-200 dark:border-gray-700">
-            <div class="space-y-2">
-                <div class="doc-section">
-                    <h3 class="text-lg font-semibold dark:text-white">Getting Started</h3>
-                    <ul class="ml-4 space-y-1">
-                        <li><a href="1-getting-started/1-quick-start-guide.md" class="doc-link">1. Quick Start Guide</a></li>
-                        <li><a href="1-getting-started/2-environment.md" class="doc-link">2. Environment Setup</a></li>
-                        <li><a href="1-getting-started/3-examples.md" class="doc-link">3. Examples</a></li>
-                        <li><a href="1-getting-started/4-considerations.md" class="doc-link">4. Considerations</a></li>
-                        <li><a href="1-getting-started/5-support.md" class="doc-link">5. Support</a></li>
+            
+            <nav class="nav">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="#quick-start" data-md="content/getting-started/1-quick-start.md">Quick Start</a></li>
+                        <li><a href="#environment" data-md="content/getting-started/2-environment.md">Environment Setup</a></li>
+                        <li><a href="#examples" data-md="content/getting-started/3-examples.md">Examples</a></li>
                     </ul>
                 </div>
-
-                <div class="doc-section">
-                    <h3 class="text-lg font-semibold dark:text-white">Core Concepts</h3>
-                    <ul class="ml-4 space-y-1">
-                        <li><a href="2-concepts/1-core-concept.md" class="doc-link">1. Core Concepts</a></li>
-                        <li><a href="2-concepts/2-architecture.md" class="doc-link">2. Architecture</a></li>
-                        <li><a href="2-concepts/3-providers.md" class="doc-link">3. Providers</a></li>
-                        <li><a href="2-concepts/4-agents.md" class="doc-link">4. Agents</a></li>
-                        <li><a href="2-concepts/5-chat-completions.md" class="doc-link">5. Chat Completions</a></li>
-                        <li><a href="2-concepts/6-extension-commands.md" class="doc-link">6. Extension Commands</a></li>
-                        <li><a href="2-concepts/7-prompts.md" class="doc-link">7. Prompts</a></li>
-                        <li><a href="2-concepts/8-chains.md" class="doc-link">8. Chains</a></li>
-                        <li><a href="2-concepts/9-conversations.md" class="doc-link">9. Conversations</a></li>
-                        <li><a href="2-concepts/10-agent-training.md" class="doc-link">10. Agent Training</a></li>
-                        <li><a href="2-concepts/11-agent-interactions.md" class="doc-link">11. Agent Interactions</a></li>
-                        <li><a href="2-concepts/12-extensions.md" class="doc-link">12. Extensions</a></li>
-                    </ul>
-                </div>
-
-                <div class="doc-section">
-                    <h3 class="text-lg font-semibold dark:text-white">AI Providers</h3>
-                    <ul class="ml-4 space-y-1">
-                        <li><a href="3-providers/1-anthropic-claude.md" class="doc-link">1. Anthropic Claude</a></li>
-                        <li><a href="3-providers/2-azure.md" class="doc-link">2. Azure</a></li>
-                        <li><a href="3-providers/3-deepseek.md" class="doc-link">3. DeepSeek</a></li>
-                        <li><a href="3-providers/4-ezlocalai.md" class="doc-link">4. ezLocalAI</a></li>
-                        <li><a href="3-providers/5-google-gemini.md" class="doc-link">5. Google Gemini</a></li>
-                        <li><a href="3-providers/6-openai.md" class="doc-link">6. OpenAI</a></li>
-                        <li><a href="3-providers/7-xai-grok.md" class="doc-link">7. xAI Grok</a></li>
-                        <li><a href="3-providers/8-hugging-face.md" class="doc-link">8. Hugging Face</a></li>
-                        <li><a href="3-providers/9-gpt4free.md" class="doc-link">9. GPT4Free</a></li>
-                    </ul>
-                </div>
-            </div>
+                
+                <!-- Repeat for other sections -->
+            </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8">
-            <div class="prose dark:prose-invert max-w-4xl">
-                <h1 class="text-4xl font-bold mb-8">Novix Documentation</h1>
-                <div class="content-area" id="content">
-                    <!-- Dynamic content will be loaded here -->
-                    <h2>Welcome to Novix Documentation</h2>
-                    <p>Select a topic from the sidebar to get started</p>
-                </div>
+        <main class="content">
+            <div class="content-header">
+                <button id="theme-toggle" class="theme-btn">🌓</button>
             </div>
+            <div id="doc-content" class="prose"></div>
         </main>
     </div>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </body>
 </html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
