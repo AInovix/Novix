@@ -25,7 +25,6 @@ jobs:
           path: |
             docs/
             !docs/node_modules
-            !docs/.gitignore
           retention-days: 5
 
       - name: Deploy
