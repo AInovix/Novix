@@ -9,14 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const markdown = await response.text();
             
-            // Parse markdown and apply syntax highlighting
+            // Parse markdown and highlight code
             contentArea.innerHTML = marked.parse(markdown);
+            Prism.highlightAll(); // Initialize syntax highlighting
             
-            // Initialize Prism.js for code blocks
-            Prism.highlightAllUnder(contentArea, false, () => {
-                console.log('Syntax highlighting applied');
-            });
-
         } catch (error) {
             contentArea.innerHTML = `
                 <div class="error-message">
@@ -35,23 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Click handlers with better history management
+    // Click handlers
     links.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const filePath = link.dataset.md.replace(/ /g, '%20');
-            history.pushState({ path: filePath }, '', window.location.pathname);
+            history.pushState({}, '', window.location.pathname);
             loadMarkdown(filePath);
         });
     });
 
-    // Handle browser navigation
-    window.addEventListener('popstate', (e) => {
-        if (e.state?.path) {
-            loadMarkdown(e.state.path);
-        }
-    });
-
     // Load initial content
-    loadMarkdown('docs/1-getting-started/1-quick-start-guide.md');
+    const initialFile = 'docs/1.%20getting%20started/1.%20quick%20start%20guide.md';
+    loadMarkdown(initialFile);
 });
