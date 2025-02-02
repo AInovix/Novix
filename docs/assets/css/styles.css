@@ -266,3 +266,27 @@ header {
 .mermaid .edgePath path {
     stroke: var(--text-primary) !important;
 }
+
+/* README-specific styling */
+#dynamic-content .toc {
+    background: var(--code-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+#dynamic-content .toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#dynamic-content .toc li {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-left: 3px solid var(--secondary);
+    transition: transform 0.2s ease;
+}
+
+#dynamic-content .toc li:hover {
+    transform: translateX(5px);
+}
