@@ -8,7 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch(filePath);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const markdown = await response.text();
+            
+            // Parse markdown and apply syntax highlighting
             contentArea.innerHTML = marked.parse(markdown);
+            
+            // Initialize Prism.js for code blocks
+            Prism.highlightAllUnder(contentArea, false, () => {
+                console.log('Syntax highlighting applied');
+            });
+
         } catch (error) {
             contentArea.innerHTML = `
                 <div class="error-message">
@@ -27,17 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Click handlers
+    // Click handlers with better history management
     links.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const filePath = link.dataset.md.replace(/ /g, '%20'); // Replace spaces with %20
-            history.pushState({}, '', window.location.pathname);
+            const filePath = link.dataset.md.replace(/ /g, '%20');
+            history.pushState({ path: filePath }, '', window.location.pathname);
             loadMarkdown(filePath);
         });
     });
 
+    // Handle browser navigation
+    window.addEventListener('popstate', (e) => {
+        if (e.state?.path) {
+            loadMarkdown(e.state.path);
+        }
+    });
+
     // Load initial content
-    const initialFile = 'docs/1.%20getting%20started/1.%20quick%20start%20guide.md';
-    loadMarkdown(initialFile);
+    loadMarkdown('docs/1-getting-started/1-quick-start-guide.md');
 });
