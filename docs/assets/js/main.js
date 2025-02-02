@@ -89,5 +89,5 @@ const loadContent = async (filePath) => {
     });
 
     // Load initial content
-    loadContent('docs/1-getting-started/1-quick-start-guide.md');
+    loadContent('README.md');
 });
