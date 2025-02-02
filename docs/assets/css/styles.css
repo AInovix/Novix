@@ -240,3 +240,29 @@ header {
 #dynamic-content tr:hover {
     background-color: var(--code-bg);
 }
+
+/* Mermaid Diagram Improvements */
+.mermaid {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: var(--code-bg) !important;
+    border-radius: 8px;
+    overflow: auto;
+}
+
+.mermaid text {
+    fill: var(--text-primary) !important;
+}
+
+.mermaid .label {
+    color: var(--text-primary) !important;
+}
+
+.mermaid .node rect {
+    fill: var(--bg-primary) !important;
+    stroke: var(--secondary) !important;
+}
+
+.mermaid .edgePath path {
+    stroke: var(--text-primary) !important;
+}
