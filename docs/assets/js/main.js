@@ -1,47 +1,83 @@
 document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".sidebar-link");
     const contentArea = document.getElementById("dynamic-content");
+    const themeToggle = document.getElementById("theme-toggle");
+    let currentMermaidElements = [];
 
-    // Function to load markdown content
-    const loadMarkdown = async (filePath) => {
+    // Initialize Mermaid
+    mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: document.body.classList.contains('dark-mode') ? 'dark' : 'default'
+    });
+
+    // Theme Management
+    const setTheme = (isDark) => {
+        document.body.classList.toggle('dark-mode', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        
+        // Update Prism theme
+        const prismTheme = isDark ? 
+            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css' :
+            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css';
+        document.getElementById('prism-theme').href = prismTheme;
+        
+        // Re-render mermaid with new theme
+        mermaid.initialize({ theme: isDark ? 'dark' : 'default' });
+        currentMermaidElements.forEach(el => mermaid.init(undefined, el));
+    };
+
+    themeToggle.addEventListener('click', () => {
+        const isDark = !document.body.classList.contains('dark-mode');
+        setTheme(isDark);
+    });
+
+    // Load initial theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme === 'dark');
+
+    // Content Loading
+    const loadContent = async (filePath) => {
         try {
             const response = await fetch(filePath);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
             const markdown = await response.text();
-            
-            // Parse markdown and highlight code
             contentArea.innerHTML = marked.parse(markdown);
-            Prism.highlightAll(); // Initialize syntax highlighting
             
+            // Process Mermaid diagrams
+            currentMermaidElements = Array.from(contentArea.querySelectorAll('.mermaid'));
+            currentMermaidElements.forEach(el => {
+                el.innerHTML = el.textContent.trim();
+            });
+            mermaid.init(undefined, currentMermaidElements);
+            
+            // Syntax highlighting
+            Prism.highlightAll();
+
         } catch (error) {
             contentArea.innerHTML = `
                 <div class="error-message">
                     <h3>📄 Content Loading Failed</h3>
                     <p><strong>Path:</strong> ${filePath}</p>
                     <p><strong>Error:</strong> ${error.message}</p>
-                    <p>Please verify:</p>
-                    <ul>
-                        <li>File exists at specified path</li>
-                        <li>Server permissions allow file access</li>
-                        <li>Markdown file is properly formatted</li>
-                    </ul>
+                    <p>Please verify the file exists and try again.</p>
                 </div>
             `;
-            console.error('Loading error:', error);
+            console.error('Error:', error);
         }
     };
 
-    // Click handlers
+    // Sidebar Navigation
     links.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const filePath = link.dataset.md.replace(/ /g, '%20');
+            const filePath = link.dataset.md;
             history.pushState({}, '', window.location.pathname);
-            loadMarkdown(filePath);
+            loadContent(filePath);
         });
     });
 
     // Load initial content
-    const initialFile = 'docs/1.%20getting%20started/1.%20quick%20start%20guide.md';
-    loadMarkdown(initialFile);
+    loadContent('docs/1-getting-started/1-quick-start-guide.md');
 });
