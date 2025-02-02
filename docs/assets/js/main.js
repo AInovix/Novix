@@ -36,38 +36,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme === 'dark');
 
-    // Content Loading
-    const loadContent = async (filePath) => {
-        try {
-            const response = await fetch(filePath);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            
-            const markdown = await response.text();
-            contentArea.innerHTML = marked.parse(markdown);
-            
-            // Process Mermaid diagrams
-            currentMermaidElements = Array.from(contentArea.querySelectorAll('.mermaid'));
-            currentMermaidElements.forEach(el => {
-                el.innerHTML = el.textContent.trim();
-            });
-            mermaid.init(undefined, currentMermaidElements);
-            
-            // Syntax highlighting
-            Prism.highlightAll();
+// Replace the existing loadContent function with this:
+const loadContent = async (filePath) => {
+    try {
+        const response = await fetch(filePath);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const markdown = await response.text();
+        contentArea.innerHTML = marked.parse(markdown);
+        
+        // Process Mermaid diagrams
+        const mermaidContainers = contentArea.querySelectorAll('pre code.language-mermaid');
+        mermaidContainers.forEach(container => {
+            const diagram = container.textContent.trim();
+            const mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.textContent = diagram;
+            container.parentNode.replaceWith(mermaidDiv);
+        });
 
-        } catch (error) {
-            contentArea.innerHTML = `
-                <div class="error-message">
-                    <h3>📄 Content Loading Failed</h3>
-                    <p><strong>Path:</strong> ${filePath}</p>
-                    <p><strong>Error:</strong> ${error.message}</p>
-                    <p>Please verify the file exists and try again.</p>
-                </div>
-            `;
-            console.error('Error:', error);
-        }
-    };
+        // Initialize Mermaid with proper theme
+        mermaid.initialize({
+            theme: document.body.classList.contains('dark-mode') ? 'dark' : 'default',
+            securityLevel: 'loose',
+            startOnLoad: false
+        });
+        mermaid.init(undefined, contentArea.querySelectorAll('.mermaid'));
+        
+        // Syntax highlighting
+        Prism.highlightAll();
 
+    } catch (error) {
+        contentArea.innerHTML = `
+            <div class="error-message">
+                <h3>📄 Content Loading Failed</h3>
+                <p><strong>Path:</strong> ${filePath}</p>
+                <p><strong>Error:</strong> ${error.message}</p>
+            </div>
+        `;
+        console.error('Error:', error);
+    }
+};
+    
     // Sidebar Navigation
     links.forEach(link => {
         link.addEventListener('click', (e) => {
