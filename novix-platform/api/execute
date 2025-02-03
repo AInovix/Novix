@@ -1,0 +1,11 @@
+import requests
+
+response = requests.post(
+  "https://api.novix.ai/execute",
+  json={
+    "code": "print('Hello World')",
+    "language": "python",
+    "provider": "anthropic"
+  },
+  headers={"Authorization": "Bearer YOUR_TOKEN"}
+)
