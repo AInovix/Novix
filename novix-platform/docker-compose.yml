@@ -1,1 +1,25 @@
+version: '3.8'
 
+services:
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://novix:password@db:5432/novix
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: password
+
+  redis:
+    image: redis:alpine
+
+  web:
+    build: ./web
+    ports:
+      - "3000:3000"
