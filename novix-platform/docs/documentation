@@ -1,0 +1,9 @@
+# API Documentation
+
+## Authentication
+`POST /auth/login`
+```json
+{
+  "email": "user@novix.ai",
+  "password": "securepassword123"
+}
