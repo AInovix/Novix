@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novix AI Playground | Interactive Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --accent: #f59e0b;
+      --bg: #ffffff;
+      --text: #1f2937;
+    }
+
+    [data-theme="dark"] {
+      --primary: #818cf8;
+      --secondary: #a78bfa;
+      --bg: #1a1a1a;
+      --text: #f3f4f6;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .gradient-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: rgba(var(--primary), 0.05);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(var(--primary), 0.1);
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .chat-interface {
+      background: rgba(var(--primary), 0.03);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(var(--primary), 0.1);
+      margin: 3rem 0;
+      overflow: hidden;
+    }
+
+    .chat-log {
+      height: 500px;
+      padding: 2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 1.25rem;
+      border-radius: 1.25rem;
+      animation: messageIn 0.3s ease;
+    }
+
+    .user-message {
+      background: var(--primary);
+      color: white;
+      margin-left: auto;
+    }
+
+    .ai-message {
+      background: rgba(var(--primary), 0.1);
+      margin-right: auto;
+      position: relative;
+    }
+
+    .ai-message::before {
+      content: '🤖';
+      position: absolute;
+      left: -2.5rem;
+      top: 0;
+    }
+
+    @keyframes messageIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      padding: 2rem;
+      background: rgba(var(--primary), 0.03);
+      border-top: 1px solid rgba(var(--primary), 0.1);
+    }
+
+    input {
+      flex: 1;
+      padding: 1rem;
+      border: 1px solid rgba(var(--primary), 0.2);
+      border-radius: 1rem;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: filter 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="gradient-header">
+    <div class="container">
+      <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">🧠 Novix AI Playground</h1>
+      <p style="font-size: 1.25rem; opacity: 0.9;">Experience our multi-agent architecture in real-time</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>🧩 Multi-Modal Processing</h3>
+        <p>Simultaneous text, code, and data analysis with our hybrid architecture</p>
+      </div>
+      <div class="feature-card">
+        <h3>⚡ Real-Time Execution</h3>
+        <p>Direct API access to 12+ AI providers with automatic failover</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔗 Context-Aware Memory</h3>
+        <p>Persistent conversation history with automatic context management</p>
+      </div>
+    </div>
+
+    <div class="chat-interface">
+      <div class="chat-log" id="chatLog"></div>
+      <div class="input-group">
+        <input type="text" id="userInput" placeholder="Ask Novix to analyze data, write code, or explain concepts..." />
+        <button onclick="handleSubmit()">
+          <i class="fas fa-paper-plane"></i>
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <script>
+    const API_ENDPOINT = 'https://api.novix.ai/v1/chat'; // Replace with actual endpoint
+    let currentTheme = localStorage.getItem('theme') || 'light';
+
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+    }
+
+    async function handleSubmit() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      addMessage('user', message);
+      input.value = '';
+
+      try {
+        const response = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await response.json();
+        addMessage('ai', data.response);
+      } catch (error) {
+        addMessage('ai', '⚠️ Error connecting to Novix API. Please try again.');
+      }
+    }
+
+    function addMessage(sender, content) {
+      const chatLog = document.getElementById('chatLog');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}-message`;
+      messageDiv.innerHTML = marked.parse(content); // Using marked.js for markdown support
+      chatLog.appendChild(messageDiv);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    // Initialize theme
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  </script>
+</body>
+</html>
