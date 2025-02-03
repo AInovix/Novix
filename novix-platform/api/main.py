@@ -98,3 +98,15 @@ async def execute_code(request: ExecutionRequest, token: str = Depends(oauth2_sc
         "logs": result.decode(),
         "provider": request.provider
     }
+# Add to api/main.py
+SECURITY_CONFIG = {
+    "rate_limits": "100/minute",
+    "code_restrictions": {
+        "banned_imports": ["os", "subprocess"],
+        "max_execution_time": 30
+    },
+    "network_policies": {
+        "block_internet": True,
+        "allowed_domains": ["api.openai.com", "api.anthropic.com"]
+    }
+}
