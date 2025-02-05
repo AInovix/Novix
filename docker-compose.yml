@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./platform/api
+    ports: ["8000:8000"]
+    environment:
+      - OPENAI_API_KEY=${OPENAI_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_KEY}
+
+  web:
+    build: ./platform/web
+    ports: ["3000:3000"]
+    volumes:
+      - ./docs/playground:/app/dist
+    depends_on:
+      - api
