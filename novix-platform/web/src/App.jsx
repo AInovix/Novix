@@ -72,3 +72,11 @@ export default function Playground() {
     </div>
   );
 }
+
+import * as Sentry from '@sentry/react';
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  integrations: [new Sentry.BrowserTracing()],
+  tracesSampleRate: 1.0,
+});
