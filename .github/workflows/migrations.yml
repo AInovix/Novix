@@ -1,0 +1,16 @@
+name: Database Migrations
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'platform/api/migrations/**'
+
+jobs:
+  run-migrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run SQL migrations
+        run: |
+          psql ${{ secrets.DB_URI }} \
+            -f platform/api/migrations/$(ls platform/api/migrations | sort -n | tail -1)
