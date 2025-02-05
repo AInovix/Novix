@@ -42,3 +42,12 @@ def format_response(response):
     elif hasattr(response, 'content'):
         return response.content[0].text
     return str(response)
+import psutil
+
+@app.get("/api/health")
+def health_check():
+    return {
+        "status": "ok",
+        "providers": list(PROVIDERS.keys()),
+        "load": psutil.cpu_percent()
+    }
