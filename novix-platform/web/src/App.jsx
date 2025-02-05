@@ -1,83 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Editor from '@monaco-editor/react';
-import Markdown from 'react-markdown';
+import React, { useState } from 'react';
+import { marked } from 'marked';
+import mermaid from 'mermaid';
 
-const NovixPlayground = () => {
-  const [code, setCode] = useState('# Write your code here\nprint("Hello Novix!")');
-  const [messages, setMessages] = useState([]);
-  const [provider, setProvider] = useState('openai');
-  const [model, setModel] = useState('gpt-4');
-  
-  const providers = {
-    openai: ['gpt-4', 'gpt-3.5'],
-    anthropic: ['claude-3', 'claude-2'],
-    // Add models for other providers
-  };
+export default function Playground() {
+  const [input, setInput] = useState('');
+  const [conversation, setConversation] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const executeCode = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
     try {
-      const response = await axios.post('/api/execute', {
-        code,
-        provider,
-        model
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ prompt: input })
       });
+
+      const data = await response.json();
       
-      setMessages([...messages, 
-        { type: 'code', content: code },
-        { type: 'ai', content: response.data.result, provider }
+      setConversation(prev => [
+        ...prev,
+        { role: 'user', content: input },
+        { role: 'ai', content: data.response }
       ]);
+
+      // Render Mermaid diagrams
+      setTimeout(() => {
+        mermaid.init({ noteMargin: 10 }, '.mermaid');
+      }, 100);
+
     } catch (error) {
-      setMessages([...messages, {
-        type: 'error',
-        content: 'Execution failed: ' + error.response?.data?.error
-      }]);
+      setConversation(prev => [...prev, 
+        { role: 'error', content: 'Failed to get response' }
+      ]);
+    } finally {
+      setIsLoading(false);
+      setInput('');
     }
   };
 
   return (
-    <div className="playground-container">
-      <div className="provider-selector">
-        <select value={provider} onChange={(e) => setProvider(e.target.value)}>
-          {Object.keys(providers).map(p => (
-            <option key={p} value={p}>{p.toUpperCase()}</option>
-          ))}
-        </select>
-        <select value={model} onChange={(e) => setModel(e.target.value)}>
-          {providers[provider].map(m => (
-            <option key={m} value={m}>{m}</option>
-          ))}
-        </select>
+    <div className="playground">
+      <div className="conversation">
+        {conversation.map((msg, i) => (
+          <div key={i} className={`message ${msg.role}`}>
+            {msg.role === 'ai' ? (
+              <div dangerouslySetInnerHTML={{ __html: marked(msg.content) }} />
+            ) : (
+              <p>{msg.content}</p>
+            )}
+          </div>
+        ))}
+        {isLoading && <div className="loader">⚡ Processing...</div>}
       </div>
-
-      <div className="editor-container">
-        <Editor
-          height="60vh"
-          defaultLanguage="python"
-          defaultValue={code}
-          onChange={setCode}
-          theme="vs-dark"
+      
+      <form onSubmit={handleSubmit}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Ask Novix to explain concepts, generate code, or analyze data..."
         />
-        
-        <div className="chat-panel">
-          {messages.map((msg, i) => (
-            <div key={i} className={`message ${msg.type}`}>
-              {msg.type === 'code' ? (
-                <pre>{msg.content}</pre>
-              ) : (
-                <Markdown>{msg.content}</Markdown>
-              )}
-              {msg.provider && <span className="provider-tag">{msg.provider}</span>}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <button className="execute-button" onClick={executeCode}>
-        🚀 Run Code
-      </button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Sending...' : 'Send'}
+        </button>
+      </form>
     </div>
   );
-};
+}
