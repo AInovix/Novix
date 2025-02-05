@@ -1,112 +1,44 @@
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel
-import docker
-import httpx
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+import openai
+import anthropic
 
 app = FastAPI()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 PROVIDERS = {
-    "openai": {
-        "endpoint": "https://api.openai.com/v1/chat/completions",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "anthropic": {
-        "endpoint": "https://api.anthropic.com/v1/complete",
-        "headers": {"x-api-key": API_KEY}
-    },
-    "google-gemini": {
-        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
-        "headers": {"x-goog-api-key": API_KEY}
-    },
-    "cohere": {
-        "endpoint": "https://api.cohere.ai/v1/generate",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "huggingface": {
-        "endpoint": "https://api-inference.huggingface.co/models/{model}",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "stabilityai": {
-        "endpoint": "https://api.stability.ai/v1/generation/{engine}/text-to-image",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "deepseek": {
-        "endpoint": "https://api.deepseek.com/v1/chat/completions",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "mistral": {
-        "endpoint": "https://api.mistral.ai/v1/chat/completions",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "perplexity": {
-        "endpoint": "https://api.perplexity.ai/v1/chat/completions",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "groq": {
-        "endpoint": "https://api.groq.com/v1/chat/completions",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "alephalpha": {
-        "endpoint": "https://api.aleph-alpha.com/v1/complete",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    },
-    "nlpcloud": {
-        "endpoint": "https://api.nlpcloud.com/v1/{model}/generation",
-        "headers": {"Authorization": f"Bearer {API_KEY}"}
-    }
+    "openai": openai.ChatCompletion.create,
+    "anthropic": anthropic.Anthropic().messages.create,
+    # Add other providers
 }
 
-class ExecutionRequest(BaseModel):
-    code: str
-    language: str = "python"
-    provider: str
-    model: str = "default"
-
-@app.post("/execute")
-async def execute_code(request: ExecutionRequest, token: str = Depends(oauth2_scheme)):
-    # Authentication and validation logic
-    provider_config = PROVIDERS.get(request.provider)
-    if not provider_config:
-        raise HTTPException(status_code=400, detail="Invalid provider")
+@app.post("/api/chat")
+async def chat_endpoint(request: dict):
+    provider = select_provider(request.get('provider', 'openai'))
     
-    # Secure code execution
-    client = docker.from_env()
     try:
-        result = client.containers.run(
-            f"{request.language}-sandbox",
-            command=request.code,
-            remove=True,
-            mem_limit="100m",
-            network_mode="none"
+        response = provider(
+            model=request.get('model', 'gpt-4'),
+            messages=[{"role": "user", "content": request['prompt']}],
+            max_tokens=1000
         )
-    except docker.errors.ContainerError as e:
-        return {"error": str(e)}
-    
-    # AI processing
-    endpoint = provider_config["endpoint"].format(model=request.model)
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            endpoint,
-            json={"prompt": result.decode()},
-            headers=provider_config["headers"]
-        )
-    
-    return {
-        "result": response.json(),
-        "logs": result.decode(),
-        "provider": request.provider
-    }
-# Add to api/main.py
-SECURITY_CONFIG = {
-    "rate_limits": "100/minute",
-    "code_restrictions": {
-        "banned_imports": ["os", "subprocess"],
-        "max_execution_time": 30
-    },
-    "network_policies": {
-        "block_internet": True,
-        "allowed_domains": ["api.openai.com", "api.anthropic.com"]
-    }
-}
+        return {"response": format_response(response)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+def select_provider(name: str):
+    return PROVIDERS.get(name.lower(), PROVIDERS['openai'])
+
+def format_response(response):
+    # Convert API response to markdown
+    if hasattr(response, 'choices'):
+        return response.choices[0].message.content
+    elif hasattr(response, 'content'):
+        return response.content[0].text
+    return str(response)
