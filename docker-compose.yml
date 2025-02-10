@@ -2,16 +2,20 @@ version: '3.8'
 
 services:
   api:
-    build: ./platform/api
-    ports: ["8000:8000"]
+    build: ./api
+    ports:
+      - "8000:8000"
     environment:
       - OPENAI_API_KEY=${OPENAI_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_KEY}
+    restart: unless-stopped
 
-  web:
-    build: ./platform/web
-    ports: ["3000:3000"]
-    volumes:
-      - ./docs/playground:/app/dist
+  playground:
+    build: 
+      context: ./playground
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000
     depends_on:
       - api
