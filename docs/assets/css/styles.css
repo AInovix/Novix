@@ -290,3 +290,31 @@ header {
 #dynamic-content .toc li:hover {
     transform: translateX(5px);
 }
+.playground-banner {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  padding: 1rem;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.playground-banner a {
+  color: white !important;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.playground-banner i {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
