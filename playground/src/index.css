@@ -1,0 +1,51 @@
+:root {
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --bg: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.playground-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+}
+
+.editor-pane {
+  padding: 2rem;
+  border-right: 2px solid var(--primary);
+}
+
+.output-pane {
+  padding: 2rem;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.05);
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.mermaid {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
