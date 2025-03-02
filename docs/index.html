@@ -7,266 +7,78 @@
     <meta name="keywords" content="Novix, documentation, tech, AI, GitHub Pages">
     <meta name="author" content="Novix Team">
     <title>Novix Documentation</title>
-
-    <!-- Preload Critical Assets -->
-    <link rel="preload" href="/assets/css/styles.css?v=3" as="style" onload="this.rel='stylesheet'">
-    <link rel="preload" href="/assets/fonts/inter.css" as="style" onload="this.rel='stylesheet'">
-    <link rel="preload" href="/assets/js/main.js?v=3" as="script">
-
-    <!-- Custom Fonts -->
+    <link rel="preload" href="/assets/css/styles.css?v=1" as="style" onload="this.rel='style'">
+    <link rel="preload" href="/assets/fonts/inter.css" as="style" onload="this.rel='style'">
+    <link rel="preload" href="/assets/js/main.js?v=1" as="script">
+    <link rel="icon" href="/assets/img/favicn.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/styles.css?v=1">
     <link rel="stylesheet" href="/assets/fonts/inter.css">
-
-    <!-- Prism Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="/assets/css/styles.css?v=3">
-
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Novix Documentation">
-    <meta property="og:description" content="Explore the future of tech with Novix Docs.">
-    <meta property="og:image" content="/assets/img/og-image.png">
-    <meta property="og:url" content="https://ainovix.github.io/Novix/">
-
-    <!-- Inline Fallback Style -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-        }
         .loader {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: #121212;
+            width: 100vw;
+            height: 100vh;
+            background-color: #121212;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
         }
         .spinner {
+            border: 5px solid #e0e0e0;
+            border-top: 5px solid #00d4ff;
+            border-radius: 50%;
             width: 50px;
             height: 50px;
-            border: 5px solid #00d4ff;
-            border-top: 5px solid transparent;
-            border-radius: 50%;
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .loader p {
-            margin-top: 1rem;
-            font-size: 1.1rem;
-        }
     </style>
 </head>
-<body class="theme-dark" data-theme="dark">
-    <!-- Page Loader -->
+<body>
     <div id="loader" class="loader">
         <div class="spinner"></div>
         <p>Loading Novix Docs...</p>
     </div>
-
-    <!-- Main Container -->
-    <div id="app" class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-inner">
-                <div class="logo">
-                    <img src="/assets/img/logo.svg" alt="Novix Logo" class="logo-img">
-                    <h1 class="logo-text">Novix Docs</h1>
-                </div>
-                <div class="header-actions">
-                    <input type="text" id="search-bar" class="search-bar" placeholder="Search documentation..." aria-label="Search">
-                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 16a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 110-12 6 6 0 010 12zm0-14V2m0 20v-2m-8-12H2m20 0h-2M4.93 4.93l1.42 1.42m11.3 11.3l1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3l1.42-1.42"/></svg>
-                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                    </button>
-                </div>
-            </div>
+    <div id="app">
+        <header>
+            <h1>Novix Docs</h1>
+            <input type="text" id="search-bar" placeholder="Search documentation...">
+            <button id="theme-toggle">Toggle Theme</button>
         </header>
-
-        <!-- Main Layout -->
-        <main class="main">
-            <div class="layout-grid">
-                <!-- Sidebar -->
-                <aside class="sidebar" aria-label="Main navigation">
-                    <nav class="sidebar-nav">
-                        <!-- Introduction -->
-                        <div class="nav-group">
-                            <h2 class="nav-title">Introduction</h2>
-                            <ul class="nav-list">
-                                <li><a href="#" class="nav-link active" data-md="/README.md">Home / Overview</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Playground Banner -->
-                        <div class="banner">
-                            <a href="https://playground.novix.ai" target="_blank" rel="noopener" class="banner-link" aria-label="Visit Novix Playground">
-                                <span class="banner-icon">🚀</span>
-                                <span class="banner-text">Live Playground</span>
-                            </a>
-                        </div>
-
-                        <!-- Getting Started -->
-                        <div class="nav-group">
-                            <h2 class="nav-title">Getting Started</h2>
-                            <ul class="nav-list">
-                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/3-examples.md">3. Examples</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/5-support.md">5. Support</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Core Concepts -->
-                        <div class="nav-group">
-                            <h2 class="nav-title">Core Concepts</h2>
-                            <ul class="nav-list">
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/2-architecture.md">2. Architecture</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/3-providers.md">3. Providers</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/4-agents.md">4. Agents</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/7-prompts.md">7. Prompts</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/8-chains.md">8. Chains</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/9-conversations.md">9. Conversations</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/10-agent-training.md">10. Agent Training</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/12-extensions.md">12. Extensions</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- AI Providers -->
-                        <div class="nav-group">
-                            <h2 class="nav-title">AI Providers</h2>
-                            <ul class="nav-list">
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/2-azure.md">2. Azure</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/3-deepseek.md">3. Deepseek</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/6-openai.md">6. OpenAI</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
-                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
-                            </ul>
-                        </div>
-                    </nav>
-                </aside>
-
-                <!-- Content Area -->
-                <section class="content" aria-live="polite">
-                    <div class="content-inner" id="dynamic-content">
-                        <h1 class="content-title">Welcome to Novix Documentation</h1>
-                        <p class="content-intro">Dive into the future of technology with Novix Docs. Select a topic from the sidebar to get started.</p>
-                    </div>
-                </section>
+        <nav>
+            <h2>Introduction</h2>
+            <ul class="nav-list">
+                <li><a class="nav-link active" data-md="/README.md">Home / Overview</a></li>
+            </ul>
+            <h2>Getting Started</h2>
+            <ul class="nav-list">
+                <li><a class="nav-link" data-md="/docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
+                <li><a class="nav-link" data-md="/docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
+                <!-- Add more links as needed -->
+            </ul>
+            <!-- More sections as needed -->
+        </nav>
+        <main>
+            <div id="dynamic-content">
+                <h1>Welcome to Novix Documentation</h1>
+                <p>Select a topic from the navigation to get started.</p>
             </div>
         </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-inner">
-                <p>© 2025 Novix Docs. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="https://github.com/AInovix/Novix" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-                    <a href="mailto:support@novix.ai" aria-label="Support">Support</a>
-                </div>
-            </div>
+        <footer>
+            <p>© 2023 Novix Docs. All rights reserved.</p>
         </footer>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <!-- Fallback for marked.min.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked@5.1.2/lib/marked.min.js"></script>
     <script>if (typeof marked === 'undefined') { document.write('<script src="/assets/js/marked.min.js"></scr' + 'ipt>'); }</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-    <script src="/assets/js/main.js?v=3" defer></script>
-
-    <!-- Mermaid Container Style -->
-    <style>
-        .mermaid {
-            background: #1e1e1e;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-    </style>
-
-    <!-- Initialization Script -->
-    <script>
-        // Theme initialization
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.body.setAttribute('data-theme', savedTheme);
-            document.getElementById('theme-toggle').setAttribute('aria-pressed', savedTheme === 'dark');
-        })();
-
-        // Loader removal
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 300);
-        });
-
-        // Theme toggle handler
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeToggle = document.getElementById('theme-toggle');
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = document.body.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                document.body.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                themeToggle.setAttribute('aria-pressed', newTheme === 'dark');
-            });
-        });
-
-        // Mermaid initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof mermaid !== 'undefined') {
-                mermaid.initialize({
-                    startOnLoad: true,
-                    theme: document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
-                    securityLevel: 'loose'
-                });
-            }
-        });
-    </script>
-
-    <!-- Noscript Fallback -->
-    <noscript>
-        <style>
-            .loader { display: none !important; }
-            #app { opacity: 1 !important; }
-            .noscript-warning {
-                padding: 1rem;
-                background: #ff000020;
-                border: 1px solid red;
-                margin: 1rem;
-                text-align: center;
-            }
-        </style>
-        <div class="noscript-warning">
-            ⚠️ JavaScript is required for full functionality. Some features may be limited.
-        </div>
-    </noscript>
+    <script src="/assets/js/main.js?v=1" defer></script>
 </body>
 </html>
