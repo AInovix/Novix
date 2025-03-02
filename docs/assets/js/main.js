@@ -1,52 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // DOM elements
     const loader = document.getElementById('loader');
     const app = document.getElementById('app');
-    const contentArea = document.getElementById('dynamic-content');
-    const navLinks = document.querySelectorAll('.nav-link');
     const themeToggle = document.getElementById('theme-toggle');
+    
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Hide loader and show app content
+    // Loader handler
     window.addEventListener('load', () => {
-        loader.style.opacity = '0';
         setTimeout(() => {
-            loader.style.display = 'none';
-            app.style.display = 'block';
-        }, 300);
+            loader.style.opacity = '0';
+            app.classList.add('loaded');
+            setTimeout(() => loader.remove(), 300);
+        }, 500);
     });
 
-    // Function to load content dynamically
-    async function loadContent(path) {
+    // Theme toggle
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // Content loader
+    async function loadMarkdown(path) {
         try {
             const response = await fetch(path);
-            if (!response.ok) throw new Error('Content not found');
-            const markdown = await response.text();
-            contentArea.innerHTML = marked.parse(markdown);
-            Prism.highlightAll(); // Syntax highlighting
-            if (typeof mermaid !== 'undefined') mermaid.run(); // Diagrams
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return await response.text();
         } catch (error) {
-            contentArea.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            return `## Error\nUnable to load content: ${error.message}`;
         }
     }
 
-    // Handle navigation clicks
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    // Navigation handler
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', async (e) => {
             e.preventDefault();
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-            loadContent(link.getAttribute('data-md'));
+            const content = await loadMarkdown(link.dataset.md);
+            document.getElementById('dynamic-content').innerHTML = marked.parse(content);
+            Prism.highlightAll();
+            mermaid.initialize({ theme: document.documentElement.dataset.theme });
+            mermaid.run();
         });
     });
 
-    // Load initial content
-    const activeLink = document.querySelector('.nav-link.active');
-    if (activeLink) loadContent(activeLink.getAttribute('data-md'));
-
-    // Theme toggle (dark/light switch)
-    let isDark = true;
-    themeToggle.addEventListener('click', () => {
-        isDark = !isDark;
-        document.body.style.backgroundColor = isDark ? '#121212' : '#ffffff';
-        document.body.style.color = isDark ? '#e0e0e0' : '#121212';
-    });
+    // Initial load
+    const initialLink = document.querySelector('.nav-link.active');
+    if (initialLink) initialLink.click();
 });
