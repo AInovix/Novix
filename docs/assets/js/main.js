@@ -60,15 +60,18 @@ class DocumentationApp {
         this.setupEventListeners();
         this.handleInitialLoad();
         this.setupKeyboardNavigation();
-        this.showThemeDebug();
     }
 
     registerServiceWorker() {
+        // Comment out Service Worker registration since /sw.js doesn't exist
+        /*
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
                 .then(() => console.log('Service Worker registered'))
                 .catch(err => console.error('SW registration failed:', err));
         }
+        */
+        console.log('Service Worker registration skipped (file not present)');
     }
 
     setupEventListeners() {
@@ -86,12 +89,13 @@ class DocumentationApp {
         // Navigation
         document.addEventListener('click', (e) => {
             const navLink = e.target.closest('.nav-link');
-            if (navLink && !navLink.href) this.handleNavigation(navLink);
+            if (navLink && !-navLink.href.startsWith("http")) this.handleNavigation(navLink);
         });
 
         // History
         window.addEventListener('popstate', (e) => {
-            this.loadContent(window.location.pathname, false);
+            const path = e.state ? e.state.path : 'README.md'; // Fallback to default
+            this.loadContent(path, false);
         });
 
         // Loader handler
@@ -111,9 +115,13 @@ class DocumentationApp {
 
     async handleNavigation(link) {
         const path = link.dataset.md;
+        if (!path) {
+            console.error('No data-md attribute found on nav-link:', link);
+            return;
+        }
         this.showLoader();
         
-        history.pushState({ path }, '', `/docs/${path}`);
+        history.pushState({ path }, '', path);
         
         await this.loadContent(path);
         this.updateActiveState(link);
@@ -121,15 +129,32 @@ class DocumentationApp {
     }
 
     async loadContent(path, checkCache = true) {
+        if (!path) {
+            console.error('loadContent called with undefined path');
+            this.contentArea.innerHTML = `
+                <div class="error">
+                    <h3>⚠️ Content Unavailable</h3>
+                    <p>No path provided</p>
+                </div>
+            `;
+            return;
+        }
+
         try {
             if (checkCache && this.cache.has(path)) {
                 return this.renderContent(this.cache.get(path));
             }
 
+            // Add base path for GitHub Pages
+            const basePath = window.location.pathname.includes('/Novix/') 
+                ? '/Novix/' 
+                : '/';
+            const fullPath = `${basePath}${path}`;
+            
             // Add content type header
-            const response = await fetch(path, {
+            const response = await fetch(fullPath, {
                 headers: {
-                    'Content-Type': 'text/markdown; charset=UTF-8'
+                    'Accept': 'text/markdown'
                 }
             });
             
@@ -145,7 +170,7 @@ class DocumentationApp {
             this.cache.set(path, markdown);
             this.contentArea.innerHTML = marked.parse(markdown);
             Prism.highlightAll();
-            console.log('Content loaded from:', path);
+            console.log('Content loaded from:', fullPath);
             
         } catch (error) {
             console.error('Loading error:', error);
@@ -248,21 +273,20 @@ class DocumentationApp {
     }
 
     handleInitialLoad() {
-        if (window.location.pathname !== '/') {
-            this.loadContent(window.location.pathname.split('/docs/')[1]);
+        if (window.location.pathname === '/' || window.location.pathname === '/Novix/') {
+            // Load default content if at root
+            const defaultLink = document.querySelector('.nav-link.active');
+            if (defaultLink) {
+                this.loadContent(defaultLink.dataset.md);
+            } else {
+                console.warn('No active nav-link found for initial load');
+            }
+        } else if (window.location.pathname.startsWith('/Novix/')) {
+            const path = window.location.pathname.replace('/Novix/', '');
+            this.loadContent(path);
+        } else {
+            console.warn('Unexpected pathname, no initial load:', window.location.pathname);
         }
-    }
-
-    showThemeDebug() {
-        document.getElementById('debug-bg').textContent = getComputedStyle(document.documentElement)
-            .getPropertyValue('--bg-color').trim();
-        document.getElementById('debug-text').textContent = getComputedStyle(document.documentElement)
-            .getPropertyValue('--text-color').trim();
-        document.getElementById('debug-primary').textContent = getComputedStyle(document.documentElement)
-            .getPropertyValue('--primary').trim();
-        
-        // Update every second
-        setInterval(() => this.showThemeDebug(), 1000);
     }
 }
 
