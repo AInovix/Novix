@@ -3,94 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official documentation for Novix, the future of tech solutions.">
+    <meta name="description" content="Novix Documentation - The ultimate resource for cutting-edge tech solutions.">
+    <meta name="keywords" content="Novix, documentation, tech, AI, GitHub Pages">
+    <meta name="author" content="Novix Team">
     <title>Novix Documentation</title>
-    
-    <!-- Preload Critical Resources for Faster Loading -->
-    <link rel="preload" href="/docs/assets/css/styles.css?v=1" as="style" onload="this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style">
-    
-    <!-- Fonts via CDN -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap">
-    
-    <!-- Prism Theme (Dark by Default) -->
-    <link id="prism-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-dark.min.css">
-    
-    <!-- Custom CSS with Cache Buster -->
-    <link rel="stylesheet" href="/docs/assets/css/styles.css?v=1">
-    
-    <!-- Favicon (Optional) -->
-    <link rel="icon" href="/docs/assets/img/favicon.ico" type="image/x-icon">
+
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="/docs/assets/css/styles.css?v=2" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="/docs/assets/fonts/inter.css" as="style">
+    <link rel="preload" href="/docs/assets/js/main.js?v=2" as="script">
+
+    <!-- Custom Fonts (Self-Hosted for Performance) -->
+    <link rel="stylesheet" href="/docs/assets/fonts/inter.css">
+
+    <!-- Prism Syntax Highlighting (Dark Theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmSbajgJuo4mVcB7lDaeRGSNSW3GaWvGHXMkvcDJgBPU47O6TQV6g==" crossorigin="anonymous">
+
+    <!-- Custom Styles with Cache Buster -->
+    <link rel="stylesheet" href="/docs/assets/css/styles.css?v=2">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/docs/assets/img/favicon.png" type="image/png">
+
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Novix Documentation">
+    <meta property="og:description" content="Explore the future of tech with Novix Docs.">
+    <meta property="og:image" content="/docs/assets/img/og-image.png">
+    <meta property="og:url" content="https://yourusername.github.io/your-repo/">
 </head>
-<body class="dark-theme" style="background-color: #1a1a1a; color: #e0e0e0;">
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <h1>Novix Docs</h1>
-            <p>Welcome to the future of documentation</p>
-        </div>
-        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌓</button>
-    </header>
+<body class="theme-dark" data-theme="dark">
+    <!-- Page Loader -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>Loading Novix Docs...</p>
+    </div>
 
-    <!-- Main Layout -->
-    <main>
-        <div class="layout-container">
-            <!-- Sidebar -->
-            <nav class="sidebar" aria-label="Navigation">
-                <div class="nav-section">
-                    <h3>Introduction</h3>
-                    <ul>
-                        <li><a href="#" class="sidebar-link" data-md="/README.md">Home / Overview</a></li>
-                    </ul>
+    <!-- Main Container -->
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-inner">
+                <div class="logo">
+                    <img src="/docs/assets/img/logo.svg" alt="Novix Logo" class="logo-img">
+                    <h1 class="logo-text">Novix Docs</h1>
                 </div>
-                <div class="playground-banner">
-                    <a href="https://playground.novix.ai" target="_blank" aria-label="Visit Novix Playground">
-                        <i class="fas fa-rocket"></i> Live Playground Now Available
-                    </a>
+                <div class="header-actions">
+                    <input type="text" id="search-bar" class="search-bar" placeholder="Search documentation..." aria-label="Search documentation">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 16a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 110-12 6 6 0 010 12zm0-14V2m0 20v-2m-8-12H2m20 0h-2M4.93 4.93l1.42 1.42m11.3 11.3l1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3l1.42-1.42"/></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                    </button>
                 </div>
-                <div class="nav-section">
-                    <h3>Getting Started</h3>
-                    <ul>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/1-getting-started/3-examples.md">3. Examples</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/1-getting-started/5-support.md">5. Support</a></li>
-                    </ul>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <main class="main">
+            <div class="layout-grid">
+                <!-- Sidebar -->
+                <aside class="sidebar" aria-label="Main navigation">
+                    <nav class="sidebar-nav">
+                        <!-- Introduction -->
+                        <div class="nav-group">
+                            <h2 class="nav-title">Introduction</h2>
+                            <ul class="nav-list">
+                                <li><a href="#" class="nav-link active" data-md="/README.md">Home / Overview</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Playground Banner -->
+                        <div class="banner">
+                            <a href="https://playground.novix.ai" target="_blank" class="banner-link" aria-label="Visit Novix Playground">
+                                <span class="banner-icon">🚀</span>
+                                <span class="banner-text">Live Playground</span>
+                            </a>
+                        </div>
+
+                        <!-- Getting Started -->
+                        <div class="nav-group">
+                            <h2 class="nav-title">Getting Started</h2>
+                            <ul class="nav-list">
+                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/3-examples.md">3. Examples</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/1-getting-started/5-support.md">5. Support</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Core Concepts -->
+                        <div class="nav-group">
+                            <h2 class="nav-title">Core Concepts</h2>
+                            <ul class="nav-list">
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/2-architecture.md">2. Architecture</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/3-providers.md">3. Providers</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/4-agents.md">4. Agents</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/7-prompts.md">7. Prompts</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/8-chains.md">8. Chains</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/9-conversations.md">9. Conversations</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/10-agent-training.md">10. Agent Training</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/2-concepts/12-extensions.md">12. Extensions</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- AI Providers -->
+                        <div class="nav-group">
+                            <h2 class="nav-title">AI Providers</h2>
+                            <ul class="nav-list">
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/2-azure.md">2. Azure</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/3-deepseek.md">3. Deepseek</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/6-openai.md">6. OpenAI</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
+                                <li><a href="#" class="nav-link" data-md="/docs/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+
+                <!-- Content Area -->
+                <section class="content" aria-live="polite">
+                    <div class="content-inner" id="dynamic-content">
+                        <h1 class="content-title">Welcome to Novix Documentation</h1>
+                        <p class="content-intro">Dive into the future of technology with Novix Docs. Select a topic from the sidebar to get started.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-inner">
+                <p>&copy; 2025 Novix Docs. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/yourusername/your-repo" target="_blank" aria-label="GitHub Repository">GitHub</a>
+                    <a href="mailto:support@novix.ai" aria-label="Contact Support">Support</a>
                 </div>
-            </nav>
+            </div>
+        </footer>
+    </div>
 
-            <!-- Content Area -->
-            <section class="content-area" aria-live="polite">
-                <article id="dynamic-content">
-                    <h2>Welcome to Novix Docs</h2>
-                    <p>Select a topic from the sidebar to explore the documentation.</p>
-                </article>
-            </section>
-        </div>
-    </main>
+    <!-- Scripts (Deferred for Performance) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@5.1.2/lib/marked.min.js" defer integrity="sha512-ya0B0ENcxhY+wcvnDVdP7aL6Nno0uVzFzAM0W2nJ+fXNOa2jGMQuJuqo//qffqDnkxHl6iVYHdteQma65XgJq1g==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/uhlyX2Oc9t+Mzvh3VS+NKfbQIVYQhwYFVyDM3eHz5Ou8DPYss1uN2oKu9tT1/SafA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer integrity="sha512-Z0TPLjMH3X8WXX64N5q4X86cVSsT5Cdnb8WTVUdvDAMMlQGXzAAKWBtYpVgXhpoOsuWphc+8TVhoWSD7V2SkBqMA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js" defer integrity="sha512-Fun+0pJKN4U2WVLuy13lgZw+0b68YswTGRjJngtTfQ64dE2vNXXQNAoTXHbRsfYp1yU8L9R6W93emTWdP3lA/A+g==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer integrity="sha512-6qkbY0vYH5gN2N91jELQnURArQ0c1Bc2kX9NOrOjqOhN1ROlZltN0MwbknsE1T0oL7UhV2W5q9L0uNasU7jufY/A==" crossorigin="anonymous"></script>
+    <script src="/docs/assets/js/main.js?v=2" defer></script>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Novix Docs. All Rights Reserved.</p>
-    </footer>
-
-    <!-- External Scripts (Deferred for Performance) -->
-    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.18/lib/marked.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-python.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-javascript.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js" defer></script>
-    <script src="/docs/assets/js/main.js?v=1" defer></script>
-
-    <!-- Initialize Mermaid -->
+    <!-- Inline Initialization Scripts -->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        // Theme Persistence
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.body.classList.toggle('theme-dark', savedTheme === 'dark');
+            document.body.classList.toggle('theme-light', savedTheme === 'light');
+        })();
+
+        // Loader Removal
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 300);
+        });
+
+        // Mermaid Initialization
+        document.addEventListener('DOMContentLoaded', () => {
             if (typeof mermaid !== 'undefined') {
-                mermaid.initialize({ startOnLoad: true, theme: "dark" });
-            } else {
-                console.error("Mermaid failed to load");
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+                    securityLevel: 'loose'
+                });
             }
         });
     </script>
