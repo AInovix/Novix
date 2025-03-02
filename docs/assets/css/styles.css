@@ -5,17 +5,12 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     background-color: #121212;
     color: #e0e0e0;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Loader */
@@ -51,20 +46,13 @@ body {
 .loader p {
     margin-top: 1rem;
     font-size: 1.1rem;
-    color: #e0e0e0;
 }
 
 /* App Container */
 #app {
-    display: none; /* Hidden until loader is removed */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-/* Show app when loaded */
-#app.loaded {
-    display: block;
 }
 
 /* Header */
