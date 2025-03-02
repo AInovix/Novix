@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Official documentation for Novix, the future of tech solutions.">
     <title>Novix Documentation</title>
-    <!-- Preload Critical Resources -->
+    
+    <!-- Preload Critical Resources for Faster Loading -->
+    <link rel="preload" href="/docs/assets/css/styles.css?v=1" as="style" onload="this.rel='stylesheet'">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style">
-    <link rel="preload" href="/docs/assets/css/styles.css" as="style">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <!-- Prism Theme (Default Dark) -->
+    
+    <!-- Fonts via CDN -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap">
+    
+    <!-- Prism Theme (Dark by Default) -->
     <link id="prism-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-dark.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/docs/assets/css/styles.css">
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    
+    <!-- Custom CSS with Cache Buster -->
+    <link rel="stylesheet" href="/docs/assets/css/styles.css?v=1">
+    
+    <!-- Favicon (Optional) -->
+    <link rel="icon" href="/docs/assets/img/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body class="dark-theme" style="background-color: #1a1a1a; color: #e0e0e0;">
     <!-- Header -->
     <header>
         <div class="logo">
@@ -55,37 +59,6 @@
                         <li><a href="#" class="sidebar-link" data-md="/docs/1-getting-started/5-support.md">5. Support</a></li>
                     </ul>
                 </div>
-                <div class="nav-section">
-                    <h3>Core Concepts</h3>
-                    <ul>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/2-architecture.md">2. Architecture</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/3-providers.md">3. Providers</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/4-agents.md">4. Agents</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/7-prompts.md">7. Prompts</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/8-chains.md">8. Chains</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/9-conversations.md">9. Conversations</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/10-agent-training.md">10. Agent Training</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/2-concepts/12-extensions.md">12. Extensions</a></li>
-                    </ul>
-                </div>
-                <div class="nav-section">
-                    <h3>AI Providers</h3>
-                    <ul>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/2-azure.md">2. Azure</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/3-deepseek.md">3. Deepseek</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/6-openai.md">6. OpenAI</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
-                        <li><a href="#" class="sidebar-link" data-md="/docs/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
-                    </ul>
-                </div>
             </nav>
 
             <!-- Content Area -->
@@ -103,17 +76,22 @@
         <p>© 2025 Novix Docs. All Rights Reserved.</p>
     </footer>
 
-    <!-- Scripts (Deferred for Performance) -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js" defer></script>
+    <!-- External Scripts (Deferred for Performance) -->
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.18/lib/marked.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-python.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-javascript.min.js" defer></script>
-    <script src="/docs/assets/js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js" defer></script>
+    <script src="/docs/assets/js/main.js?v=1" defer></script>
+
+    <!-- Initialize Mermaid -->
     <script>
-        // Initialize Mermaid
         document.addEventListener("DOMContentLoaded", () => {
-            mermaid.initialize({ startOnLoad: true, theme: "dark" });
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({ startOnLoad: true, theme: "dark" });
+            } else {
+                console.error("Mermaid failed to load");
+            }
         });
     </script>
 </body>
