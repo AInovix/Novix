@@ -10,6 +10,7 @@
     <link rel="preload" href="/assets/css/styles.css" as="style" onload="this.rel='stylesheet'">
     <link rel="preload" href="/assets/fonts/inter.css" as="style" onload="this.rel='stylesheet'">
     <link rel="preload" href="/assets/js/main.js" as="script">
+    <link rel="icon" href="/assets/img/favicon.png" type="image/png">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/fonts/inter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
@@ -19,7 +20,7 @@
         <div class="spinner"></div>
         <p>Loading Docs...</p>
     </div>
-    <div id="app">
+    <div id="app" style="display:none;">
         <header>
             <h1>Novix Docs</h1>
             <input type="text" id="search-bar" placeholder="Search documentation...">
@@ -80,9 +81,9 @@
             <p>© 2023 Novix Docs. All rights reserved.</p>
         </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/marked@5.1.2/dist/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
