@@ -51,6 +51,7 @@ class DocumentationApp {
     constructor() {
         this.themeController = new ThemeController();
         this.cache = new Map();
+        this.contentArea = document.getElementById('dynamic-content');
         this.init();
     }
 
@@ -125,25 +126,42 @@ class DocumentationApp {
                 return this.renderContent(this.cache.get(path));
             }
 
-            const response = await fetch(path);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            // Add content type header
+            const response = await fetch(path, {
+                headers: {
+                    'Content-Type': 'text/markdown; charset=UTF-8'
+                }
+            });
             
-            const content = await response.text();
-            this.cache.set(path, content);
-            this.renderContent(content);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            
+            const markdown = await response.text();
+            
+            // Verify valid markdown content
+            if (markdown.startsWith('<!DOCTYPE html')) {
+                throw new Error('Received HTML instead of Markdown');
+            }
+            
+            this.cache.set(path, markdown);
+            this.contentArea.innerHTML = marked.parse(markdown);
+            Prism.highlightAll();
             console.log('Content loaded from:', path);
             
         } catch (error) {
-            this.showError(error);
+            console.error('Loading error:', error);
+            this.contentArea.innerHTML = `
+                <div class="error">
+                    <h3>⚠️ Content Unavailable</h3>
+                    <p>${error.message}</p>
+                    <p>Please verify the file exists at: <code>${path}</code></p>
+                </div>
+            `;
         }
     }
 
     renderContent(markdown) {
         const html = marked.parse(markdown);
-        const container = document.getElementById('dynamic-content');
-        
-        // Safe HTML parsing
-        container.innerHTML = DOMPurify.sanitize(html);
+        this.contentArea.innerHTML = DOMPurify.sanitize(html);
         
         // Post-render tasks
         Prism.highlightAll();
@@ -214,8 +232,7 @@ class DocumentationApp {
     }
 
     showError(error) {
-        const container = document.getElementById('dynamic-content');
-        container.innerHTML = `
+        this.contentArea.innerHTML = `
             <div class="error-message">
                 <h3>⚠️ Loading Error</h3>
                 <p>${error.message}</p>
