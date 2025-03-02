@@ -6,6 +6,11 @@
     <meta name="description" content="Novix Documentation - The ultimate resource for cutting-edge tech solutions.">
     <meta name="keywords" content="Novix, documentation, tech, AI, GitHub Pages">
     <meta name="author" content="Novix Team">
+    <!-- Add mobile meta tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Add search meta -->
+    <meta name="search-title" content="Novix Documentation Search">
     <title>Novix Documentation</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
@@ -16,17 +21,28 @@
     <link rel="icon" href="/assets/img/favicon.png" type="image/png">
 </head>
 <body>
+    <!-- Add mobile menu button -->
+    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+    </button>
+
     <div id="loader" class="loader">
         <div class="spinner"></div>
         <p>Initializing Novix Docs...</p>
     </div>
 
     <div id="app" class="app-container">
+        <!-- Updated header with search -->
         <header class="header">
             <div class="header-inner">
                 <h1 class="logo">Novix Docs</h1>
                 <div class="header-actions">
-                    <input type="text" id="search-bar" class="search-bar" placeholder="Search docs...">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-bar" placeholder="Search documentation...">
+                        <div id="search-results" class="search-results"></div>
+                    </div>
                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                         <svg class="icon moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
                         <svg class="icon sun-icon" viewBox="0 0 24 24"><path d="M12 18a6 6 0 100-12 6 6 0 000 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121z"/></svg>
@@ -44,7 +60,6 @@
                     </ul>
                 </div>
 
-                <!-- Playground Banner -->
                 <div class="playground-banner">
                     <a href="https://playground.novix.ai" target="_blank" rel="noopener" class="nav-link">
                         🚀 Live Playground
@@ -109,10 +124,16 @@
         </footer>
     </div>
 
+    <!-- Add loading spinner container -->
+    <div id="content-loader" class="content-loader">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Required libraries -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <!-- Main app script -->
     <script src="/assets/js/main.js" defer></script>
 </body>
