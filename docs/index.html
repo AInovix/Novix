@@ -1,154 +1,149 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="Novix Documentation - The ultimate resource for cutting-edge tech solutions.">
- <meta name="keywords" content="Novix, documentation, tech, AI, GitHub Pages">
- <meta name="author" content="Novix Team">
- <!-- Add mobile meta tags -->
- <meta name="mobile-web-app-capable" content="yes">
- <meta name="apple-mobile-web-app-capable" content="yes">
- <!-- Add search meta -->
- <meta name="search-title" content="Novix Documentation Search">
- <!-- Add theme color meta tags -->
- <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
- <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
- <!-- Add system color scheme detection -->
- <script>
- const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
- const savedTheme = localStorage.getItem('theme');
- const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
- document.documentElement.setAttribute('data-theme', initialTheme);
- </script>
- <title>Novix Documentation</title>
- <link rel="stylesheet" href="/assets/css/styles.css?v=1">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
- <!-- Preload critical assets -->
- <link rel="preload" href="/assets/fonts/inter.css" as="style">
- <link rel="preload" href="/assets/js/main.js" as="script">
- <link rel="stylesheet" href="/assets/fonts/inter.css">
- <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Novix Documentation - The ultimate resource for cutting-edge tech solutions.">
+    <meta name="keywords" content="Novix, documentation, tech, AI, GitHub Pages">
+    <meta name="author" content="Novix Team">
+    <!-- Mobile meta tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Search meta -->
+    <meta name="search-title" content="Novix Documentation Search">
+    <!-- Theme color meta tags -->
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <title>Novix Documentation</title>
+    <!-- Preload CSS with cache busting -->
+    <link rel="preload" href="/assets/css/styles.css?v=3" as="style">
+    <link rel="stylesheet" href="/assets/css/styles.css?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" id="prism-theme">
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/assets/fonts/inter.css" as="style">
+    <link rel="preload" href="/assets/js/main.js" as="script">
+    <link rel="stylesheet" href="/assets/fonts/inter.css">
+    <link rel="icon" href="/assets/img/favicon.png" type="image/png">
 </head>
 <body>
- <button class="mobile-menu-toggle" aria-label="Toggle navigation">
- <span class="menu-bar"></span>
- <span class="menu-bar"></span>
- <span class="menu-bar"></span>
- </button>
+    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+    </button>
 
- <div id="loader" class="loader">
- <div class="spinner"></div>
- <p>Initializing Novix Docs...</p>
- </div>
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>Initializing Novix Docs...</p>
+    </div>
 
- <div id="app" class="app-container">
- <header class="header">
- <div class="header-inner">
- <h1 class="logo">Novix Docs</h1>
- <div class="header-actions">
- <div class="search-container">
- <input type="text" id="search-input" class="search-bar" placeholder="Search documentation...">
- <div id="search-results" class="search-results"></div>
- </div>
- <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
- <svg class="icon moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
- <svg class=" rial sun-icon" viewBox="0 0 24 24"><path d="M12 18a6 6 0 100-12 6 6 0 000 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121z"/></svg>
- </button>
- </div>
- </div>
- </header>
+    <div id="app" class="app-container">
+        <header class="header">
+            <div class="header-inner">
+                <h1 class="logo">Novix Docs</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-bar" placeholder="Search documentation...">
+                        <div id="search-results" class="search-results"></div>
+                    </div>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                        <svg class="icon sun-icon" viewBox="0 0 24 24"><path d="M12 18a6 6 0 100-12 6 6 0 000 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
 
- <div class="main-layout">
- <nav class="sidebar">
- <div class="nav-group">
- <h2 class="nav-title">Introduction</h2>
- <ul class="nav-list">
- <li><a href="#!" class="nav-link active" data-md="/README.md">Home / Overview</a></li>
- </ul>
- </ div>
+        <div class="main-layout">
+            <nav class="sidebar">
+                <div class="nav-group">
+                    <h2 class="nav-title">Introduction</h2>
+                    <ul class="nav-list">
+                        <li><a href="#!" class="nav-link active" data-md="/README.md">Home / Overview</a></li>
+                    </ul>
+                </div>
 
- <div class="playground-banner">
- <a href="https://playground.novix.ai" target="_blank" rel="noopener" class="nav-link">
- 🚀 Live Playground
- </a>
- </div>
+                <div class="playground-banner">
+                    <a href="https://playground.novix.ai" target="_blank" rel="noopener" class="nav-link">
+                        🚀 Live Playground
+                    </a>
+                </div>
 
- <div class="nav-group">
- <h2 class="nav-title">Getting Started</h2>
- <ul class="nav-list">
- <li><a href="#!" class="nav-link" data-md="/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
- <li><a href="#!" class="nav-link" data-md="/1-getting-started/2-environment.md">2. Environment Setup</a></li>
- <li><a href="#!" class="nav-link" data-md="/1-getting-started/3-examples.md">3. Examples</a></li>
- <li><a href="#!" class="nav-link" data-md="/1-getting-started/4-considerations.md">4. Considerations</a></li>
- <li><a href="#!" class="nav-link" data-md="/1-getting-started/5-support.md">5. Support</a></li>
- </ul>
- </div>
+                <div class="nav-group">
+                    <h2 class="nav-title">Getting Started</h2>
+                    <ul class="nav-list">
+                        <li><a href="#!" class="nav-link" data-md="/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/1-getting-started/2-environment.md">2. Environment Setup</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/1-getting-started/3-examples.md">3. Examples</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/1-getting-started/4-considerations.md">4. Considerations</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/1-getting-started/5-support.md">5. Support</a></li>
+                    </ul>
+                </div>
 
- <div class="nav-group">
- <h2 class="nav-title">Core Concepts</h2>
- <ul class="nav-list">
- <li><a href="#!" class="nav-link" data-md="/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/2-architecture.md">2. Architecture</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/3-providers.md">3. Providers</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/4-agents.md">4. Agents</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/7-prompts.md">7. Prompts</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/8-chains.md">8. Chains</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/9-conversations.md">9. Conversations</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/10-agent-training.md">10. Agent Training</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
- <li><a href="#!" class="nav-link" data-md="/2-concepts/12-extensions.md">12. Extensions</a></li>
- </ul>
- </div>
+                <div class="nav-group">
+                    <h2 class="nav-title">Core Concepts</h2>
+                    <ul class="nav-list">
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/2-architecture.md">2. Architecture</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/3-providers.md">3. Providers</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/4-agents.md">4. Agents</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/7-prompts.md">7. Prompts</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/8-chains.md">8. Chains</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/9-conversations.md">9. Conversations</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/10-agent-training.md">10. Agent Training</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/2-concepts/12-extensions.md">12. Extensions</a></li>
+                    </ul>
+                </div>
 
- <div class="nav-group">
- <h2 class="nav-title">AI Providers</h2>
- <ul class="nav-list">
- <li><a href="#!" class="nav-link" data-md="/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/2-azure.md">2. Azure</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/3-deepseek.md">3. Deepseek</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/6-openai.md">6. OpenAI</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
- <li><a href="#!" class="nav-link" data-md="/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
- </ul>
- </div>
- </nav>
+                <div class="nav-group">
+                    <h2 class="nav-title">AI Providers</h2>
+                    <ul class="nav-list">
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/2-azure.md">2. Azure</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/3-deepseek.md">3. Deepseek</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/6-openai.md">6. OpenAI</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
+                        <li><a href="#!" class="nav-link" data-md="/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
+                    </ul>
+                </div>
+            </nav>
 
- <main class="content">
- <div id="dynamic-content" class="content-inner">
- <h1>Welcome to Novix Documentation</h1>
- <p>Select a topic from the navigation to get started.</p>
- </div>
- </main>
- </div>
+            <main class="main-content">
+                <div id="dynamic-content" class="content-inner">
+                    <h1>Welcome to Novix Documentation</h1>
+                    <p>Select a topic from the navigation to get started.</p>
+                </div>
+            </main>
+        </div>
 
- <footer class="footer">
- <p>© 2024 Novix Docs. Open-source AI platform.</p>
- </footer>
- </div>
+        <footer class="footer">
+            <p>© 2024 Novix Docs. Open-source AI platform.</p>
+        </footer>
+    </div>
 
- <div id="content-loader" class="content-loader">
- <div class="spinner"></div>
- </div>
+    <div id="content-loader" class="content-loader">
+        <div class="spinner"></div>
+    </div>
 
- <!-- Theme Debugging Helper -->
- <div class="theme-debug">
- <div>BG: <span id="debug-bg"></span></div>
- <div>Text: <span id="debug-text"></span></div>
- <div>Primary: <span id="debug-primary"></span></div>
- </div>
+    <!-- Theme Debugging Helper -->
+    <div class="theme-debug">
+        <div>BG: <span id="debug-bg"></span></div>
+        <div>Text: <span id="debug-text"></span></div>
+        <div>Primary: <span id="debug-primary"></span></div>
+    </div>
 
- <!-- Required libraries -->
- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
- <!-- Main app script -->
- <script src="/assets/js/main.js" defer></script>
+    <!-- Required libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <!-- Main app script -->
+    <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
