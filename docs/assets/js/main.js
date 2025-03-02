@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.style.opacity = '0';
         setTimeout(() => {
             loader.style.display = 'none';
-            app.classList.add('loaded');
+            app.style.display = 'block';
         }, 300);
     });
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeLink = document.querySelector('.nav-link.active');
     if (activeLink) loadContent(activeLink.getAttribute('data-md'));
 
-    // Theme toggle (basic dark/light switch)
+    // Theme toggle (dark/light switch)
     let isDark = true;
     themeToggle.addEventListener('click', () => {
         isDark = !isDark;
