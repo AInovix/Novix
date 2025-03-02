@@ -15,15 +15,14 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <title>Novix Documentation</title>
-    <!-- Preload CSS with cache busting -->
-    <link rel="preload" href="/assets/css/styles.css?v=3" as="style">
-    <link rel="stylesheet" href="/assets/css/styles.css?v=3">
+    <!-- Preload CSS with cache busters -->
+    <link rel="preload" href="assets/css/styles.css?v=4" as="style">
+    <link rel="preload" href="assets/fonts/inter.css?v=1" as="style">
+    <link rel="preload" href="assets/js/main.js?v=4" as="script">
+    <link rel="stylesheet" href="assets/css/styles.css?v=4">
+    <link rel="stylesheet" href="assets/fonts/inter.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" id="prism-theme">
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/assets/fonts/inter.css" as="style">
-    <link rel="preload" href="/assets/js/main.js" as="script">
-    <link rel="stylesheet" href="/assets/fonts/inter.css">
-    <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
 </head>
 <body>
     <button class="mobile-menu-toggle" aria-label="Toggle navigation">
@@ -143,7 +142,7 @@
     <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
-    <!-- Main app script -->
-    <script src="/assets/js/main.js" defer></script>
+    <!-- Updated script reference -->
+    <script src="assets/js/main.js?v=4"></script>
 </body>
 </html>
