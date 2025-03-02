@@ -30,6 +30,20 @@
     <meta property="og:description" content="Explore the future of tech with Novix Docs.">
     <meta property="og:image" content="docs/assets/img/og-image.png">
     <meta property="og:url" content="https://yourusername.github.io/your-repo/">
+    <style>
+        /* Temporary theme debug */
+        body:before {
+            content: 'Current theme: ' attr(data-theme);
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 5px;
+            z-index: 10000;
+            display: none; /* Remove this line to see theme debug */
+        }
+    </style>
 </head>
 <body class="theme-dark" data-theme="dark">
     <!-- Page Loader -->
@@ -161,32 +175,39 @@
     </style>
 
     <!-- Initialization Script -->
-    <script>
-    // Theme Persistence
-    (function() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.body.setAttribute('data-theme', savedTheme);
-        document.body.classList.toggle('theme-dark', savedTheme === 'dark');
-        document.body.classList.toggle('theme-light', savedTheme === 'light');
-    })();
+   <script>
+        // Theme initialization
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            // Set initial aria-pressed state for theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.setAttribute('aria-pressed', savedTheme === 'dark');
+        })();
 
-    // Loader Handling
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('loader');
-        loader.style.opacity = '0';
-        setTimeout(() => loader.remove(), 300);
-    });
-
-    // Mermaid Config
-    document.addEventListener('DOMContentLoaded', () => {
-        if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({
-                startOnLoad: true,
-                theme: document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
-                securityLevel: 'loose'
+        // Updated theme toggle handler
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                // Update theme attribute and storage
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Update button state
+                themeToggle.setAttribute('aria-pressed', newTheme === 'dark');
+                
+                // Force CSS repaint
+                document.documentElement.style.overflowX = 'hidden';
+                setTimeout(() => {
+                    document.documentElement.style.overflowX = '';
+                }, 10);
             });
-        }
-    });
+        });
     </script>
 
     <!-- Noscript Fallback -->
