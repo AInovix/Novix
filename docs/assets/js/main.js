@@ -1,59 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sidebarLinks = document.querySelectorAll('.nav-link');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
     const contentArea = document.getElementById('dynamic-content');
     const themeToggle = document.getElementById('theme-toggle');
-    const searchBar = document.getElementById('search-bar');
 
-    // Load Content from Markdown
-    async function loadContent(path) {
-        try {
-            const response = await fetch(path);
-            if (!response.ok) throw new Error('Content not found');
-            const markdown = await response.text();
-            const html = marked.parse(markdown);
-            contentArea.innerHTML = html;
-            Prism.highlightAll();
-            if (typeof mermaid !== 'undefined') mermaid.init();
-        } catch (error) {
-            contentArea.innerHTML = `<h1>Error</h1><p>Failed to load content: ${error.message}</p>`;
-        }
-    }
-
-    // Sidebar Navigation
+    // Dynamic content loading
     sidebarLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', async (e) => {
             e.preventDefault();
-            sidebarLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
             const mdPath = link.getAttribute('data-md');
-            loadContent(mdPath);
+            try {
+                const response = await fetch(mdPath);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${mdPath}: ${response.status}`);
+                }
+                const markdown = await response.text();
+                contentArea.innerHTML = marked.parse(markdown);
+                Prism.highlightAll(); // Highlight code blocks
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.init(); // Initialize Mermaid diagrams
+                }
+            } catch (error) {
+                contentArea.innerHTML = `<p>Error loading content: ${error.message}</p>`;
+            }
         });
     });
 
-    // Theme Toggle
+    // Theme toggle functionality
     themeToggle.addEventListener('click', () => {
-        const currentTheme = document.body.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.body.setAttribute('data-theme', newTheme);
-        document.body.classList.toggle('theme-dark', newTheme === 'dark');
-        document.body.classList.toggle('theme-light', newTheme === 'light');
-        localStorage.setItem('theme', newTheme);
-        if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({ theme: newTheme === 'dark' ? 'dark' : 'default' });
-            mermaid.init();
-        }
+        document.body.classList.toggle('light-theme');
     });
-
-    // Search Functionality
-    searchBar.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        sidebarLinks.forEach(link => {
-            const text = link.textContent.toLowerCase();
-            link.parentElement.style.display = text.includes(query) ? 'block' : 'none';
-        });
-    });
-
-    // Load Default Content
-    const activeLink = document.querySelector('.nav-link.active');
-    if (activeLink) loadContent(activeLink.getAttribute('data-md'));
 });
