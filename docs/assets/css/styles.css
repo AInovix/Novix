@@ -412,14 +412,7 @@ code {
     margin-top: 1rem;
 }
 
-/* Theme Debugging */
-.theme-debug {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    background: var(--card-bg);
-    padding: 10px;
-    border-radius: 8px;
-    font-family: monospace;
-    z-index: 1000;
+/* Prevent accidental debug displays */
+[id*="debug"] {
+    display: none !important;
 }
