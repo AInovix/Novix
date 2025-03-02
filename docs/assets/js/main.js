@@ -1,70 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sidebarLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link');
     const contentArea = document.getElementById('dynamic-content');
-    const themeToggle = document.getElementById('theme-toggle');
     const searchBar = document.getElementById('search-bar');
+    const themeToggle = document.getElementById('theme-toggle');
+    const loader = document.getElementById('loader');
 
-    // Load content dynamically from Markdown files
+    // Hide loader when page loads
+    window.addEventListener('load', () => {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 300);
+    });
+
+    // Function to load content
     async function loadContent(path) {
         try {
             const response = await fetch(path);
-            if (!response.ok) throw new Error(`Failed to fetch ${path}: ${response.status}`);
+            if (!response.ok) throw new Error('Failed to load');
             const markdown = await response.text();
-            const sanitizedHTML = DOMPurify.sanitize(marked.parse(markdown));
-            contentArea.innerHTML = sanitizedHTML;
+            const html = marked.parse(markdown);
+            contentArea.innerHTML = html;
             Prism.highlightAll();
             if (typeof mermaid !== 'undefined') {
-                mermaid.run({
-                    querySelector: '.mermaid'
-                });
+                mermaid.run();
             }
-            // Smooth scroll to top of content
-            contentArea.scrollIntoView({ behavior: 'smooth' });
         } catch (error) {
-            contentArea.innerHTML = `<div style="color: var(--secondary); padding: 1rem;">Error loading content: ${error.message}</div>`;
+            contentArea.innerHTML = `<p style="color: red;">Error loading content: ${error.message}</p>`;
         }
     }
 
-    // Sidebar link handling
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    // Nav link click handler
+    navLinks.forEach(link => {
+        link.addEventListener('click', async (e) => {
             e.preventDefault();
-            sidebarLinks.forEach(l => l.classList.remove('active'));
+            navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            const mdPath = link.getAttribute('data-md');
-            loadContent(mdPath);
+            const path = link.getAttribute('data-md');
+            await loadContent(path);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 
-    // Search functionality
+    // Search bar functionality
     searchBar.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
-        sidebarLinks.forEach(link => {
-            const text = link.textContent.toLowerCase();
-            const parentLi = link.closest('li');
-            parentLi.style.display = text.includes(query) || query === '' ? '' : 'none';
+        document.querySelectorAll('.nav-list li').forEach(li => {
+            const text = li.textContent.toLowerCase();
+            li.style.display = text.includes(query) || query === '' ? '' : 'none';
         });
     });
 
-    // Theme toggle persistence
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.body.setAttribute('data-theme', savedTheme);
-    themeToggle.setAttribute('aria-pressed', savedTheme === 'dark');
-
+    // Theme toggle
     themeToggle.addEventListener('click', () => {
-        const currentTheme = document.body.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.body.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        themeToggle.setAttribute('aria-pressed', newTheme === 'dark');
-        if (typeof mermaid !== 'undefined') {
-            mermaid.update({ theme: newTheme === 'dark' ? 'dark' : 'default' });
-        }
+        document.body.classList.toggle('light-theme');
+        const isDark = document.body.classList.contains('light-theme');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
 
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+    }
+
     // Load initial content
-    const activeLink = document.querySelector('.nav-link.active');
-    if (activeLink) {
-        loadContent(activeLink.getAttribute('data-md'));
+    const firstLink = document.querySelector('.nav-link.active');
+    if (firstLink) {
+        loadContent(firstLink.getAttribute('data-md'));
     }
 });
