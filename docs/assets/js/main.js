@@ -13,9 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const markdown = await response.text();
                 contentArea.innerHTML = marked.parse(markdown);
                 Prism.highlightAll();
-                if (typeof mermaid !== 'undefined') mermaid.init();
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.init();
+                }
             } catch (error) {
-                contentArea.innerHTML = `<p>Error: ${error.message}</p>`;
+                contentArea.innerHTML = `<div style='color: red;'>Error loading ${mdPath}: ${error.message}</div>`;
             }
         });
     });
@@ -23,4 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('light-theme');
     });
+
+    // Load initial content
+    if (sidebarLinks.length > 0) {
+        sidebarLinks[0].click();
+    }
 });
