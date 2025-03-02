@@ -126,3 +126,47 @@ body.light-theme .sidebar-link:hover {
     background-color: #bbb;
     color: #000;
 }
+/* Add these updates to existing styles */
+
+/* Theme Transition Enhancements */
+.header, .sidebar, .content, .footer {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle {
+    transition: transform 0.2s ease, background 0.3s;
+}
+
+.theme-toggle:active {
+    transform: scale(0.9);
+}
+
+/* Error State Styling */
+.error-state {
+    padding: 2rem;
+    text-align: center;
+    background: var(--card-bg);
+    border-radius: 8px;
+}
+
+.error-state button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Mobile Enhancements */
+@media (max-width: 768px) {
+    .header-inner {
+        flex-wrap: wrap;
+    }
+    
+    .search-bar {
+        order: 1;
+        margin-top: 1rem;
+    }
+}
