@@ -215,10 +215,13 @@ body {
 .sidebar {
     background-color: var(--nav-bg) !important;
     width: 280px;
-    height: 100vh;
+    overflow-y: auto;
+    height: calc(100vh - 80px); /* Adjust based on header height */
     position: fixed;
+    top: 80px; /* Match header height */
+    bottom: 0;
+    z-index: 100;
     left: 0;
-    top: 0;
     padding: 1rem;
     border-right: 1px solid var(--border-color);
 }
@@ -350,6 +353,8 @@ body {
     }
     
     .sidebar {
+        top: 60px;
+        height: calc(100vh - 60px);
         transform: translateX(-100%);
         transition: transform 0.3s ease;
     }
