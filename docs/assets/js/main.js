@@ -92,3 +92,27 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarLinks[0].click();
     }
 });
+// Update theme toggle handler in main.js
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    // Update theme attribute and storage
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // Update Mermaid if needed
+    if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+            theme: newTheme === 'dark' ? 'dark' : 'default',
+            securityLevel: 'loose'
+        });
+        mermaid.init();
+    }
+    
+    // Force CSS repaint for transitions
+    document.documentElement.style.overflowX = 'hidden';
+    setTimeout(() => {
+        document.documentElement.style.overflowX = '';
+    }, 10);
+});
