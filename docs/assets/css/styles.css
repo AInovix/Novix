@@ -14,12 +14,12 @@ header {
     align-items: center;
 }
 
-header .logo {
+.logo {
     display: flex;
     align-items: center;
 }
 
-header .logo img {
+.logo img {
     height: 40px;
     margin-right: 10px;
 }
@@ -29,7 +29,11 @@ header h1 {
     margin: 0;
 }
 
-#theme-toggle {
+header p {
+    font-size: 0.9rem;
+}
+
+.theme-btn {
     padding: 0.5rem 1rem;
     background-color: #555;
     color: #fff;
@@ -37,7 +41,7 @@ header h1 {
     cursor: pointer;
 }
 
-#theme-toggle:hover {
+.theme-btn:hover {
     background-color: #777;
 }
 
@@ -60,14 +64,14 @@ header h1 {
     padding: 0;
 }
 
-.sidebar a {
+.sidebar-link {
     color: #e0e0e0;
     text-decoration: none;
     display: block;
     padding: 0.5rem 0;
 }
 
-.sidebar a:hover {
+.sidebar-link:hover {
     color: #fff;
     background-color: #333;
 }
@@ -114,11 +118,11 @@ body.light-theme .sidebar {
     background-color: #ddd;
 }
 
-body.light-theme .sidebar a {
+body.light-theme .sidebar-link {
     color: #333;
 }
 
-body.light-theme .sidebar a:hover {
+body.light-theme .sidebar-link:hover {
     background-color: #bbb;
     color: #000;
 }
