@@ -4,115 +4,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const searchBar = document.getElementById('search-bar');
 
-    // Enhanced Content Loader
+    // Load content dynamically from Markdown files
     async function loadContent(path) {
         try {
             const response = await fetch(path);
-            if (!response.ok) throw new Error(`Content load failed (${response.status})`);
+            if (!response.ok) throw new Error(`Failed to fetch ${path}: ${response.status}`);
             const markdown = await response.text();
-            const html = marked.parse(markdown);
-            
-            // Sanitize and render
-            contentArea.innerHTML = DOMPurify.sanitize(html);
-            
-            // Highlight code
+            const sanitizedHTML = DOMPurify.sanitize(marked.parse(markdown));
+            contentArea.innerHTML = sanitizedHTML;
             Prism.highlightAll();
-            
-            // Init Mermaid
             if (typeof mermaid !== 'undefined') {
-                mermaid.init({}, '.mermaid');
+                mermaid.run({
+                    querySelector: '.mermaid'
+                });
             }
+            // Smooth scroll to top of content
+            contentArea.scrollIntoView({ behavior: 'smooth' });
         } catch (error) {
-            contentArea.innerHTML = `
-                <div class="error-state">
-                    <h2>⚠️ Content Load Error</h2>
-                    <p>${error.message}</p>
-                    <button onclick="location.reload()">Retry</button>
-                </div>
-            `;
+            contentArea.innerHTML = `<div style="color: var(--secondary); padding: 1rem;">Error loading content: ${error.message}</div>`;
         }
     }
 
-    // Search Functionality
-    searchBar.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        sidebarLinks.forEach(link => {
-            const text = link.textContent.toLowerCase();
-            link.parentElement.style.display = text.includes(query) ? 'list-item' : 'none';
+    // Sidebar link handling
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            sidebarLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            const mdPath = link.getAttribute('data-md');
+            loadContent(mdPath);
         });
     });
 
-    // Theme Toggle with Mermaid Refresh
+    // Search functionality
+    searchBar.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        sidebarLinks.forEach(link => {
+            const text = link.textContent.toLowerCase();
+            const parentLi = link.closest('li');
+            parentLi.style.display = text.includes(query) || query === '' ? '' : 'none';
+        });
+    });
+
+    // Theme toggle persistence
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+    themeToggle.setAttribute('aria-pressed', savedTheme === 'dark');
+
     themeToggle.addEventListener('click', () => {
         const currentTheme = document.body.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
         document.body.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        
+        themeToggle.setAttribute('aria-pressed', newTheme === 'dark');
         if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({
-                theme: newTheme === 'dark' ? 'dark' : 'default'
-            });
-            mermaid.init();
+            mermaid.update({ theme: newTheme === 'dark' ? 'dark' : 'default' });
         }
     });
 
-    // Rest of existing functionality..
-document.addEventListener('DOMContentLoaded', () => {
-    const sidebarLinks = document.querySelectorAll('.sidebar-link');
-    const contentArea = document.getElementById('dynamic-content');
-    const themeToggle = document.getElementById('theme-toggle');
-
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const mdPath = link.getAttribute('data-md');
-            try {
-                const response = await fetch(mdPath);
-                if (!response.ok) throw new Error(`Failed to load ${mdPath}`);
-                const markdown = await response.text();
-                contentArea.innerHTML = marked.parse(markdown);
-                Prism.highlightAll();
-                if (typeof mermaid !== 'undefined') {
-                    mermaid.init();
-                }
-            } catch (error) {
-                contentArea.innerHTML = `<div style='color: red;'>Error loading ${mdPath}: ${error.message}</div>`;
-            }
-        });
-    });
-
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-    });
-
     // Load initial content
-    if (sidebarLinks.length > 0) {
-        sidebarLinks[0].click();
+    const activeLink = document.querySelector('.nav-link.active');
+    if (activeLink) {
+        loadContent(activeLink.getAttribute('data-md'));
     }
-});
-// Update theme toggle handler in main.js
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    // Update theme attribute and storage
-    document.body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // Update Mermaid if needed
-    if (typeof mermaid !== 'undefined') {
-        mermaid.initialize({
-            theme: newTheme === 'dark' ? 'dark' : 'default',
-            securityLevel: 'loose'
-        });
-        mermaid.init();
-    }
-    
-    // Force CSS repaint for transitions
-    document.documentElement.style.overflowX = 'hidden';
-    setTimeout(() => {
-        document.documentElement.style.overflowX = '';
-    }, 10);
 });
