@@ -3,20 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('loader');
     const app = document.getElementById('app');
     const themeToggle = document.getElementById('theme-toggle');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const contentArea = document.getElementById('dynamic-content');
-    
-    console.log('DOM fully loaded, script running');
-    console.log('Found', navLinks.length, 'nav-link elements');
+
+    // Debugging: Confirm script loading
+    console.log('main.js loaded');
 
     // Initialize theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    console.log('Initialized theme:', savedTheme);
+    console.log('Theme initialized to:', savedTheme);
 
     // Loader handler
     window.addEventListener('load', () => {
-        console.log('Window loaded, starting loader fade-out');
+        console.log('Window loaded, hiding loader');
         setTimeout(() => {
             loader.style.opacity = '0';
             app.classList.add('loaded');
@@ -33,44 +31,66 @@ document.addEventListener('DOMContentLoaded', () => {
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        console.log('Theme switched to:', newTheme);
+        console.log('Theme toggled to:', newTheme);
     });
 
-    // Content loader
-    async function loadMarkdown(path) {
-        console.log('Attempting to load Markdown from:', path);
-        try {
-            const response = await fetch(path);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const markdown = await response.text();
-            console.log('Successfully loaded content from:', path);
-            return markdown;
-        } catch (error) {
-            console.error('Failed to load content:', error.message);
-            return `## Error\nUnable to load content: ${error.message}`;
-        }
-    }
+    // Improved navigation handler with event delegation
+    document.addEventListener('click', async (e) => {
+        const navLink = e.target.closest('.nav-link:not([href^="http"])');
+        if (!navLink) return;
 
-    // Navigation handler
-    navLinks.forEach((link, index) => {
-        link.addEventListener('click', async (e) => {
-            e.preventDefault();
-            console.log(`Nav link ${index + 1} clicked:`, link.dataset.md);
-            const content = await loadMarkdown(link.dataset.md);
-            contentArea.innerHTML = marked.parse(content);
+        e.preventDefault();
+        
+        // Remove active class from all links
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        
+        // Add active class to clicked link
+        navLink.classList.add('active');
+        
+        try {
+            const path = navLink.dataset.md;
+            console.log('Fetching content from:', path);
+            const response = await fetch(path);
+            
+            if (!response.ok) throw new Error(`Failed to load: ${response.status}`);
+            
+            const markdown = await response.text();
+            const html = marked.parse(markdown);
+            
+            // Update content area
+            document.getElementById('dynamic-content').innerHTML = html;
+            console.log('Content loaded for:', path);
+            
+            // Highlight code blocks
             Prism.highlightAll();
-            mermaid.initialize({ theme: document.documentElement.dataset.theme });
-            mermaid.run();
-            console.log('Content rendered for:', link.dataset.md);
-        });
+            
+            // Initialize Mermaid diagrams
+            if (window.mermaid) {
+                mermaid.initialize({ 
+                    theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+                    securityLevel: 'loose'
+                });
+                mermaid.run();
+                console.log('Mermaid diagrams rendered');
+            }
+        } catch (error) {
+            console.error('Navigation error:', error);
+            document.getElementById('dynamic-content').innerHTML = `
+                <div class="error-message">
+                    <h3>⚠️ Content Load Failed</h3>
+                    <p>${error.message}</p>
+                    <button onclick="location.reload()">Retry</button>
+                </div>
+            `;
+        }
     });
 
     // Initial load
     const initialLink = document.querySelector('.nav-link.active');
     if (initialLink) {
-        console.log('Triggering initial load for:', initialLink.dataset.md);
+        console.log('Initial load triggered for:', initialLink.dataset.md);
         initialLink.click();
     } else {
-        console.warn('No initial nav-link with .active class found');
+        console.warn('No .nav-link.active found for initial load');
     }
 });
