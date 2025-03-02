@@ -167,6 +167,46 @@ body.light-theme .sidebar-link:hover {
     
     .search-bar {
         order: 1;
+
+/* Update theme variables */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary: #007acc;
+    --secondary: #e91e63;
+    --card-bg: #f5f5f5;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --primary: #00d4ff;
+    --secondary: #ff4081;
+    --card-bg: #2a2a2a;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Add these transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Force header/sidebar transitions */
+.header, .sidebar, .content, .footer {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Update theme toggle indicators */
+[data-theme="dark"] .icon-sun,
+[data-theme="light"] .icon-moon {
+    display: none;
+}
+
+[data-theme="dark"] .icon-moon,
+[data-theme="light"] .icon-sun {
+    display: block;
+}
         margin-top: 1rem;
     }
 }
