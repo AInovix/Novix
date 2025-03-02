@@ -12,37 +12,10 @@ html {
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
+    background-color: #121212;
+    color: #e0e0e0;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Theme Variables */
-:root {
-    --primary: #00d4ff; /* Vibrant cyan for accents */
-    --secondary: #ff4081; /* Pink for secondary highlights */
-    --shadow: rgba(0, 0, 0, 0.3);
-    --transition: all 0.3s ease;
-}
-
-body[data-theme="dark"] {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --card-bg: #1e1e1e;
-    --hover-bg: #2a2a2a;
-    --border: #333;
-}
-
-body[data-theme="light"] {
-    --bg-color: #f5f5f5;
-    --text-color: #333;
-    --card-bg: #fff;
-    --hover-bg: #e0e0e0;
-    --border: #ccc;
-}
-
-body {
-    background: var(--bg-color);
-    color: var(--text-color);
 }
 
 /* Loader */
@@ -52,7 +25,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: var(--bg-color);
+    background-color: #121212;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,8 +37,8 @@ body {
 .spinner {
     width: 50px;
     height: 50px;
-    border: 5px solid var(--primary);
-    border-top: 5px solid transparent;
+    border: 5px solid #e0e0e0;
+    border-top: 5px solid #00d4ff;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -78,42 +51,72 @@ body {
 .loader p {
     margin-top: 1rem;
     font-size: 1.1rem;
+    color: #e0e0e0;
 }
 
 /* App Container */
 #app {
+    display: none; /* Hidden until loader is removed */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
+/* Show app when loaded */
+#app.loaded {
+    display: block;
+}
+
 /* Header */
 header {
-    background: var(--card-bg);
+    background: #1e1e1e;
     padding: 1rem 2rem;
-    box-shadow: 0 4px 12px var(--shadow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-header {
-    max-width: 1400px;
-    margin: 0 auto;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
-h1 {
+header h1 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--primary);
+    color: #00d4ff;
+}
+
+header input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #333;
+    border-radius: 20px;
+    background: #2a2a2a;
+    color: #e0e0e0;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+header input:focus {
+    border-color: #00d4ff;
+}
+
+header button {
+    padding: 0.5rem 1rem;
+    background: #00d4ff;
+    border: none;
+    border-radius: 20px;
+    color: #121212;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+header button:hover {
+    background: #ff4081;
 }
 
 /* Navigation */
 nav {
-    background: var(--card-bg);
+    background: #1e1e1e;
     padding: 1rem;
     width: 250px;
     position: fixed;
@@ -121,13 +124,13 @@ nav {
     left: 0;
     height: 100vh;
     overflow-y: auto;
-    box-shadow: 4px 0 12px var(--shadow);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
 }
 
 nav h2 {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    color: var(--primary);
+    color: #00d4ff;
 }
 
 nav ul {
@@ -137,23 +140,32 @@ nav ul {
 nav a {
     display: block;
     padding: 0.5rem 1rem;
-    color: var(--text-color);
+    color: #e0e0e0;
     text-decoration: none;
     border-radius: 6px;
-    transition: var(--transition);
+    transition: all 0.3s ease;
 }
 
-nav a:not(.active):hover {
-    background: var(--hover-bg);
-    color: var(--primary);
+nav a:hover, nav a.active {
+    background: #2a2a2a;
+    color: #00d4ff;
 }
 
-nav a.active {
-    background: var(--primary);
-    color: #fff;
+.playground-banner {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background: #ff4081;
+    border-radius: 6px;
+    text-align: center;
 }
 
-/* Content */
+.playground-banner a {
+    color: #121212;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Main Content */
 main {
     margin-left: 250px;
     padding: 2rem;
@@ -167,7 +179,7 @@ main {
 
 #dynamic-content h1 {
     font-size: 2rem;
-    color: var(--primary);
+    color: #00d4ff;
     margin-bottom: 1rem;
 }
 
@@ -177,15 +189,15 @@ main {
 
 /* Footer */
 footer {
-    background: var(--card-bg);
+    background: #1e1e1e;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 -4px 12px var(--shadow);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
     margin-top: auto;
 }
 
 footer p {
-    color: var(--text-color);
+    color: #e0e0e0;
 }
 
 /* Responsive Design */
@@ -209,7 +221,7 @@ footer p {
 
 /* Code Blocks */
 pre {
-    background: var(--card-bg);
+    background: #2a2a2a;
     padding: 1rem;
     border-radius: 8px;
     overflow-x: auto;
@@ -218,4 +230,10 @@ pre {
 
 code {
     font-family: 'JetBrains Mono', monospace;
+}
+
+/* Mermaid Diagrams */
+.mermaid {
+    display: flex;
+    justify-content: center;
 }
