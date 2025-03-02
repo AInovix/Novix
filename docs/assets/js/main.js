@@ -1,3 +1,7 @@
+// Add theme initialization at the top
+document.documentElement.setAttribute('data-theme', 
+    localStorage.getItem('theme') || 'dark');
+
 class ThemeController {
     constructor() {
         this.theme = localStorage.getItem('theme') || 'dark';
@@ -11,16 +15,17 @@ class ThemeController {
         
         // Initialize theme toggle
         document.getElementById('theme-toggle').addEventListener('click', () => {
-            this.toggleTheme();
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Force CSS reflow
+            document.body.offsetHeight;
+            this.updateThirdPartyThemes();
+            console.log('Theme toggled to:', newTheme);
         });
-    }
-
-    toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', this.theme);
-        localStorage.setItem('theme', this.theme);
-        this.updateThirdPartyThemes();
-        console.log('Theme toggled to:', this.theme);
     }
 
     updateThirdPartyThemes() {
