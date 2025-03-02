@@ -14,37 +14,11 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/fonts/inter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
-    <style>
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #121212;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        .spinner {
-            border: 5px solid #e0e0e0;
-            border-top: 5px solid #00d4ff;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
 </head>
 <body>
     <div id="loader" class="loader">
         <div class="spinner"></div>
-        <p>Loading Novix Docs...</p>
+        <p>Loading Docs...</p>
     </div>
     <div id="app">
         <header>
@@ -108,7 +82,6 @@
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/marked@5.1.2/dist/marked.min.js"></script>
-    <script>if (typeof marked === 'undefined') { document.write('<script src="/assets/js/marked.min.js"></scr' + 'ipt>'); }</script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
     <script src="/assets/js/main.js" defer></script>
