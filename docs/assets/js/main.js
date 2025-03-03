@@ -52,6 +52,9 @@ class DocumentationApp {
         this.themeController = new ThemeController();
         this.cache = new Map();
         this.contentArea = document.getElementById('dynamic-content');
+        this.basePath = window.location.pathname.includes('/Novix/') 
+            ? '/Novix/' 
+            : '/';
         this.init();
     }
 
@@ -63,14 +66,6 @@ class DocumentationApp {
     }
 
     registerServiceWorker() {
-        // Comment out Service Worker registration since /sw.js doesn't exist
-        /*
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => console.log('Service Worker registered'))
-                .catch(err => console.error('SW registration failed:', err));
-        }
-        */
         console.log('Service Worker registration skipped (file not present)');
     }
 
@@ -89,12 +84,12 @@ class DocumentationApp {
         // Navigation
         document.addEventListener('click', (e) => {
             const navLink = e.target.closest('.nav-link');
-            if (navLink && !-navLink.href.startsWith("http")) this.handleNavigation(navLink);
+            if (navLink && !navLink.href.startsWith("http")) this.handleNavigation(navLink);
         });
 
         // History
         window.addEventListener('popstate', (e) => {
-            const path = e.state ? e.state.path : 'README.md'; // Fallback to default
+            const path = e.state ? e.state.path : '../README.md'; // Fallback to default
             this.loadContent(path, false);
         });
 
@@ -146,12 +141,11 @@ class DocumentationApp {
             }
 
             // Add base path for GitHub Pages
-            const basePath = window.location.pathname.includes('/Novix/') 
-                ? '/Novix/' 
-                : '/';
-            const fullPath = `${basePath}${path}`;
+            const isRootFile = path.startsWith('../');
+            const fullPath = isRootFile 
+                ? `${this.basePath}${path.replace('../', '')}`
+                : `${this.basePath}docs/${path}`;
             
-            // Add content type header
             const response = await fetch(fullPath, {
                 headers: {
                     'Accept': 'text/markdown'
@@ -173,14 +167,11 @@ class DocumentationApp {
             console.log('Content loaded from:', fullPath);
             
         } catch (error) {
-            console.error('Loading error:', error);
-            this.contentArea.innerHTML = `
-                <div class="error">
-                    <h3>⚠️ Content Unavailable</h3>
-                    <p>${error.message}</p>
-                    <p>Please verify the file exists at: <code>${path}</code></p>
-                </div>
-            `;
+            console.error(`Failed to load: ${fullPath}`, error);
+            const errorMsg = `Path: ${fullPath}<br>
+                             Status: ${error.message}<br>
+                             <a href="${fullPath}" target="_blank">Verify file exists</a>`;
+            this.contentArea.innerHTML = `<div class="error">${errorMsg}</div>`;
         }
     }
 
