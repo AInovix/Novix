@@ -1,36 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const REPO_NAME = 'Novix'; // Must match GitHub repository name exactly
-    const BASE_PATH = `/${REPO_NAME}/`;
+    const REPO_OWNER = 'AInovix';
+    const REPO_NAME = 'Novix';
+    const BRANCH = 'main';
 
     async function loadContent(path) {
         try {
-            const fullPath = `${BASE_PATH}${path}`.replace(/\/\//g, '/');
-            console.log('Loading:', fullPath); // Debug log
+            const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${path}`;
+            const response = await fetch(rawUrl);
             
-            const response = await fetch(fullPath);
-            if (!response.ok) throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             const markdown = await response.text();
             document.getElementById('dynamic-content').innerHTML = marked.parse(markdown);
             Prism.highlightAll();
             
         } catch (error) {
-            console.error('Load error:', error);
             document.getElementById('dynamic-content').innerHTML = `
                 <div class="error">
                     <h3>⚠️ Content Load Failed</h3>
                     <p>${error.message}</p>
                     <p>Verify file exists at:</p>
-                    <a href="https://github.com/AInovix/${REPO_NAME}/blob/main/${path}" 
+                    <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/${BRANCH}/${path}" 
                        target="_blank">
-                        Check file on GitHub
+                        Open in GitHub Repository
                     </a>
                 </div>
             `;
         }
     }
 
-    // Navigation handler
+    // Navigation handler remains the same
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
