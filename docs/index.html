@@ -3,98 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novix Documentation</title>
+    <title>Novix AI Documentation</title>
     
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/styles.css?v=2">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Prism Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
     
-    <!-- Preload -->
-    <link rel="preload" href="assets/js/main.js" as="script">
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --surface-color: #161616;
+            --primary: #00f7ff;
+            --secondary: #ff00ea;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            --border-radius: 12px;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* App Layout */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            padding: 2rem;
+            background: var(--surface-color);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-link:hover {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            transform: translateX(5px);
+        }
+
+        .sidebar-link.active {
+            background: var(--glass-bg);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .playground-banner {
+            background: var(--gradient);
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .playground-banner a {
+            color: white !important;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: fixed;
+                width: 100%;
+                height: auto;
+                bottom: 0;
+                z-index: 100;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.active {
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="loader" class="loader">
-        <div class="spinner"></div>
-        <p>Loading Documentation...</p>
-    </div>
-
-    <div id="app" class="app-container">
-        <header class="header">
-            <div class="header-inner">
-                <h1 class="logo">Novix Docs</h1>
-                <div class="header-actions">
-                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                        <svg class="icon moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                        <svg class="icon sun-icon" viewBox="0 0 24 24"><path d="M12 18a6 6 0 100-12 6 6 0 000 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121z"/></svg>
-                    </button>
-                </div>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="nav-section">
+                <h3>Introduction</h3>
+                <ul>
+                    <li><a href="#" class="sidebar-link active" data-md="README.md">Home / Overview</a></li>
+                </ul>
             </div>
-        </header>
 
-        <div class="main-layout">
-            <nav class="sidebar">
-                <ol>
-                    <li><a class="nav-link active" data-md="../README.md">Home / Overview</a></li>
-                    <li class="nav-group">
-                        <h3 class="nav-title">Getting Started</h3>
-                        <ol>
-                            <li><a class="nav-link" data-md="/1-getting-started/1-quick-start-guide.md">Quick Start</a></li>
-                            <li><a class="nav-link" data-md="/1-getting-started/2-environment.md">Environment Setup</a></li>
-                            <li><a class="nav-link" data-md="/1-getting-started/3-examples.md">3. Examples</a></li>
-                            <li><a class="nav-link" data-md="/1-getting-started/4-considerations.md">4. Considerations</a></li>
-                            <li><a class="nav-link" data-md="/1-getting-started/5-support.md">5. Support</a></li>
-                        </ol>
-                    </li>
-                    <!-- Add other sections following the same pattern -->
-                    <li class="nav-group">
-                        <h3 class="nav-title">Core Concepts</h3>
-                        <ol>
-                            <li><a class="nav-link" data-md="/2. concepts/1. core concept.md">1. Core Concepts</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/2. architecture.md">2. Architecture</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/3. providers.md">3. Providers</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/4. agents.md">4. Agents</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/5. chat completions.md">5. Chat Completions</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/6. extension commands.md">6. Extension Commands</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/7. prompts.md">7. Prompts</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/8. chains.md">8. Chains</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/9. conversations.md">9. Conversations</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/10. agent training.md">10. Agent Training</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/11. agent interactions.md">11. Agent Interactions</a></li>
-                            <li><a class="nav-link" data-md="/2. concepts/12. extensions.md">12. Extensions</a></li>
-                        </ol>
-                    </li>
-                    <li class="nav-group">
-                        <h3 class="nav-title">AI Providers</h3>
-                        <ol>
-                            <li><a class="nav-link" data-md="/3. providers/1. anthropic claude.md">1. Anthropic Claude</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/2. azure.md">2. Azure</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/3. deepseek.md">3. Deepseek</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/4. ezLocalai.md">4. ezLocalai</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/5. google gemini.md">5. Google Gemini</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/6. openAI.md">6. OpenAI</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/7. xAI grok.md">7. xAI Grok</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/8. hugging face.md">8. Hugging Face</a></li>
-                            <li><a class="nav-link" data-md="/3. providers/9. gpt4Free.md">9. gpt4Free</a></li>
-                        </ol>
-                    </li>
+            <div class="playground-banner">
+                <a href="https://playground.novix.ai" target="_blank">
+                    <i class="fas fa-rocket"></i> Live Playground Now Available
+                </a>
+            </div>
 
-                </ol>
-            </nav>
+            <!-- Getting Started -->
+            <div class="nav-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/3-examples.md">3. Examples</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/5-support.md">5. Support</a></li>
+                </ul>
+            </div>
 
-            <main class="content">
-                <div id="dynamic-content" class="content-inner"></div>
-            </main>
-        </div>
+            <!-- Core Concepts -->
+            <div class="nav-section">
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/2-architecture.md">2. Architecture</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/3-providers.md">3. Providers</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/4-agents.md">4. Agents</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/7-prompts.md">7. Prompts</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/8-chains.md">8. Chains</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/9-conversations.md">9. Conversations</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/10-agent-training.md">10. Agent Training</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/12-extensions.md">12. Extensions</a></li>
+                </ul>
+            </div>
 
-        <footer class="footer">
-            <p>&copy; 2024 Novix Docs. All rights reserved.</p>
-        </footer>
+            <!-- AI Providers -->
+            <div class="nav-section">
+                <h3>AI Providers</h3>
+                <ul>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/2-azure.md">2. Azure</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/3-deepseek.md">3. Deepseek</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/6-openai.md">6. OpenAI</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
+                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div id="dynamic-content" class="content-card">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </main>
     </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
+        </svg>
+    </button>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script src="assets/js/main.js?v=2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    <script>
+        // Theme Management
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Content Loading
+        async function loadContent(path) {
+            try {
+                const response = await fetch(path);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const markdown = await response.text();
+                const html = marked.parse(markdown);
+                document.getElementById('dynamic-content').innerHTML = html;
+                
+                Prism.highlightAll();
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize({ 
+                        theme: document.documentElement.dataset.theme === 'dark' 
+                            ? 'dark' 
+                            : 'default',
+                        securityLevel: 'loose'
+                    });
+                    mermaid.run();
+                }
+            } catch (error) {
+                document.getElementById('dynamic-content').innerHTML = `
+                    <div class="error">
+                        <h3>⚠️ Content Load Failed</h3>
+                        <p>${error.message}</p>
+                        <p>Path: ${path}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Navigation Handling
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                loadContent(link.dataset.md);
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load initial content
+            loadContent(document.querySelector('.sidebar-link.active').dataset.md);
+            
+            // Set initial theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        });
+    </script>
 </body>
 </html>
