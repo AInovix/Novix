@@ -1,13 +1,13 @@
+// docs/assets/js/main.js
 document.addEventListener('DOMContentLoaded', () => {
-    const REPO_OWNER = 'AInovix';
-    const REPO_NAME = 'Novix';
-    const BRANCH = 'main';
-
+    const BASE_URL = window.location.origin + '/Novix/'; // Direct GitHub Pages URL
+    
     async function loadContent(path) {
         try {
-            const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${path}`;
-            const response = await fetch(rawUrl);
+            const fullUrl = `${BASE_URL}${path}`;
+            console.log('Fetching:', fullUrl);
             
+            const response = await fetch(fullUrl);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             const markdown = await response.text();
@@ -17,19 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             document.getElementById('dynamic-content').innerHTML = `
                 <div class="error">
-                    <h3>⚠️ Content Load Failed</h3>
+                    <h3>⚠️ Error Loading Content</h3>
                     <p>${error.message}</p>
                     <p>Verify file exists at:</p>
-                    <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/${BRANCH}/${path}" 
-                       target="_blank">
-                        Open in GitHub Repository
+                    <a href="${BASE_URL}${path}" target="_blank">
+                        Try direct link
                     </a>
                 </div>
             `;
         }
     }
 
-    // Navigation handler remains the same
+    // Navigation handler
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
