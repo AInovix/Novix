@@ -1,118 +1,85 @@
-class DocumentationApp {
-    constructor() {
-        this.basePath = window.location.pathname.includes('/Novix/') 
-            ? '/Novix/' 
-            : '/';
+// Theme Management
+const themeToggle = document.querySelector('.theme-toggle');
+const setTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    updateMermaidTheme(theme);
+};
+
+const updateMermaidTheme = (theme) => {
+    if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+            theme: theme === 'dark' ? 'dark' : 'default',
+            securityLevel: 'loose'
+        });
+        mermaid.run();
+    }
+};
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+});
+
+// Content Loader
+const loadContent = async (path) => {
+    try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         
-        this.init();
-    }
-
-    init() {
-        this.initTheme();
-        this.setupEventListeners();
-        this.loadInitialContent();
-    }
-
-    initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    }
-
-    setupEventListeners() {
-        // Theme Toggle
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            this.updateThirdPartyThemes(newTheme);
-        });
-
-        // Navigation
-        document.addEventListener('click', async (e) => {
-            const navLink = e.target.closest('.nav-link');
-            if (!navLink) return;
-            
-            e.preventDefault();
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            navLink.classList.add('active');
-            
-            await this.loadContent(navLink.dataset.md);
-        });
-    }
-
-    async loadContent(path) {
-        try {
-            const fullPath = path.startsWith('../') 
-                ? `${this.basePath}${path.replace('../', '')}`
-                : `${this.basePath}docs/${path}`;
-
-            const response = await fetch(fullPath);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            const markdown = await response.text();
-            this.renderContent(markdown);
-            
-        } catch (error) {
-            this.showError(error, fullPath);
-        }
-    }
-
-    renderContent(markdown) {
+        const markdown = await response.text();
         const html = marked.parse(markdown);
+        
         document.getElementById('dynamic-content').innerHTML = html;
-        
-        // Highlight code blocks
         Prism.highlightAll();
+        updateMermaidTheme(document.documentElement.dataset.theme);
         
-        // Initialize Mermaid diagrams
-        if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({ 
-                theme: document.documentElement.dataset.theme === 'dark' 
-                    ? 'dark' 
-                    : 'default',
-                securityLevel: 'loose'
-            });
-            mermaid.run();
-        }
-    }
-
-    showError(error, path) {
+    } catch (error) {
         document.getElementById('dynamic-content').innerHTML = `
             <div class="error">
                 <h3>⚠️ Content Load Failed</h3>
                 <p>${error.message}</p>
-                <p>Verify file exists at:</p>
-                <a href="${path}" target="_blank">${path}</a>
+                <p>Tried loading: <code>${path}</code></p>
+                <button onclick="window.location.reload()">⟳ Refresh Page</button>
             </div>
         `;
     }
+};
 
-    updateThirdPartyThemes(theme) {
-        // Update Mermaid
-        if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({ theme: theme === 'dark' ? 'dark' : 'default' });
-            mermaid.run();
-        }
-    }
+// Navigation Handling
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        loadContent(link.dataset.md);
+    });
+});
 
-    loadInitialContent() {
-        const activeLink = document.querySelector('.nav-link.active');
-        if (activeLink) this.loadContent(activeLink.dataset.md);
-        
-        // Hide loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loader').remove();
-                }, 300);
-            }, 500);
-        });
-    }
-}
+// Mobile Menu Toggle
+const sidebar = document.querySelector('.sidebar');
+document.addEventListener('click', (e) => {
+    if (window.innerWidth > 768) return;
+    if (e.target.closest('.sidebar') || e.target === themeToggle) return;
+    sidebar.classList.remove('active');
+});
 
-// Initialize app
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    window.docApp = new DocumentationApp();
+    // Set initial theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    
+    // Load initial content
+    const activeLink = document.querySelector('.sidebar-link.active');
+    if (activeLink) loadContent(activeLink.dataset.md);
+    
+    // Hide loader
+    const loader = document.getElementById('loader');
+    if (loader) {
+        loader.style.transition = 'opacity 0.3s';
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 300);
+    }
 });
