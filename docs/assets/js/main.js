@@ -40,5 +40,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial load
-    loadContent('docs/1-getting-started/1-quick-start-guide.md');
+    loadContent('README.md');
 });
