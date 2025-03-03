@@ -3,39 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Novix Documentation - The ultimate resource for cutting-edge tech solutions.">
-    <meta name="keywords" content="Novix, documentation, tech, AI, GitHub Pages">
-    <meta name="author" content="Novix Team">
-    <!-- Mobile meta tags -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Search meta -->
-    <meta name="search-title" content="Novix Documentation Search">
-    <!-- Theme color meta tags -->
-    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <!-- Base URL for GitHub Pages project site -->
-    <base href="/Novix/">
     <title>Novix Documentation</title>
-    <!-- Preload CSS with cache busters -->
-    <link rel="preload" href="assets/css/styles.css?v=4" as="style">
-    <link rel="preload" href="assets/fonts/inter.css?v=1" as="style">
-    <link rel="preload" href="assets/js/main.js?v=4" as="script">
-    <link rel="stylesheet" href="assets/css/styles.css?v=4">
-    <link rel="stylesheet" href="assets/fonts/inter.css?v=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" id="prism-theme">
-    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    
+    <!-- Preload -->
+    <link rel="preload" href="assets/js/main.js" as="script">
 </head>
 <body>
-    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
-        <span class="menu-bar"></span>
-        <span class="menu-bar"></span>
-        <span class="menu-bar"></span>
-    </button>
-
     <div id="loader" class="loader">
         <div class="spinner"></div>
-        <p>Initializing Novix Docs...</p>
+        <p>Loading Documentation...</p>
     </div>
 
     <div id="app" class="app-container">
@@ -43,10 +23,6 @@
             <div class="header-inner">
                 <h1 class="logo">Novix Docs</h1>
                 <div class="header-actions">
-                    <div class="search-container">
-                        <input type="text" id="search-input" class="search-bar" placeholder="Search documentation...">
-                        <div id="search-results" class="search-results"></div>
-                    </div>
                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                         <svg class="icon moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
                         <svg class="icon sun-icon" viewBox="0 0 24 24"><path d="M12 18a6 6 0 100-12 6 6 0 000 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121z"/></svg>
@@ -57,59 +33,68 @@
 
         <div class="main-layout">
             <nav class="sidebar">
-                <a class="nav-link active" data-md="../README.md">Home</a>
-                <a href="https://playground.novix.ai" target="_blank" rel="noopener" class="nav-link">🚀 Live Playground</a>
-                <a class="nav-link" data-md="1-getting-started/1-quick-start-guide.md">Quick Start</a>
-                <a class="nav-link" data-md="1-getting-started/2-environment.md">Environment Setup</a>
-                <a class="nav-link" data-md="1-getting-started/3-examples.md">Examples</a>
-                <a class="nav-link" data-md="1-getting-started/4-considerations.md">Considerations</a>
-                <a class="nav-link" data-md="1-getting-started/5-support.md">Support</a>
-                <a class="nav-link" data-md="2-concepts/1-core-concept.md">Core Concepts</a>
-                <a class="nav-link" data-md="2-concepts/2-architecture.md">Architecture</a>
-                <a class="nav-link" data-md="2-concepts/3-providers.md">Providers</a>
-                <a class="nav-link" data-md="2-concepts/4-agents.md">Agents</a>
-                <a class="nav-link" data-md="2-concepts/5-chat-completions.md">Chat Completions</a>
-                <a class="nav-link" data-md="2-concepts/6-extension-commands.md">Extension Commands</a>
-                <a class="nav-link" data-md="2-concepts/7-prompts.md">Prompts</a>
-                <a class="nav-link" data-md="2-concepts/8-chains.md">Chains</a>
-                <a class="nav-link" data-md="2-concepts/9-conversations.md">Conversations</a>
-                <a class="nav-link" data-md="2-concepts/10-agent-training.md">Agent Training</a>
-                <a class="nav-link" data-md="2-concepts/11-agent-interactions.md">Agent Interactions</a>
-                <a class="nav-link" data-md="2-concepts/12-extensions.md">Extensions</a>
-                <a class="nav-link" data-md="3-providers/1-anthropic-claude.md">Anthropic Claude</a>
-                <a class="nav-link" data-md="3-providers/2-azure.md">Azure</a>
-                <a class="nav-link" data-md="3-providers/3-deepseek.md">Deepseek</a>
-                <a class="nav-link" data-md="3-providers/4-ezlocalai.md">ezLocalai</a>
-                <a class="nav-link" data-md="3-providers/5-google-gemini.md">Google Gemini</a>
-                <a class="nav-link" data-md="3-providers/6-openai.md">OpenAI</a>
-                <a class="nav-link" data-md="3-providers/7-xai-grok.md">xAI Grok</a>
-                <a class="nav-link" data-md="3-providers/8-hugging-face.md">Hugging Face</a>
-                <a class="nav-link" data-md="3-providers/9-gpt4free.md">gpt4Free</a>
+                <ol>
+                    <li><a class="nav-link active" data-md="../README.md">Home / Overview</a></li>
+                    <li class="nav-group">
+                        <h2 class="nav-title">Getting Started</h2>
+                        <ol>
+                            <li><a class="nav-link" data-md="1-getting-started/1-quick-start-guide.md">Quick Start</a></li>
+                            <li><a class="nav-link" data-md="1-getting-started/2-environment.md">Environment Setup</a></li>
+                            <li><a class="nav-link" data-md="1-getting-started/3-examples.md">3. Examples</a></li>
+                            <li><a class="nav-link" data-md="1-getting-started/4-considerations.md">4. Considerations</a></li>
+                            <li><a class="nav-link" data-md="1-getting-started/5-support.md">5. Support</a></li>
+                        </ol>
+                    </li>
+                    <!-- Add other sections following the same pattern -->
+                    <li class="nav-group">
+                        <h3 class="nav-title">Core Concepts</h3>
+                        <ol>
+                            <li><a class="nav-link" data-md="2. concepts/1. core concept.md">1. Core Concepts</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/2. architecture.md">2. Architecture</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/3. providers.md">3. Providers</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/4. agents.md">4. Agents</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/5. chat completions.md">5. Chat Completions</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/6. extension commands.md">6. Extension Commands</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/7. prompts.md">7. Prompts</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/8. chains.md">8. Chains</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/9. conversations.md">9. Conversations</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/10. agent training.md">10. Agent Training</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/11. agent interactions.md">11. Agent Interactions</a></li>
+                            <li><a class="nav-link" data-md="2. concepts/12. extensions.md">12. Extensions</a></li>
+                        </ol>
+                    </li>
+                    <li class="nav-group">
+                        <h3 class="nav-title">AI Providers</h3>
+                        <ol>
+                            <li><a class="nav-link" data-md="3. providers/1. anthropic claude.md">1. Anthropic Claude</a></li>
+                            <li><a class="nav-link" data-md="3. providers/2. azure.md">2. Azure</a></li>
+                            <li><a class="nav-link" data-md="3. providers/3. deepseek.md">3. Deepseek</a></li>
+                            <li><a class="nav-link" data-md="3. providers/4. ezLocalai.md">4. ezLocalai</a></li>
+                            <li><a class="nav-link" data-md="3. providers/5. google gemini.md">5. Google Gemini</a></li>
+                            <li><a class="nav-link" data-md="3. providers/6. openAI.md">6. OpenAI</a></li>
+                            <li><a class="nav-link" data-md="3. providers/7. xAI grok.md">7. xAI Grok</a></li>
+                            <li><a class="nav-link" data-md="3. providers/8. hugging face.md">8. Hugging Face</a></li>
+                            <li><a class="nav-link" data-md="3. providers/9. gpt4Free.md">9. gpt4Free</a></li>
+                        </ol>
+                    </li>
+
+                </ol>
             </nav>
 
-            <main class="main-content">
-                <div id="dynamic-content" class="content-inner">
-                    <h1>Welcome to Novix Documentation</h1>
-                    <p>Select a topic from the navigation to get started.</p>
-                </div>
+            <main class="content">
+                <div id="dynamic-content" class="content-inner"></div>
             </main>
         </div>
 
         <footer class="footer">
-            <p>© 2024 Novix Docs. Open-source AI platform.</p>
+            <p>&copy; 2024 Novix Docs. All rights reserved.</p>
         </footer>
     </div>
 
-    <div id="content-loader" class="content-loader">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- Required libraries -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
-    <!-- Updated script reference -->
-    <script src="assets/js/main.js?v=4"></script>
+    <script src="assets/js/main.js?v=2"></script>
 </body>
 </html>
