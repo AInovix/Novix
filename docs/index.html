@@ -3,107 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novix AI Documentation</title>
-    
-    <!-- Fonts & Icons -->
+    <title>Novix Documentation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Prism Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
-    
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="assets/css/styles.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <h1>Novix AI Docs</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="Search documentation..." aria-label="Search">
-                <div class="search-results" role="listbox"></div>
-            </div>
-        </header>
-
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar" role="navigation">
-            <details class="nav-section" open>
-                <summary>Introduction</summary>
+        <aside class="sidebar">
+            <div class="nav-section">
+                <h3>Introduction</h3>
                 <ul>
-                    <li><a href="#" class="sidebar-link active" data-md="README.md">Home / Overview</a></li>
+                    <li><a class="sidebar-link active" data-md="README.md">Home / Overview</a></li>
                 </ul>
-            </details>
+            </div>
+
             <div class="playground-banner">
                 <a href="https://playground.novix.ai" target="_blank">
-                    <i class="fas fa-rocket"></i> Live Playground Now Available
+                    <i class="fas fa-rocket"></i> Live Playground
                 </a>
             </div>
 
-            <details class="nav-section" open>
-                <summary>Getting Started</summary>
+            <div class="nav-section">
+                <h3>Getting Started</h3>
                 <ul>
-                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/3-examples.md">3. Examples</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/5-support.md">5. Support</a></li>
+                    <li><a class="sidebar-link" data-md="docs/1-getting-started/1-quick-start.md">1. Quick Start</a></li>
+                    <li><a class="sidebar-link" data-md="docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
+                    <li><a class="sidebar-link" data-md="docs/1-getting-started/3-examples.md">3. Examples</a></li>
+                    <li><a class="sidebar-link" data-md="docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
+                    <li><a class="sidebar-link" data-md="docs/1-getting-started/5-support.md">5. Support</a></li>
                 </ul>
-            </details>
+            </div>
 
-            <details class="nav-section">
-                <summary>Core Concepts</summary>
+            <div class="nav-section">
+                <h3>Core Concepts</h3>
                 <ul>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/2-architecture.md">2. Architecture</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/3-providers.md">3. Providers</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/4-agents.md">4. Agents</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/5-chat-completions.md">5. Chat Completions</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/6-extension-commands.md">6. Extension Commands</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/7-prompts.md">7. Prompts</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/8-chains.md">8. Chains</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/9-conversations.md">9. Conversations</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/10-agent-training.md">10. Agent Training</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/12-extensions.md">12. Extensions</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/1-core.md">1. Core Concepts</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/2-architecture.md">2. Architecture</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/3-providers.md">3. Providers</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/4-agents.md">4. Agents</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/5-chat.md">5. Chat Completions</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/6-extensions.md">6. Extensions</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/7-prompts.md">7. Prompts</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/8-chains.md">8. Chains</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/9-conversations.md">9. Conversations</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/10-training.md">10. Training</a></li>
+                    <li><a class="sidebar-link" data-md="docs/2-concepts/11-interactions.md">11. Interactions</a></li>
                 </ul>
-            </details>
+            </div>
 
-            <details class="nav-section">
-                <summary>AI Providers</summary>
+            <div class="nav-section">
+                <h3>AI Providers</h3>
                 <ul>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/2-azure.md">2. Azure</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/3-deepseek.md">3. Deepseek</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/4-ezlocalai.md">4. ezLocalai</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/5-google-gemini.md">5. Google Gemini</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/6-openai.md">6. OpenAI</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/7-xai-grok.md">7. xAI Grok</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
-                    <li><a href="#" class="sidebar-link" data-md="docs/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/1-anthropic.md">1. Anthropic</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/2-azure.md">2. Azure</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/3-deepseek.md">3. Deepseek</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/4-localai.md">4. LocalAI</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/5-gemini.md">5. Gemini</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/6-openai.md">6. OpenAI</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/7-grok.md">7. Grok</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/8-huggingface.md">8. Hugging Face</a></li>
+                    <li><a class="sidebar-link" data-md="docs/3-providers/9-gpt4free.md">9. GPT4Free</a></li>
                 </ul>
-            </details>
+            </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <div id="dynamic-content" class="content-card">
-                <!-- Content will be dynamically loaded here -->
-            </div>
+            <div id="dynamic-content" class="content-card"></div>
         </main>
     </div>
 
-    <!-- Theme Toggle -->
-    <button class="theme-toggle">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
-        </svg>
-    </button>
-
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-    <script src="assets/js/main.js?v=2.0"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
