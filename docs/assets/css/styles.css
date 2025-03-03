@@ -226,20 +226,6 @@ body {
     border-right: 1px solid var(--border-color);
 }
 
-.nav-group {
-    margin-bottom: 1.5rem;
-}
-
-.nav-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: var(--primary);
-}
-
-.nav-list {
-    list-style: none;
-}
-
 .nav-link {
     display: block;
     padding: 0.75rem 1rem;
@@ -393,6 +379,19 @@ code {
 }
 
 /* Error Handling */
+.error {
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--secondary);
+    border-radius: 8px;
+    margin: 2rem;
+}
+
+.error a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 .error-message {
     padding: 2rem;
     background: var(--card-bg);
