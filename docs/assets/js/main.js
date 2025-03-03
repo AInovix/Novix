@@ -22,20 +22,40 @@ themeToggle.addEventListener('click', () => {
     setTheme(newTheme);
 });
 
-// Content Loader
+// Enhanced Content Loader
 const loadContent = async (path) => {
     try {
-        const response = await fetch(path);
-        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-        
+        // Clean path for GitHub Pages
+        const cleanPath = path.startsWith('/') ? path : `/${path}`;
+        const fullPath = window.location.host.includes('github.io')
+            ? `${window.location.pathname}${cleanPath}`
+            : cleanPath;
+
+        const response = await fetch(fullPath);
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.headers.get('Content-Type').includes('text/markdown')) {
+            throw new Error('Invalid content type');
+        }
+
         const markdown = await response.text();
         const html = marked.parse(markdown);
-        
+
         document.getElementById('dynamic-content').innerHTML = html;
         Prism.highlightAll();
-        updateMermaidTheme(document.documentElement.dataset.theme);
-        
+
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                theme: document.documentElement.dataset.theme === 'dark'
+                    ? 'dark'
+                    : 'default',
+                securityLevel: 'loose'
+            });
+            mermaid.run();
+        }
+
     } catch (error) {
+        console.error('Content load error:', error);
         document.getElementById('dynamic-content').innerHTML = `
             <div class="error">
                 <h3>⚠️ Content Load Failed</h3>
@@ -70,11 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set initial theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
-    
+
     // Load initial content
     const activeLink = document.querySelector('.sidebar-link.active');
-    if (activeLink) loadContent(activeLink.dataset.md);
-    
+    if (activeLink) {
+        // Add cache busting for initial load
+        loadContent(`${activeLink.dataset.md}?v=${Date.now()}`);
+    }
+
     // Hide loader
     const loader = document.getElementById('loader');
     if (loader) {
@@ -82,4 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.style.opacity = '0';
         setTimeout(() => loader.remove(), 300);
     }
+
+    // Mobile menu handler
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth > 768) return;
+        if (!e.target.closest('.sidebar') && !e.target.closest('.theme-toggle')) {
+            document.querySelector('.sidebar').classList.remove('active');
+        }
+    });
 });
