@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official documentation for the Novix AI project.">
+    <meta name="keywords" content="Novix, AI, documentation, guide">
     <title>Novix AI Documentation</title>
-    
+
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <!-- Prism Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
-    
+
+    <!-- Mermaid Diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -25,6 +30,15 @@
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
             --border-radius: 12px;
             --glass-bg: rgba(255, 255, 255, 0.05);
+            --spacing-unit: 1rem;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --surface-color: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --glass-bg: rgba(0, 0, 0, 0.05);
         }
 
         /* Reset and Base Styles */
@@ -45,8 +59,57 @@
         /* App Layout */
         .app-container {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 300px 1fr;
             min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            background: var(--surface-color);
+            padding: var(--spacing-unit);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--text-secondary);
+            border-radius: 8px;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface-color);
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-results a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .search-results a:hover {
+            background: var(--glass-bg);
         }
 
         /* Sidebar Styles */
@@ -54,22 +117,23 @@
             position: sticky;
             top: 0;
             height: 100vh;
-            padding: 2rem;
+            padding: calc(var(--spacing-unit) * 2);
             background: var(--surface-color);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
             overflow-y: auto;
         }
 
         .nav-section {
-            margin-bottom: 2rem;
+            margin-bottom: calc(var(--spacing-unit) * 2);
         }
 
-        .nav-section h3 {
+        .nav-section summary {
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: var(--spacing-unit);
             font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            cursor: pointer;
         }
 
         .sidebar-link {
@@ -98,13 +162,13 @@
         .playground-banner {
             background: var(--gradient);
             border-radius: var(--border-radius);
-            margin: 2rem 0;
-            padding: 1rem;
+            margin: calc(var(--spacing-unit) * 2) 0;
+            padding: var(--spacing-unit);
             text-align: center;
         }
 
         .playground-banner a {
-            color: white !important;
+            color: white;
             text-decoration: none;
             font-weight: 500;
             display: flex;
@@ -115,7 +179,7 @@
 
         /* Main Content Area */
         .main-content {
-            padding: 4rem 2rem;
+            padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2);
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -123,22 +187,101 @@
         .content-card {
             background: var(--surface-color);
             border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: calc(var(--spacing-unit) * 2);
+            margin-bottom: calc(var(--spacing-unit) * 2);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .breadcrumbs {
+            margin-bottom: var(--spacing-unit);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumbs a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .toc {
+            position: sticky;
+            top: calc(var(--spacing-unit) * 4);
+            align-self: start;
+            padding: var(--spacing-unit);
+            background: var(--glass-bg);
+            border-radius: 8px;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: var(--primary);
+        }
+
+        .code-block {
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: calc(var(--spacing-unit) * 2);
+        }
+
+        .navigation-buttons a {
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
         }
 
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: calc(var(--spacing-unit) * 2);
+            right: calc(var(--spacing-unit) * 2);
             background: var(--surface-color);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem;
+            padding: var(--spacing-unit);
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        /* Footer */
+        .footer {
+            grid-column: 1 / -1;
+            background: var(--surface-color);
+            padding: var(--spacing-unit);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 0.5rem;
         }
 
         /* Responsive Design */
@@ -158,29 +301,39 @@
             .sidebar.active {
                 transform: translateY(0);
             }
+            .toc {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Novix AI Docs</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search documentation..." aria-label="Search">
+                <div class="search-results" role="listbox"></div>
+            </div>
+        </header>
+
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="nav-section">
-                <h3>Introduction</h3>
+        <aside class="sidebar" role="navigation">
+            <details class="nav-section" open>
+                <summary>Introduction</summary>
                 <ul>
                     <li><a href="#" class="sidebar-link active" data-md="README.md">Home / Overview</a></li>
                 </ul>
-            </div>
-
+            </details>
             <div class="playground-banner">
                 <a href="https://playground.novix.ai" target="_blank">
                     <i class="fas fa-rocket"></i> Live Playground Now Available
                 </a>
             </div>
 
-            <!-- Getting Started -->
-            <div class="nav-section">
-                <h3>Getting Started</h3>
+            <details class="nav-section" open>
+                <summary>Getting Started</summary>
                 <ul>
                     <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/1-quick-start-guide.md">1. Quick Start</a></li>
                     <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/2-environment.md">2. Environment Setup</a></li>
@@ -188,11 +341,10 @@
                     <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/4-considerations.md">4. Considerations</a></li>
                     <li><a href="#" class="sidebar-link" data-md="docs/1-getting-started/5-support.md">5. Support</a></li>
                 </ul>
-            </div>
+            </details>
 
-            <!-- Core Concepts -->
-            <div class="nav-section">
-                <h3>Core Concepts</h3>
+            <details class="nav-section">
+                <summary>Core Concepts</summary>
                 <ul>
                     <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/1-core-concept.md">1. Core Concepts</a></li>
                     <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/2-architecture.md">2. Architecture</a></li>
@@ -207,11 +359,10 @@
                     <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/11-agent-interactions.md">11. Agent Interactions</a></li>
                     <li><a href="#" class="sidebar-link" data-md="docs/2-concepts/12-extensions.md">12. Extensions</a></li>
                 </ul>
-            </div>
+            </details>
 
-            <!-- AI Providers -->
-            <div class="nav-section">
-                <h3>AI Providers</h3>
+            <details class="nav-section">
+                <summary>AI Providers</summary>
                 <ul>
                     <li><a href="#" class="sidebar-link" data-md="docs/3-providers/1-anthropic-claude.md">1. Anthropic Claude</a></li>
                     <li><a href="#" class="sidebar-link" data-md="docs/3-providers/2-azure.md">2. Azure</a></li>
@@ -223,19 +374,35 @@
                     <li><a href="#" class="sidebar-link" data-md="docs/3-providers/8-hugging-face.md">8. Hugging Face</a></li>
                     <li><a href="#" class="sidebar-link" data-md="docs/3-providers/9-gpt4free.md">9. gpt4Free</a></li>
                 </ul>
-            </div>
+            </details>
         </aside>
 
         <!-- Main Content -->
-        <main class="main-content">
-            <div id="dynamic-content" class="content-card">
+        <main class="main-content" role="main">
+            <div class="breadcrumbs" aria-label="Breadcrumbs"></div>
+            <div class="content-card" id="dynamic-content">
                 <!-- Content will be dynamically loaded here -->
             </div>
+            <div class="toc" aria-label="Table of Contents">
+                <h3>Table of Contents</h3>
+                <ul id="toc-list"></ul>
+            </div>
+            <div class="navigation-buttons" id="nav-buttons"></div>
         </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2023 Novix AI. All rights reserved.</p>
+            <p>
+                <a href="https://github.com/novix-ai" target="_blank">GitHub</a> |
+                <a href="https://novix.ai/support" target="_blank">Support</a> |
+                <a href="https://novix.ai/privacy" target="_blank">Privacy Policy</a>
+            </p>
+        </footer>
     </div>
 
     <!-- Theme Toggle -->
-    <button class="theme-toggle">
+    <button class="theme-toggle" aria-label="Toggle theme">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
         </svg>
@@ -244,7 +411,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
     <script>
         // Theme Management
         const themeToggle = document.querySelector('.theme-toggle');
@@ -253,6 +419,7 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            updateMermaidTheme(newTheme);
         });
 
         // Content Loading
@@ -263,47 +430,161 @@
                 
                 const markdown = await response.text();
                 const html = marked.parse(markdown);
-                document.getElementById('dynamic-content').innerHTML = html;
-                
-                Prism.highlightAll();
-                if (typeof mermaid !== 'undefined') {
-                    mermaid.initialize({ 
-                        theme: document.documentElement.dataset.theme === 'dark' 
-                            ? 'dark' 
-                            : 'default',
-                        securityLevel: 'loose'
+                const contentDiv = document.getElementById('dynamic-content');
+                contentDiv.innerHTML = html;
+
+                // Add copy buttons to code blocks
+                document.querySelectorAll('pre code').forEach(block => {
+                    const wrapper = block.parentElement;
+                    wrapper.classList.add('code-block');
+                    const btn = document.createElement('button');
+                    btn.textContent = 'Copy';
+                    btn.className = 'copy-btn';
+                    btn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(block.textContent);
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => btn.textContent = 'Copy', 2000);
                     });
-                    mermaid.run();
-                }
+                    wrapper.appendChild(btn);
+                });
+
+                Prism.highlightAll();
+                mermaid.initialize({ 
+                    theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+                    securityLevel: 'loose'
+                });
+                mermaid.run();
+
+                generateTOC();
+                updateBreadcrumbs(path);
+                updateNavigationButtons(path);
             } catch (error) {
                 document.getElementById('dynamic-content').innerHTML = `
                     <div class="error">
                         <h3>⚠️ Content Load Failed</h3>
                         <p>${error.message}</p>
                         <p>Path: ${path}</p>
+                        <button onclick="loadContent('${path}')">Retry</button>
                     </div>
                 `;
             }
         }
 
         // Navigation Handling
-        document.querySelectorAll('.sidebar-link').forEach(link => {
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                sidebarLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
                 loadContent(link.dataset.md);
             });
         });
 
+        // Search Functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchResults = document.querySelector('.search-results');
+        const allLinks = Array.from(sidebarLinks).map(link => ({
+            text: link.textContent.trim(),
+            path: link.dataset.md
+        }));
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const results = allLinks.filter(link => link.text.toLowerCase().includes(query));
+            searchResults.innerHTML = results.map(r => `<a href="#" data-md="${r.path}">${r.text}</a>`).join('');
+            searchResults.style.display = results.length ? 'block' : 'none';
+
+            searchResults.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadContent(a.dataset.md);
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    document.querySelector(`[data-md="${a.dataset.md}"]`).classList.add('active');
+                    searchResults.style.display = 'none';
+                    searchInput.value = '';
+                });
+            });
+        });
+
+        // Table of Contents
+        function generateTOC() {
+            const content = document.getElementById('dynamic-content');
+            const headings = content.querySelectorAll('h1, h2, h3');
+            const tocList = document.getElementById('toc-list');
+            tocList.innerHTML = '';
+
+            headings.forEach((h, i) => {
+                const id = `heading-${i}`;
+                h.id = id;
+                const li = document.createElement('li');
+                li.style.paddingLeft = `${(h.tagName === 'H2' ? 1 : h.tagName === 'H3' ? 2 : 0)}rem`;
+                li.innerHTML = `<a href="#${id}">${h.textContent}</a>`;
+                tocList.appendChild(li);
+            });
+        }
+
+        // Breadcrumbs
+        function updateBreadcrumbs(path) {
+            const parts = path.split('/').filter(p => p && p !== 'docs');
+            const breadcrumbs = document.querySelector('.breadcrumbs');
+            breadcrumbs.innerHTML = parts.map((part, i) => {
+                const fullPath = parts.slice(0, i + 1).join('/');
+                return i === parts.length - 1 
+                    ? `<span>${part.replace('.md', '')}</span>` 
+                    : `<a href="#" data-md="${fullPath}">${part}</a>`;
+            }).join(' > ');
+        }
+
+        // Previous/Next Navigation
+        function updateNavigationButtons(currentPath) {
+            const allPaths = Array.from(sidebarLinks).map(link => link.dataset.md);
+            const currentIndex = allPaths.indexOf(currentPath);
+            const navButtons = document.getElementById('nav-buttons');
+            navButtons.innerHTML = '';
+
+            if (currentIndex > 0) {
+                navButtons.innerHTML += `<a href="#" data-md="${allPaths[currentIndex - 1]}">Previous</a>`;
+            }
+            if (currentIndex < allPaths.length - 1) {
+                navButtons.innerHTML += `<a href="#" data-md="${allPaths[currentIndex + 1]}" style="margin-left: auto;">Next</a>`;
+            }
+
+            navButtons.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadContent(a.dataset.md);
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    document.querySelector(`[data-md="${a.dataset.md}"]`).classList.add('active');
+                });
+            });
+        }
+
+        // Update Mermaid Theme
+        function updateMermaidTheme(theme) {
+            mermaid.initialize({ theme: theme === 'dark' ? 'dark' : 'default' });
+            mermaid.run();
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') searchResults.style.display = 'none';
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            // Load initial content
-            loadContent(document.querySelector('.sidebar-link.active').dataset.md);
-            
-            // Set initial theme
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
+            loadContent(document.querySelector('.sidebar-link.active').dataset.md);
         });
     </script>
 </body>
