@@ -31,6 +31,8 @@ body {
     display: grid;
     grid-template-columns: 280px 1fr;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
 }
 
 /* Sidebar Styles */
@@ -38,10 +40,13 @@ body {
     position: sticky;
     top: 0;
     height: 100vh;
-    padding: 2rem;
+    width: 280px;
+    overflow-y: auto;
     background: var(--surface-color);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    overflow-y: auto;
+    padding: 2rem;
+    grid-column: 1;
+    transition: transform 0.3s ease;
 }
 
 .nav-section {
@@ -99,9 +104,12 @@ body {
 
 /* Main Content Area */
 .main-content {
+    grid-column: 2;
     padding: 4rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .content-card {
@@ -111,6 +119,17 @@ body {
     margin-bottom: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     animation: fadeIn 0.6s ease forwards;
+}
+
+/* Content Loading Fix */
+#dynamic-content {
+    min-height: 80vh;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Theme Toggle */
@@ -131,12 +150,6 @@ body {
     transform: rotate(180deg) scale(1.1);
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 /* Error Handling */
 .error {
     padding: 2rem;
@@ -146,31 +159,32 @@ body {
     margin: 2rem 0;
 }
 
-/* Responsive Design */
+/* Mobile Optimization */
 @media (max-width: 768px) {
     .app-container {
-        grid-template-columns: 1fr;
+        display: block;
     }
-    
+
     .sidebar {
         position: fixed;
         width: 100%;
         height: 60vh;
         bottom: 0;
-        z-index: 100;
         transform: translateY(100%);
         transition: transform 0.3s ease;
+        z-index: 1000;
         box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
     }
-    
+
     .sidebar.active {
         transform: translateY(0);
     }
-    
+
     .main-content {
         padding: 2rem 1rem;
+        margin-top: 60px;
     }
-    
+
     .theme-toggle {
         bottom: 1rem;
         right: 1rem;
