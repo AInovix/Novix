@@ -1,0 +1,22 @@
+```json
+{
+  "name": "Novix Docs",
+  "short_name": "Novix",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#00f7ff",
+  "background_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
+```
