@@ -260,27 +260,29 @@
             const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
 
+            // Add basic lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-            directionalLight.position.set(1, 1, 1);
+            directionalLight.position.set(5, 5, 5);
             scene.add(directionalLight);
 
-            // Add stars for space effect
+            // Add stars
             const starsGeometry = new THREE.BufferGeometry();
-            const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1 });
+            const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
             const starsVertices = [];
             for (let i = 0; i < 1000; i++) {
-                const x = (Math.random() - 0.5) * 2000;
-                const y = (Math.random() - 0.5) * 2000;
-                const z = (Math.random() - 0.5) * 2000;
-                starsVertices.push(x, y, z);
+                starsVertices.push(
+                    (Math.random() - 0.5) * 2000,
+                    (Math.random() - 0.5) * 2000,
+                    (Math.random() - 0.5) * 2000
+                );
             }
             starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
             const stars = new THREE.Points(starsGeometry, starsMaterial);
             scene.add(stars);
 
-            // Load the astronaut model
+            // Load astronaut
             let astronautModel;
             const loader = new THREE.GLTFLoader();
             loader.load(
@@ -288,44 +290,50 @@
                 (gltf) => {
                     astronautModel = gltf.scene;
                     scene.add(astronautModel);
-                    astronautModel.position.set(0, 0, -5);
-                    astronautModel.rotation.set(0, Math.PI, 0); // Face camera
+                    astronautModel.position.set(0, 0, 0); // Center in view
+                    astronautModel.scale.set(2, 2, 2); // Make it visible
+                    astronautModel.rotation.set(0, 0, 0); // Reset rotation
+                    console.log('Astronaut loaded:', astronautModel);
+
+                    // Check for blue meshes
                     astronautModel.traverse((child) => {
                         if (child.isMesh && child.material) {
                             const colorHex = child.material.color.getHexString();
-                            console.log('Mesh color:', colorHex, 'Mesh:', child);
-                            if (colorHex === '0000ff' || child.material.color.getHex() === 0x0000ff) {
+                            console.log('Mesh found:', child.name, 'Color:', colorHex);
+                            if (colorHex === '0000ff' || colorHex === '1e90ff') {
                                 child.visible = false;
-                                console.log('Hid blue mesh:', child);
+                                console.log('Hid blue mesh:', child.name);
                             }
                         }
                     });
+
+                    // Log scene contents
                     console.log('Scene children:', scene.children);
                 },
                 (progress) => {
                     console.log(`Loading: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
                 },
                 (error) => {
-                    console.error('Error loading model:', error);
+                    console.error('Error loading astronaut:', error);
                 }
             );
 
-            camera.position.z = 10;
+            camera.position.set(0, 0, 10); // Camera 10 units back
 
             // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
                 if (astronautModel) {
-                    astronautModel.position.z += 0.05; // Move toward camera
-                    if (astronautModel.position.z > 10) {
-                        astronautModel.position.z = -20; // Reset to far away
+                    astronautModel.position.z -= 0.05; // Move astronaut forward
+                    if (astronautModel.position.z < -20) {
+                        astronautModel.position.z = 20; // Reset to back
                     }
                 }
                 renderer.render(scene, camera);
             }
             animate();
 
-            // Handle window resize
+            // Resize handler
             window.addEventListener('resize', () => {
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 camera.aspect = window.innerWidth / window.innerHeight;
