@@ -287,10 +287,17 @@
                 (gltf) => {
                     const model = gltf.scene;
                     camera.add(model); // Attach to camera to stay in view
-                    model.position.set(0, 0, -5); // Position 5 units in front of camera
-                    model.rotation.x = Math.PI / 2; // Rotate to stand upright
+                    model.position.set(0, 0, -5); // 5 units in front of camera
+                    model.rotation.set(-Math.PI / 2, 0, 0); // Rotate to face camera upright
+                    // Hide blue block if present in model
+                    model.traverse((child) => {
+                        if (child.isMesh && child.material && child.material.color.getHex() === 0x0000ff) {
+                            child.visible = false;
+                            console.log('Hid blue mesh:', child);
+                        }
+                    });
                     scene.add(camera);
-                    console.log('Scene children:', scene.children); // Debug to identify extra objects
+                    console.log('Scene children:', scene.children);
                 },
                 (progress) => {
                     console.log(`Loading: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
