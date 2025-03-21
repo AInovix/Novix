@@ -1,115 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-lang="en" data-version="v1.0">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official Novix AI Documentation - Explore the ultimate AI experience.">
-    <meta name="keywords" content="Novix, AI, documentation, guide, technology, artificial intelligence">
-    <meta name="author" content="Novix AI Team">
+    <meta name="description" content="Novix AI Documentation">
     <title>Novix AI Documentation</title>
-
-    <!-- Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- External Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" id="prism-theme">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js" defer></script>
-    <script src="https://unpkg.com/lunr/lunr.js" defer></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><!-- Replace with your GA ID -->
-
-    <!-- Manifest for PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#00f7ff">
-
-    <!-- Styles -->
+    <!-- Three.js Core Library -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js" defer></script>
+    <!-- GLTFLoader for loading the astronaut model -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js" defer></script>
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js" defer></script>
+    <!-- Highlight.js for code highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/lib/highlight.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/atom-one-dark.css">
     <style>
-        /* CSS Variables */
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1e1e1e;
-            --surface: rgba(40, 40, 40, 0.9);
-            --primary: #00f7ff;
-            --secondary: #ff00ea;
-            --accent: #ffcc00;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            --glass: rgba(255, 255, 255, 0.05);
-            --radius: 16px;
-            --spacing: 1.5rem;
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --font-code: 'Inconsolata', monospace;
+            --primary: #1e90ff;
+            --background: #0d1117;
+            --surface: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
         }
-
-        [data-theme="light"] {
-            --bg-primary: #f0f4f8;
-            --bg-secondary: #ffffff;
-            --surface: rgba(255, 255, 255, 0.95);
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --glass: rgba(0, 0, 0, 0.05);
-        }
-
-        [data-theme="neon"] {
-            --bg-primary: #0d001a;
-            --bg-secondary: #1a0033;
-            --surface: rgba(50, 0, 100, 0.9);
-            --primary: #00ffcc;
-            --secondary: #ff00ff;
-            --accent: #ffff00;
-        }
-
-        [data-theme="retro"] {
-            --bg-primary: #2e2e2e;
-            --bg-secondary: #4a4a4a;
-            --surface: rgba(70, 70, 70, 0.9);
-            --primary: #ff6f61;
-            --secondary: #6b5b95;
-            --accent: #88d8b0;
-        }
-
-        /* Reset and Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: var(--background);
+            color: var(--text);
             overflow-x: hidden;
-            position: relative;
-            line-height: 1.6;
         }
-
-        /* Parallax Background */
         .parallax-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: url('https://source.unsplash.com/random/1920x1080?galaxy') no-repeat center/cover;
-            opacity: 0.1;
+            background: linear-gradient(135deg, #0d1117, #1a1a2e);
             z-index: -1;
-            transform: translateZ(0);
-            animation: subtleMove 20s infinite alternate;
+            opacity: 0.5;
         }
-
-        @keyframes subtleMove {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+        #threejs-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -2;
         }
-
         .particles {
             position: fixed;
             top: 0;
@@ -117,1300 +54,319 @@
             width: 100%;
             height: 100vh;
             z-index: -1;
-            pointer-events: none;
         }
-
-        /* App Container */
         .app-grid {
             display: grid;
-            grid-template-columns: 320px 1fr;
+            grid-template-areas:
+                "header header header"
+                "sidebar main main"
+                "footer footer footer";
+            grid-template-columns: 250px 1fr 1fr;
             grid-template-rows: auto 1fr auto;
             min-height: 100vh;
+            gap: 20px;
+            padding: 20px;
         }
-
-        /* Header */
-        .header {
-            grid-column: 1 / -1;
-            background: var(--surface);
-            padding: var(--spacing);
+        header {
+            grid-area: header;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            align-items: center;
+            padding: 10px 20px;
+            background: var(--surface);
             backdrop-filter: blur(10px);
-            box-shadow: var(--shadow);
         }
-
-        .header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { text-shadow: 0 0 5px var(--primary); }
-            100% { text-shadow: 0 0 15px var(--primary); }
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .syntax-theme-select, .lang-select, .version-select {
-            padding: 0.5rem;
-            border-radius: 8px;
-            background: var(--glass);
-            color: var(--text-primary);
-            border: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .syntax-theme-select:focus, .lang-select:focus, .version-select:focus {
-            outline: none;
-            box-shadow: 0 0 5px var(--primary);
-        }
-
-        .search-container {
-            flex: 1;
-            max-width: 500px;
-            position: relative;
-            margin: 0 var(--spacing);
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: var(--radius);
-            background: var(--glass);
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        .search-results {
-            position: absolute;
-            top: calc(100% + 0.5rem);
-            left: 0;
-            right: 0;
-            background: var(--surface);
-            border-radius: var(--radius);
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: var(--shadow);
-            display: none;
-            animation: slideIn 0.3s ease;
-            z-index: 200;
-        }
-
-        .search-result-item {
-            padding: 0.75rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .search-result-item:hover {
-            background: var(--glass);
-            color: var(--primary);
-        }
-
-        /* Sidebar */
         .sidebar {
+            grid-area: sidebar;
+            padding: 20px;
+            background: var(--surface);
+            height: calc(100vh - 120px);
             position: sticky;
-            top: 0;
-            height: 100vh;
-            background: var(--bg-secondary);
-            padding: calc(var(--spacing) * 2);
+            top: 20px;
             overflow-y: auto;
-            box-shadow: inset -5px 0 15px rgba(0, 0, 0, 0.2);
         }
-
-        .nav-section summary {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-            font-size: 1.2rem;
-            padding: 0.75rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-            outline: none;
-        }
-
-        .nav-section summary:hover {
-            color: var(--secondary);
-            text-shadow: 0 0 5px var(--secondary);
-        }
-
         .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
+            display: block;
+            padding: 10px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 8px;
-            transition: var(--transition);
+            cursor: pointer;
         }
-
-        .nav-link i {
-            margin-right: 0.75rem;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: var(--glass);
-            color: var(--text-primary);
-            transform: translateX(10px);
-        }
-
-        .nav-link:hover i {
-            transform: scale(1.2);
-        }
-
-        .nav-link.active {
-            background: var(--gradient);
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: calc(var(--spacing) * 3);
-            position: relative;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .breadcrumbs {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing);
-            animation: fadeIn 0.5s ease;
-        }
-
-        .breadcrumbs a {
+        .nav-link:hover, .nav-link.active {
             color: var(--primary);
-            text-decoration: none;
-            position: relative;
-            transition: var(--transition);
         }
-
-        .breadcrumbs a:hover {
-            color: var(--secondary);
+        main {
+            grid-area: main;
+            padding: 20px;
         }
-
         .content-card {
             background: var(--surface);
-            border-radius: var(--radius);
-            padding: calc(var(--spacing) * 2);
-            margin-bottom: calc(var(--spacing) * 2);
-            box-shadow: var(--shadow);
-            animation: fadeInUp 0.6s ease;
-            transition: transform 0.3s ease;
-        }
-
-        .content-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .content-card h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .content-card h2 {
-            color: var(--secondary);
-            margin: 1.5rem 0 1rem;
-        }
-
-        .content-card p {
-            margin-bottom: 1rem;
-        }
-
-        /* Code Blocks */
-        .code-block {
-            position: relative;
-            margin: var(--spacing) 0;
-            font-family: var(--font-code);
-        }
-
-        .code-block pre {
+            padding: 20px;
             border-radius: 8px;
-            overflow: hidden;
-            background: var(--bg-secondary);
-            padding: 1rem;
+            backdrop-filter: blur(10px);
         }
-
-        .code-actions {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .code-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .code-btn:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
-        }
-
-        .sandbox-output {
-            width: 100%;
-            height: 300px;
-            border: none;
-            border-radius: 8px;
-            margin-top: 1rem;
-            background: var(--bg-primary);
-        }
-
-        /* Embedded Video */
-        .video-container {
-            margin: var(--spacing) 0;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .video-container video {
-            width: 100%;
-            height: auto;
-        }
-
-        /* Related Links */
-        .related-links {
-            margin-top: calc(var(--spacing) * 2);
-            padding: var(--spacing);
-            background: var(--glass);
-            border-radius: var(--radius);
-        }
-
-        .related-links h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .related-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem 0;
-            transition: var(--transition);
-        }
-
-        .related-links a:hover {
-            color: var(--primary);
-            padding-left: 0.5rem;
-        }
-
-        /* TOC */
-        .toc {
-            position: fixed;
-            top: calc(var(--spacing) * 10);
-            right: var(--spacing);
-            background: var(--glass);
-            padding: var(--spacing);
-            border-radius: var(--radius);
-            max-height: 70vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .toc:hover {
-            transform: translateX(-10px);
-        }
-
-        .toc h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .toc a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem 0;
-            transition: var(--transition);
-        }
-
-        .toc a:hover {
-            color: var(--primary);
-            padding-left: 0.5rem;
-        }
-
-        /* 3D Diagram */
-        .diagram-3d {
-            height: 400px;
-            margin: var(--spacing) 0;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: calc(var(--spacing) * 2);
-        }
-
-        .nav-btn {
-            padding: 1rem 2rem;
-            background: var(--gradient);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--radius);
-            transition: var(--transition);
-            font-weight: bold;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.5);
-        }
-
-        /* Floating Action Buttons */
-        .fab-container {
-            position: fixed;
-            bottom: var(--spacing);
-            right: var(--spacing);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 100;
-        }
-
-        .fab {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-
-        .fab:hover {
-            transform: scale(1.2);
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.7);
-        }
-
-        /* Feedback Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--surface);
-            padding: calc(var(--spacing) * 2);
-            border-radius: var(--radius);
-            max-width: 500px;
-            width: 90%;
-            box-shadow: var(--shadow);
-            animation: fadeInUp 0.3s ease;
-        }
-
-        .modal-content h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .modal-content label {
-            display: block;
-            margin: 0.5rem 0;
-            color: var(--text-secondary);
-        }
-
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--glass);
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .modal-content button {
-            background: var(--primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .modal-content button:hover {
-            background: var(--secondary);
-        }
-
-        /* Footer */
-        .footer {
-            grid-column: 1 / -1;
-            background: var(--bg-secondary);
-            padding: calc(var(--spacing) * 2);
+        footer {
+            grid-area: footer;
             text-align: center;
-            font-size: 0.9rem;
+            padding: 10px;
+            background: var(--surface);
         }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: var(--transition);
+        #theme-toggle, #lang-select, #search-bar {
+            padding: 5px 10px;
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid var(--primary);
+            border-radius: 4px;
         }
-
-        .footer a:hover {
-            color: var(--secondary);
-            text-shadow: 0 0 10px var(--secondary);
+        pre, code {
+            background: #1a1a2e;
+            padding: 10px;
+            border-radius: 4px;
         }
-
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes particleBurst {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .app-grid {
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "sidebar"
+                    "footer";
                 grid-template-columns: 1fr;
             }
             .sidebar {
-                position: fixed;
-                width: 100%;
                 height: auto;
-                max-height: 50vh;
-                bottom: 0;
-                transform: translateY(100%);
-                transition: var(--transition);
-                z-index: 50;
-            }
-            .sidebar.active {
-                transform: translateY(0);
-            }
-            .toc {
-                display: none;
-            }
-            .fab-container {
-                right: 1rem;
-                bottom: calc(var(--spacing) + 50vh);
-            }
-        }
-
-        @media print {
-            .sidebar, .header, .footer, .fab-container, .toc, .search-container {
-                display: none;
-            }
-            .main-content {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            .content-card {
-                box-shadow: none;
-                border: 1px solid #000;
+                position: relative;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Parallax and Particles -->
     <div class="parallax-bg"></div>
+    <!-- Three.js background canvas for astronaut -->
+    <canvas id="threejs-bg" aria-hidden="true"></canvas>
+    <!-- Particle system canvas -->
     <canvas class="particles" aria-hidden="true"></canvas>
-
-    <!-- App Structure -->
     <div class="app-grid">
-        <!-- Header -->
-        <header class="header" role="banner">
-            <h1>Novix AI Documentation</h1>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search the cosmos..." aria-label="Search documentation">
-                <div class="search-results" role="listbox"></div>
-            </div>
-            <div class="header-actions">
-                <select class="syntax-theme-select" aria-label="Select syntax highlighting theme">
-                    <option value="prism-okaidia">Okaidia</option>
-                    <option value="prism-tomorrow">Tomorrow</option>
-                    <option value="prism-twilight">Twilight</option>
-                </select>
-                <select class="lang-select" aria-label="Select language">
+        <header>
+            <h1>Novix AI Docs</h1>
+            <div>
+                <button id="theme-toggle">Toggle Theme</button>
+                <select id="lang-select">
                     <option value="en">English</option>
                     <option value="es">Español</option>
-                    <option value="fr">Français</option>
                 </select>
-                <select class="version-select" aria-label="Select version">
-                    <option value="v1.0">v1.0</option>
-                    <option value="v2.0">v2.0</option>
-                </select>
+                <input type="text" id="search-bar" placeholder="Search...">
             </div>
         </header>
-
-        <!-- Sidebar -->
-        <aside class="sidebar" role="navigation" aria-label="Sidebar navigation">
-            <details class="nav-section" open>
-                <summary><i class="fas fa-home"></i> Introduction</summary>
-                <ul>
-                    <li><a href="#" class="nav-link active" data-md="README.md"><i class="fas fa-star"></i> Home / Overview</a></li>
-                </ul>
-            </details>
-            <details class="nav-section" open>
-                <summary><i class="fas fa-rocket"></i> Getting Started</summary>
-                <ul>
-                    <li><a href="#" class="nav-link" data-md="1-getting-started/1-quick-start-guide.md"><i class="fas fa-play"></i> 1. Quick Start</a></li>
-                    <li><a href="#" class="nav-link" data-md="1-getting-started/2-environment.md"><i class="fas fa-cogs"></i> 2. Environment Setup</a></li>
-                    <li><a href="#" class="nav-link" data-md="1-getting-started/3-examples.md"><i class="fas fa-code"></i> 3. Examples</a></li>
-                    <li><a href="#" class="nav-link" data-md="1-getting-started/4-considerations.md"><i class="fas fa-exclamation-circle"></i> 4. Considerations</a></li>
-                    <li><a href="#" class="nav-link" data-md="1-getting-started/5-support.md"><i class="fas fa-life-ring"></i> 5. Support</a></li>
-                </ul>
-            </details>
-            <details class="nav-section">
-                <summary><i class="fas fa-brain"></i> Core Concepts</summary>
-                <ul>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/1-core-concept.md"><i class="fas fa-lightbulb"></i> 1. Core Concepts</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/2-architecture.md"><i class="fas fa-sitemap"></i> 2. Architecture</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/3-providers.md"><i class="fas fa-server"></i> 3. Providers</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/4-agents.md"><i class="fas fa-user-robot"></i> 4. Agents</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/5-chat-completions.md"><i class="fas fa-comment"></i> 5. Chat Completions</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/6-extension-commands.md"><i class="fas fa-terminal"></i> 6. Extension Commands</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/7-prompts.md"><i class="fas fa-pen"></i> 7. Prompts</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/8-chains.md"><i class="fas fa-link"></i> 8. Chains</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/9-conversations.md"><i class="fas fa-comments"></i> 9. Conversations</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/10-agent-training.md"><i class="fas fa-graduation-cap"></i> 10. Agent Training</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/11-agent-interactions.md"><i class="fas fa-exchange-alt"></i> 11. Agent Interactions</a></li>
-                    <li><a href="#" class="nav-link" data-md="2-concepts/12-extensions.md"><i class="fas fa-puzzle-piece"></i> 12. Extensions</a></li>
-                </ul>
-            </details>
-            <details class="nav-section">
-                <summary><i class="fas fa-cloud"></i> AI Providers</summary>
-                <ul>
-                    <li><a href="#" class="nav-link" data-md="3-providers/1-anthropic-claude.md"><i class="fas fa-user"></i> 1. Anthropic Claude</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/2-azure.md"><i class="fas fa-cloud-upload-alt"></i> 2. Azure</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/3-deepseek.md"><i class="fas fa-search"></i> 3. Deepseek</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/4-ezlocalai.md"><i class="fas fa-desktop"></i> 4. ezLocalai</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/5-google-gemini.md"><i class="fas fa-gem"></i> 5. Google Gemini</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/6-openai.md"><i class="fas fa-robot"></i> 6. OpenAI</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/7-xai-grok.md"><i class="fas fa-brain"></i> 7. xAI Grok</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/8-hugging-face.md"><i class="fas fa-users"></i> 8. Hugging Face</a></li>
-                    <li><a href="#" class="nav-link" data-md="3-providers/9-gpt4free.md"><i class="fas fa-gift"></i> 9. gpt4Free</a></li>
-                </ul>
-            </details>
-            <details class="nav-section">
-                <summary><i class="fas fa-book"></i> Glossary</summary>
-                <ul>
-                    <li><a href="#" class="nav-link" data-md="docs/glossary.md"><i class="fas fa-dictionary"></i> Glossary</a></li>
-                </ul>
-            </details>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content" role="main">
-            <div class="breadcrumbs" aria-label="Breadcrumbs"></div>
-            <div class="content-card" id="dynamic-content">
-                <h1>Welcome to Novix AI</h1>
-                <p>Explore the future of AI with our cutting-edge documentation.</p>
-            </div>
-            <div class="diagram-3d" id="3d-diagram"></div>
-            <div class="nav-buttons" id="nav-buttons"></div>
-        </main>
-
-        <!-- Table of Contents -->
-        <nav class="toc" aria-label="Table of Contents">
-            <h3>Table of Contents</h3>
-            <ul id="toc-list"></ul>
+        <nav class="sidebar">
+            <a class="nav-link active" data-md="README.md">Home</a>
+            <a class="nav-link" data-md="1-getting-started/1-quick-start-guide.md">Quick Start</a>
+            <a class="nav-link" data-md="2-api-reference/api.md">API Reference</a>
         </nav>
-
-        <!-- Footer -->
-        <footer class="footer" role="contentinfo">
-            <p>© 2023 Novix AI. All rights reserved.</p>
-            <p>
-                <a href="https://github.com/novix-ai" target="_blank" rel="noopener">GitHub</a> |
-                <a href="https://novix.ai/support" target="_blank" rel="noopener">Support</a> |
-                <a href="https://novix.ai/privacy" target="_blank" rel="noopener">Privacy Policy</a> |
-                <a href="#" id="feedback-link">Feedback</a>
-            </p>
+        <main>
+            <div class="content-card">
+                <div id="content">Loading...</div>
+            </div>
+            <!-- Container for 3D diagram (existing feature) -->
+            <canvas id="threejs-diagram" style="width: 100%; height: 400px;"></canvas>
+        </main>
+        <footer>
+            <p>&copy; 2023 Novix AI. All rights reserved.</p>
         </footer>
     </div>
 
-    <!-- Floating Action Buttons -->
-    <div class="fab-container">
-        <button class="fab" id="theme-toggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
-        <button class="fab" id="assistant-toggle" aria-label="Toggle assistant">
-            <i class="fas fa-robot"></i>
-        </button>
-        <button class="fab" id="scroll-top" aria-label="Scroll to top">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button class="fab" id="sidebar-toggle" aria-label="Toggle sidebar" style="display: none;">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-
-    <!-- Feedback Modal -->
-    <div class="modal" id="feedback-modal">
-        <div class="modal-content">
-            <h2>Send Feedback</h2>
-            <form id="feedback-form" action="https://formspree.io/f/your-form-id" method="POST">
-                <label for="feedback-name">Name:</label>
-                <input type="text" id="feedback-name" name="name" placeholder="Your name (optional)">
-                <label for="feedback-email">Email:</label>
-                <input type="email" id="feedback-email" name="email" placeholder="Your email (optional)">
-                <label for="feedback-message">Message:</label>
-                <textarea id="feedback-message" name="message" rows="5" placeholder="Your feedback" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
     <script>
-        // Google Analytics
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX'); // Replace with your GA ID
-
-        // Particle System
-        const canvas = document.querySelector('.particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const particlesArray = [];
-
-        class Particle {
-            constructor(x = Math.random() * canvas.width, y = Math.random() * canvas.height) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.life = 1;
-                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.life > 0.2) this.life -= 0.01;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.life = 0;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.life;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            for (let i = 0; i < 100; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = particlesArray.length - 1; i >= 0; i--) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                if (particlesArray[i].life <= 0.2) {
-                    particlesArray.splice(i, 1);
-                    particlesArray.push(new Particle());
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        // Particle Burst for Easter Egg
-        function particleBurst(x, y) {
-            for (let i = 0; i < 50; i++) {
-                const p = new Particle(x, y);
-                p.speedX = (Math.random() - 0.5) * 5;
-                p.speedY = (Math.random() - 0.5) * 5;
-                p.life = 1;
-                particlesArray.push(p);
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        initParticles();
-        animateParticles();
-
         // Theme Management
-        const themes = ['dark', 'light', 'neon', 'retro'];
-        const themeToggle = document.getElementById('theme-toggle');
+        const themes = ['dark', 'light'];
         let currentThemeIndex = 0;
-
         function updateTheme() {
-            const newTheme = themes[currentThemeIndex];
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateMermaidTheme(newTheme);
-            themeToggle.querySelector('i').className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            const theme = themes[currentThemeIndex];
+            document.documentElement.style.setProperty('--background', theme === 'dark' ? '#0d1117' : '#ffffff');
+            document.documentElement.style.setProperty('--text', theme === 'dark' ? '#ffffff' : '#000000');
+            document.documentElement.style.setProperty('--surface', theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)');
+            document.documentElement.style.setProperty('--text-secondary', theme === 'dark' ? '#a0a0a0' : '#666666');
+            localStorage.setItem('theme', theme);
         }
-
-        themeToggle.addEventListener('click', () => {
+        document.getElementById('theme-toggle').addEventListener('click', () => {
             currentThemeIndex = (currentThemeIndex + 1) % themes.length;
             updateTheme();
-            gtag('event', 'theme_change', { theme: themes[currentThemeIndex] });
         });
 
-        // Syntax Highlighting Theme
-        const syntaxThemeSelect = document.querySelector('.syntax-theme-select');
-        syntaxThemeSelect.addEventListener('change', () => {
-            const theme = syntaxThemeSelect.value;
-            document.getElementById('prism-theme').setAttribute('href', `https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/${theme}.min.css`);
-            Prism.highlightAll();
-            gtag('event', 'syntax_theme_change', { theme });
-        });
-
-        // Language Management
-        const langSelect = document.querySelector('.lang-select');
-        langSelect.addEventListener('change', () => {
-            const lang = langSelect.value;
-            document.documentElement.setAttribute('data-lang', lang);
-            updateMdPaths(lang);
-            const currentLink = document.querySelector('.nav-link.active');
-            if (currentLink) loadContent(currentLink.dataset.md);
-            gtag('event', 'language_change', { language: lang });
-        });
-
-        function updateMdPaths(lang) {
-            sidebarLinks.forEach(link => {
-                const originalPath = link.getAttribute('data-md-original') || link.dataset.md;
-                link.setAttribute('data-md-original', originalPath);
-                const pathParts = originalPath.split('/');
-                pathParts[1] = lang; // e.g., docs/en/...
-                link.dataset.md = pathParts.join('/');
-            });
-        }
-
-        // Version Management
-        const versionSelect = document.querySelector('.version-select');
-        versionSelect.addEventListener('change', () => {
-            const version = versionSelect.value;
-            document.documentElement.setAttribute('data-version', version);
-            // In a real scenario, this would adjust paths or fetch different content
-            const currentLink = document.querySelector('.nav-link.active');
-            if (currentLink) loadContent(currentLink.dataset.md);
-            gtag('event', 'version_change', { version });
-        });
-
-        // Content Loading
-        const sidebarLinks = document.querySelectorAll('.nav-link');
-        async function loadContent(path) {
-            console.log('Loading content from:', path);
-            const contentDiv = document.getElementById('dynamic-content');
-            contentDiv.innerHTML = '<div class="loading" aria-live="polite">Loading...</div>';
-            try {
-                const response = await fetch(path);
-                if (!response.ok) throw new Error(`HTTP ${response.status} - ${response.statusText}`);
-                const markdown = await response.text();
-                const html = marked.parse(markdown, { gfm: true, breaks: true });
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-
-                // Adjust relative image and link paths
-                const basePath = path.split('/').slice(0, -1).join('/');
-                doc.querySelectorAll('img').forEach(img => {
-                    const src = img.getAttribute('src');
-                    if (src && !src.startsWith('http') && !src.startsWith('/')) {
-                        img.setAttribute('src', `${basePath}/${src}`);
-                        img.setAttribute('loading', 'lazy');
-                    }
+        // Particle System
+        function initParticles() {
+            const canvas = document.querySelector('.particles');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const particlesArray = [];
+            for (let i = 0; i < 100; i++) {
+                particlesArray.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.5
                 });
-
-                doc.querySelectorAll('a[href$=".md"]').forEach(a => {
-                    const href = a.getAttribute('href');
-                    if (!href.startsWith('http')) {
-                        a.setAttribute('href', `${basePath}/${href}`);
-                        a.classList.add('md-link');
-                    }
-                });
-
-                contentDiv.innerHTML = doc.body.innerHTML;
-
-                // Enhance Code Blocks
-                contentDiv.querySelectorAll('pre code').forEach(block => {
-                    const wrapper = block.parentElement;
-                    wrapper.classList.add('code-block');
-                    const actions = document.createElement('div');
-                    actions.className = 'code-actions';
-                    actions.innerHTML = `
-                        <button class="code-btn copy-btn" aria-label="Copy code">Copy</button>
-                        <button class="code-btn run-btn" aria-label="Run code">Run</button>
-                    `;
-                    wrapper.appendChild(actions);
-
-                    const copyBtn = actions.querySelector('.copy-btn');
-                    copyBtn.addEventListener('click', () => {
-                        navigator.clipboard.writeText(block.textContent);
-                        copyBtn.textContent = 'Copied!';
-                        setTimeout(() => copyBtn.textContent = 'Copy', 2000);
-                        gtag('event', 'code_copy', { code: block.textContent.substring(0, 50) });
-                    });
-
-                    const runBtn = actions.querySelector('.run-btn');
-                    runBtn.addEventListener('click', () => {
-                        const code = block.textContent;
-                        const sandbox = document.createElement('iframe');
-                        sandbox.className = 'sandbox-output';
-                        sandbox.srcdoc = `
-                            <html>
-                                <head>
-                                    <style>body { color: var(--text-primary); background: var(--bg-primary); font-family: var(--font-code); }</style>
-                                    <script>
-                                        window.addEventListener('message', (e) => {
-                                            if (e.data.type === 'run') {
-                                                try {
-                                                    const result = eval(e.data.code);
-                                                    document.body.innerHTML = '<pre>' + (result || 'No output') + '</pre>';
-                                                } catch (error) {
-                                                    document.body.innerHTML = '<pre style="color: red;">' + error + '</pre>';
-                                                }
-                                            }
-                                        });
-                                    <\/script>
-                                </head>
-                                <body></body>
-                            </html>
-                        `;
-                        wrapper.appendChild(sandbox);
-                        sandbox.contentWindow.postMessage({ type: 'run', code }, '*');
-                        gtag('event', 'code_run', { code: code.substring(0, 50) });
-                        setTimeout(() => sandbox.remove(), 10000); // Auto-remove after 10s
-                    });
-                });
-
-                // Add Related Links (example)
-                const relatedLinks = document.createElement('div');
-                relatedLinks.className = 'related-links';
-                relatedLinks.innerHTML = `
-                    <h3>Related Topics</h3>
-                    <a href="#" data-md="docs/1-getting-started/1-quick-start-guide.md">Quick Start Guide</a>
-                    <a href="#" data-md="docs/2-concepts/1-core-concept.md">Core Concepts</a>
-                `;
-                contentDiv.appendChild(relatedLinks);
-
-                Prism.highlightAll();
-                mermaid.run();
-                generateTOC();
-                updateBreadcrumbs(path);
-                updateNavigationButtons(path);
-                init3DDiagram();
-                document.title = `Novix AI Documentation - ${path.split('/').pop().replace('.md', '')}`;
-                gtag('event', 'page_view', { page_path: path });
-
-                // Handle internal MD links
-                contentDiv.querySelectorAll('.md-link').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const href = new URL(link.getAttribute('href'), window.location.href).pathname;
-                        loadContent(href);
-                    });
-                });
-            } catch (error) {
-                console.error('Error loading content:', error);
-                contentDiv.innerHTML = `
-                    <div class="error" role="alert">
-                        <h3>⚠️ Error</h3>
-                        <p>Failed to load "${path}": ${error.message}</p>
-                        <p>Check if the file exists and the server is configured correctly.</p>
-                        <button onclick="loadContent('${path}')">Retry</button>
-                    </div>
-                `;
-                if (error.message.includes('404')) {
-                    contentDiv.innerHTML += `
-                        <div class="custom-404" role="alert">
-                            <h3>404 - Page Not Found</h3>
-                            <p>Oops! It seems we've ventured into uncharted space.</p>
-                            <a href="#" data-md="README.md">Return to Home</a>
-                        </div>
-                    `;
+            }
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                for (let i = 0; i < particlesArray.length; i++) {
+                    const p = particlesArray[i];
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
                 }
+                requestAnimationFrame(animateParticles);
             }
-        }
-
-        // Navigation
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                sidebarLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                loadContent(link.dataset.md);
-            });
-        });
-
-        // Search Functionality with Lunr.js
-        const searchInput = document.querySelector('.search-input');
-        const searchResults = document.querySelector('.search-results');
-        const allLinks = Array.from(sidebarLinks).map(link => ({
-            text: link.textContent.trim(),
-            path: link.dataset.md,
-            category: link.closest('.nav-section').querySelector('summary').textContent.trim()
-        }));
-        let searchIndex;
-
-        async function buildSearchIndex() {
-            const idx = lunr(function () {
-                this.ref('path');
-                this.field('content');
-                this.field('text');
-            });
-
-            for (const link of allLinks) {
-                try {
-                    const response = await fetch(link.path);
-                    if (response.ok) {
-                        const markdown = await response.text();
-                        idx.add({ path: link.path, content: markdown, text: link.text });
-                    }
-                } catch (error) {
-                    console.error(`Failed to index ${link.path}:`, error);
-                }
-            }
-            searchIndex = idx;
-        }
-
-        searchInput.addEventListener('input', debounce(() => {
-            const query = searchInput.value.toLowerCase();
-            if (query.length < 2 || !searchIndex) {
-                searchResults.style.display = 'none';
-                return;
-            }
-
-            const results = searchIndex.search(query);
-            searchResults.innerHTML = results.map(r => {
-                const link = allLinks.find(l => l.path === r.ref);
-                return `
-                    <a href="#" class="search-result-item" data-md="${r.ref}" role="option">
-                        <span>${link.text}</span>
-                        <small>${link.category}</small>
-                    </a>
-                `;
-            }).join('');
-            searchResults.style.display = results.length ? 'block' : 'none';
-
-            searchResults.querySelectorAll('a').forEach(a => {
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loadContent(a.dataset.md);
-                    sidebarLinks.forEach(l => l.classList.remove('active'));
-                    document.querySelector(`[data-md="${a.dataset.md}"]`).classList.add('active');
-                    searchResults.style.display = 'none';
-                    searchInput.value = '';
-                    gtag('event', 'search', { query });
-                });
-            });
-        }, 300));
-
-        // Debounce Function
-        function debounce(func, wait) {
-            let timeout;
-            return function (...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), wait);
-            };
-        }
-
-        // Table of Contents
-        function generateTOC() {
-            const content = document.getElementById('dynamic-content');
-            const headings = content.querySelectorAll('h1, h2, h3');
-            const tocList = document.getElementById('toc-list');
-            tocList.innerHTML = '';
-
-            headings.forEach((h, i) => {
-                const id = `heading-${i}`;
-                h.id = id;
-                const li = document.createElement('li');
-                li.style.paddingLeft = `${(h.tagName === 'H2' ? 1 : h.tagName === 'H3' ? 2 : 0)}rem`;
-                li.innerHTML = `<a href="#${id}" aria-label="${h.textContent}">${h.textContent}</a>`;
-                tocList.appendChild(li);
+            animateParticles();
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             });
         }
 
-        // Breadcrumbs
-        function updateBreadcrumbs(path) {
-            const parts = path.split('/').filter(p => p && p !== 'docs' && p !== document.documentElement.getAttribute('data-lang'));
-            const breadcrumbs = document.querySelector('.breadcrumbs');
-            breadcrumbs.innerHTML = parts.map((part, i) => {
-                const fullPath = `docs/${document.documentElement.getAttribute('data-lang')}/${parts.slice(0, i + 1).join('/')}`;
-                return i === parts.length - 1
-                    ? `<span>${part.replace('.md', '')}</span>`
-                    : `<a href="#" data-md="${fullPath}" aria-label="${part}">${part}</a>`;
-            }).join(' > ');
-
-            breadcrumbs.querySelectorAll('a').forEach(a => {
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loadContent(a.dataset.md);
-                });
-            });
-        }
-
-        // Navigation Buttons
-        function updateNavigationButtons(currentPath) {
-            const allPaths = Array.from(sidebarLinks).map(link => link.dataset.md);
-            const currentIndex = allPaths.indexOf(currentPath);
-            const navButtons = document.getElementById('nav-buttons');
-            navButtons.innerHTML = '';
-
-            if (currentIndex > 0) {
-                navButtons.innerHTML += `<a href="#" class="nav-btn" data-md="${allPaths[currentIndex - 1]}" aria-label="Previous section">Previous</a>`;
-            }
-            if (currentIndex < allPaths.length - 1) {
-                navButtons.innerHTML += `<a href="#" class="nav-btn" data-md="${allPaths[currentIndex + 1]}" aria-label="Next section">Next</a>`;
-            }
-
-            navButtons.querySelectorAll('a').forEach(a => {
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loadContent(a.dataset.md);
-                    sidebarLinks.forEach(l => l.classList.remove('active'));
-                    document.querySelector(`[data-md="${a.dataset.md}"]`).classList.add('active');
-                });
-            });
-        }
-
-        // 3D Diagram with Three.js
+        // Existing 3D Diagram
         function init3DDiagram() {
-            const container = document.getElementById('3d-diagram');
-            while (container.firstChild) container.removeChild(container.firstChild);
+            const canvas = document.getElementById('threejs-diagram');
             const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-
-            const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-            const material = new THREE.MeshPhongMaterial({ color: 0x00f7ff, wireframe: true });
-            const torusKnot = new THREE.Mesh(geometry, material);
-            scene.add(torusKnot);
-
-            const light = new THREE.PointLight(0xffffff, 1, 100);
-            light.position.set(50, 50, 50);
-            scene.add(light);
-            const ambientLight = new THREE.AmbientLight(0x404040);
-            scene.add(ambientLight);
-
-            camera.position.z = 30;
-
-            let isDragging = false;
-            let previousMousePosition = { x: 0, y: 0 };
-
-            container.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                previousMousePosition = { x: e.clientX, y: e.clientY };
-            });
-
-            container.addEventListener('mousemove', (e) => {
-                if (isDragging) {
-                    const deltaMove = {
-                        x: e.clientX - previousMousePosition.x,
-                        y: e.clientY - previousMousePosition.y
-                    };
-                    torusKnot.rotation.x += deltaMove.y * 0.005;
-                    torusKnot.rotation.y += deltaMove.x * 0.005;
-                    previousMousePosition = { x: e.clientX, y: e.clientY };
-                }
-            });
-
-            container.addEventListener('mouseup', () => isDragging = false);
-            container.addEventListener('mouseleave', () => isDragging = false);
-
-            function animate() {
-                requestAnimationFrame(animate);
-                if (!isDragging) {
-                    torusKnot.rotation.x += 0.01;
-                    torusKnot.rotation.y += 0.01;
-                }
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0x1e90ff });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+            camera.position.z = 5;
+            function animateDiagram() {
+                requestAnimationFrame(animateDiagram);
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
                 renderer.render(scene, camera);
             }
-            animate();
-
+            animateDiagram();
             window.addEventListener('resize', () => {
-                renderer.setSize(container.clientWidth, container.clientHeight);
-                camera.aspect = container.clientWidth / container.clientHeight;
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
                 camera.updateProjectionMatrix();
             });
         }
 
-        // Mermaid Theme Update
-        function updateMermaidTheme(theme) {
-            mermaid.initialize({
-                theme: theme === 'dark' || theme === 'neon' ? 'dark' : 'default',
-                securityLevel: 'loose'
+        // 3D Astronaut Background
+        function init3DBackground() {
+            const bgCanvas = document.getElementById('threejs-bg');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(1, 1, 1).normalize();
+            scene.add(directionalLight);
+
+            // Starfield
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1, sizeAttenuation: true });
+            const starsVertices = [];
+            for (let i = 0; i < 1000; i++) {
+                const x = (Math.random() - 0.5) * 2000;
+                const y = (Math.random() - 0.5) * 2000;
+                const z = (Math.random() - 0.5) * 2000;
+                starsVertices.push(x, y, z);
+            }
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+            const stars = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(stars);
+
+            // Load Astronaut Model
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                'docs/models/astronaut.gltf',
+                (gltf) => {
+                    const model = gltf.scene;
+                    model.scale.set(0.5, 0.5, 0.5);
+                    model.position.set(0, -1, -5);
+                    camera.add(model); // Attach model to camera so it stays in view
+                    scene.add(camera);
+                },
+                (progress) => {
+                    console.log(`Loading model: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
+                },
+                (error) => {
+                    console.error('Error loading astronaut model:', error);
+                }
+            );
+
+            camera.position.z = 0;
+
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                camera.position.z -= 0.05; // Simulate flying by moving camera forward
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle Window Resize
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
             });
-            mermaid.run();
         }
 
-        // Scroll to Top
-        document.getElementById('scroll-top').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Sidebar Toggle for Mobile
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        if (window.innerWidth <= 1024) sidebarToggle.style.display = 'block';
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
-
-        // Feedback Modal
-        const feedbackLink = document.getElementById('feedback-link');
-        const feedbackModal = document.getElementById('feedback-modal');
-        const feedbackForm = document.getElementById('feedback-form');
-
-        feedbackLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            feedbackModal.style.display = 'flex';
-        });
-
-        feedbackForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(feedbackForm);
+        // Dynamic Content Loading
+        async function loadContent(mdFile) {
             try {
-                const response = await fetch(feedbackForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
+                const response = await fetch(mdFile);
+                if (!response.ok) throw new Error('File not found');
+                const markdown = await response.text();
+                const html = marked.parse(markdown);
+                document.getElementById('content').innerHTML = html;
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
                 });
-                if (response.ok) {
-                    alert('Feedback submitted successfully!');
-                    feedbackModal.style.display = 'none';
-                    feedbackForm.reset();
-                    gtag('event', 'feedback_submit');
-                } else {
-                    throw new Error('Submission failed');
-                }
             } catch (error) {
-                alert('Error submitting feedback: ' + error.message);
+                document.getElementById('content').innerHTML = '<p>Error loading content.</p>';
+                console.error(error);
             }
+        }
+
+        // Search Functionality (Simple Example)
+        let searchIndex = [];
+        async function buildSearchIndex() {
+            const files = ['README.md', '1-getting-started/1-quick-start-guide.md', '2-api-reference/api.md'];
+            for (const file of files) {
+                const response = await fetch(file);
+                const text = await response.text();
+                searchIndex.push({ file, content: text.toLowerCase() });
+            }
+            document.getElementById('search-bar').addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const results = searchIndex.filter(item => item.content.includes(query));
+                console.log('Search results:', results.map(r => r.file));
+            });
+        }
+
+        // Language Switching (Placeholder)
+        document.getElementById('lang-select').addEventListener('change', (e) => {
+            console.log('Language changed to:', e.target.value);
+            // Implement language switching logic here
         });
 
-        feedbackModal.addEventListener('click', (e) => {
-            if (e.target === feedbackModal) feedbackModal.style.display = 'none';
-        });
-
-        // Keyboard Navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                searchResults.style.display = 'none';
-                feedbackModal.style.display = 'none';
-                sidebar.classList.remove('active');
-            }
-            if (e.key === '/' && document.activeElement !== searchInput) {
-                e.preventDefault();
-                searchInput.focus();
-            }
-        });
-
-        // Easter Egg: Konami Code
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        let konamiIndex = 0;
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    particleBurst(canvas.width / 2, canvas.height / 2);
-                    alert('Konami Code Activated! Enjoy the particle show!');
-                    konamiIndex = 0;
-                    gtag('event', 'easter_egg', { type: 'konami' });
-                }
-            } else {
-                konamiIndex = 0;
-            }
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelector('.nav-link.active').classList.remove('active');
+                e.target.classList.add('active');
+                loadContent(e.target.dataset.md);
+            });
         });
 
         // Initialization
@@ -1420,27 +376,10 @@
             updateTheme();
             loadContent(document.querySelector('.nav-link.active').dataset.md);
             buildSearchIndex();
+            initParticles();
+            init3DDiagram();
+            init3DBackground();
         });
-    </script>
-
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                .then(reg => {
-                    console.log('Service Worker registered', reg);
-                    // Dynamically cache MD files
-                    reg.addEventListener('updatefound', () => {
-                        const newWorker = reg.installing;
-                        newWorker.addEventListener('statechange', () => {
-                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                newWorker.postMessage({ type: 'CACHE_MDS', urls: Array.from(sidebarLinks).map(l => l.dataset.md) });
-                            }
-                        });
-                    });
-                })
-                .catch(err => console.error('Service Worker registration failed', err));
-        }
     </script>
 </body>
 </html>
