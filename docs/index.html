@@ -281,22 +281,25 @@
             scene.add(stars);
 
             // Load the astronaut model
+            let astronautModel;
             const loader = new THREE.GLTFLoader();
             loader.load(
                 'models/astronaut.gltf',
                 (gltf) => {
-                    const model = gltf.scene;
-                    camera.add(model); // Attach to camera to stay in view
-                    model.position.set(0, 0, -5); // 5 units in front of camera
-                    model.rotation.set(-Math.PI / 2, 0, 0); // Rotate to face camera upright
-                    // Hide blue block if present in model
-                    model.traverse((child) => {
-                        if (child.isMesh && child.material && child.material.color.getHex() === 0x0000ff) {
-                            child.visible = false;
-                            console.log('Hid blue mesh:', child);
+                    astronautModel = gltf.scene;
+                    scene.add(astronautModel);
+                    astronautModel.position.set(0, 0, -5);
+                    astronautModel.rotation.set(0, Math.PI, 0); // Face camera
+                    astronautModel.traverse((child) => {
+                        if (child.isMesh && child.material) {
+                            const colorHex = child.material.color.getHexString();
+                            console.log('Mesh color:', colorHex, 'Mesh:', child);
+                            if (colorHex === '0000ff' || child.material.color.getHex() === 0x0000ff) {
+                                child.visible = false;
+                                console.log('Hid blue mesh:', child);
+                            }
                         }
                     });
-                    scene.add(camera);
                     console.log('Scene children:', scene.children);
                 },
                 (progress) => {
@@ -307,12 +310,17 @@
                 }
             );
 
-            camera.position.z = 0;
+            camera.position.z = 10;
 
-            // Animation loop to make astronaut "fly"
+            // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
-                camera.position.z -= 0.05; // Move camera forward to simulate flying
+                if (astronautModel) {
+                    astronautModel.position.z += 0.05; // Move toward camera
+                    if (astronautModel.position.z > 10) {
+                        astronautModel.position.z = -20; // Reset to far away
+                    }
+                }
                 renderer.render(scene, camera);
             }
             animate();
@@ -361,7 +369,6 @@
         // Language Switching (Placeholder)
         document.getElementById('lang-select').addEventListener('change', (e) => {
             console.log('Language changed to:', e.target.value);
-            // Add language switching logic here if needed
         });
 
         // Navigation
