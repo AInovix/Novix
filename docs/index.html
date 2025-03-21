@@ -62,7 +62,7 @@
                 "sidebar main main"
                 "footer footer footer";
             grid-template-columns: 250px 1fr 1fr;
-            grid-template-rows: auto 1fr auto;
+            gridṣtemplate-rows: auto 1fr auto;
             min-height: 100vh;
             gap: 20px;
             padding: 20px;
@@ -226,7 +226,7 @@
             });
         }
 
-        // Existing 3D Diagram
+        // Existing 3D Diagram (isolated to its canvas)
         function init3DDiagram() {
             const canvas = document.getElementById('threejs-diagram');
             const scene = new THREE.Scene();
@@ -260,14 +260,14 @@
             const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
 
-            // Add basic lighting
+            // Lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
             directionalLight.position.set(5, 5, 5);
             scene.add(directionalLight);
 
-            // Add stars
+            // Stars
             const starsGeometry = new THREE.BufferGeometry();
             const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
             const starsVertices = [];
@@ -290,25 +290,19 @@
                 (gltf) => {
                     astronautModel = gltf.scene;
                     scene.add(astronautModel);
-                    astronautModel.position.set(0, 0, 0); // Center in view
-                    astronautModel.scale.set(2, 2, 2); // Make it visible
-                    astronautModel.rotation.set(0, 0, 0); // Reset rotation
+                    astronautModel.position.set(0, 0, 20); // Start behind camera
+                    astronautModel.scale.set(2, 2, 2); // Ensure visibility
+                    astronautModel.rotation.set(0, Math.PI, 0); // Face camera
                     console.log('Astronaut loaded:', astronautModel);
 
-                    // Check for blue meshes
-                    astronautModel.traverse((child) => {
-                        if (child.isMesh && child.material) {
-                            const colorHex = child.material.color.getHexString();
-                            console.log('Mesh found:', child.name, 'Color:', colorHex);
-                            if (colorHex === '0000ff' || colorHex === '1e90ff') {
-                                child.visible = false;
-                                console.log('Hid blue mesh:', child.name);
-                            }
+                    // Check scene for blue objects after loading
+                    scene.children.forEach((child, index) => {
+                        if (child.isMesh && child.material && (child.material.color.getHex() === 0x0000ff || child.material.color.getHex() === 0x1e90ff)) {
+                            scene.remove(child);
+                            console.log('Removed blue mesh from scene at index:', index);
                         }
                     });
-
-                    // Log scene contents
-                    console.log('Scene children:', scene.children);
+                    console.log('Scene children after cleanup:', scene.children);
                 },
                 (progress) => {
                     console.log(`Loading: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
@@ -318,16 +312,19 @@
                 }
             );
 
-            camera.position.set(0, 0, 10); // Camera 10 units back
+            camera.position.set(0, 0, 10); // Camera fixed at z = 10
 
             // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
                 if (astronautModel) {
-                    astronautModel.position.z -= 0.05; // Move astronaut forward
+                    astronautModel.position.z -= 0.05; // Move toward camera
                     if (astronautModel.position.z < -20) {
-                        astronautModel.position.z = 20; // Reset to back
+                        astronautModel.position.z = 20; // Reset to behind camera
                     }
+                    // Add gentle rotation
+                    astronautModel.rotation.y += 0.01;
+                    astronautModel.rotation.x += 0.005;
                 }
                 renderer.render(scene, camera);
             }
