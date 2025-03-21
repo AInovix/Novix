@@ -141,9 +141,7 @@
 </head>
 <body>
     <div class="parallax-bg"></div>
-    <!-- Three.js background canvas for astronaut -->
     <canvas id="threejs-bg" aria-hidden="true"></canvas>
-    <!-- Particle system canvas -->
     <canvas class="particles" aria-hidden="true"></canvas>
     <div class="app-grid">
         <header>
@@ -166,11 +164,10 @@
             <div class="content-card">
                 <div id="content">Loading...</div>
             </div>
-            <!-- Container for 3D diagram (existing feature) -->
             <canvas id="threejs-diagram" style="width: 100%; height: 400px;"></canvas>
         </main>
         <footer>
-            <p>&copy; 2023 Novix AI. All rights reserved.</p>
+            <p>© 2023 Novix AI. All rights reserved.</p>
         </footer>
     </div>
 
@@ -255,7 +252,7 @@
             });
         }
 
-        // 3D Astronaut Background
+        // Updated 3D Astronaut Background
         function init3DBackground() {
             const bgCanvas = document.getElementById('threejs-bg');
             const scene = new THREE.Scene();
@@ -263,16 +260,15 @@
             const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
 
-            // Lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-            directionalLight.position.set(1, 1, 1).normalize();
+            directionalLight.position.set(1, 1, 1);
             scene.add(directionalLight);
 
-            // Starfield
+            // Add stars for space effect
             const starsGeometry = new THREE.BufferGeometry();
-            const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1, sizeAttenuation: true });
+            const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1 });
             const starsVertices = [];
             for (let i = 0; i < 1000; i++) {
                 const x = (Math.random() - 0.5) * 2000;
@@ -284,36 +280,37 @@
             const stars = new THREE.Points(starsGeometry, starsMaterial);
             scene.add(stars);
 
-            // Load Astronaut Model
+            // Load the astronaut model
             const loader = new THREE.GLTFLoader();
             loader.load(
                 'models/astronaut.gltf',
                 (gltf) => {
                     const model = gltf.scene;
-                    model.scale.set(0.5, 0.5, 0.5);
-                    model.position.set(0, -1, -5);
-                    camera.add(model); // Attach model to camera so it stays in view
+                    camera.add(model); // Attach to camera to stay in view
+                    model.position.set(0, 0, -5); // Position 5 units in front of camera
+                    model.rotation.x = Math.PI / 2; // Rotate to stand upright
                     scene.add(camera);
+                    console.log('Scene children:', scene.children); // Debug to identify extra objects
                 },
                 (progress) => {
-                    console.log(`Loading model: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
+                    console.log(`Loading: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
                 },
                 (error) => {
-                    console.error('Error loading astronaut model:', error);
+                    console.error('Error loading model:', error);
                 }
             );
 
             camera.position.z = 0;
 
-            // Animation
+            // Animation loop to make astronaut "fly"
             function animate() {
                 requestAnimationFrame(animate);
-                camera.position.z -= 0.05; // Simulate flying by moving camera forward
+                camera.position.z -= 0.05; // Move camera forward to simulate flying
                 renderer.render(scene, camera);
             }
             animate();
 
-            // Handle Window Resize
+            // Handle window resize
             window.addEventListener('resize', () => {
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -338,7 +335,7 @@
             }
         }
 
-        // Search Functionality (Simple Example)
+        // Search Functionality
         let searchIndex = [];
         async function buildSearchIndex() {
             const files = ['README.md', '1-getting-started/1-quick-start-guide.md', '2-api-reference/api.md'];
@@ -357,7 +354,7 @@
         // Language Switching (Placeholder)
         document.getElementById('lang-select').addEventListener('change', (e) => {
             console.log('Language changed to:', e.target.value);
-            // Implement language switching logic here
+            // Add language switching logic here if needed
         });
 
         // Navigation
