@@ -62,7 +62,7 @@
                 "sidebar main main"
                 "footer footer footer";
             grid-template-columns: 250px 1fr 1fr;
-            gridṣtemplate-rows: auto 1fr auto;
+            grid-template-rows: auto 1fr auto;
             min-height: 100vh;
             gap: 20px;
             padding: 20px;
@@ -226,18 +226,21 @@
             });
         }
 
-        // Existing 3D Diagram (isolated to its canvas)
+        // 3D Diagram (isolated to #threejs-diagram)
         function init3DDiagram() {
             const canvas = document.getElementById('threejs-diagram');
+            if (!canvas) return; // Prevent errors if canvas is missing
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
             renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
             const geometry = new THREE.BoxGeometry(1, 1, 1);
             const material = new THREE.MeshBasicMaterial({ color: 0x1e90ff });
             const cube = new THREE.Mesh(geometry, material);
             scene.add(cube);
             camera.position.z = 5;
+
             function animateDiagram() {
                 requestAnimationFrame(animateDiagram);
                 cube.rotation.x += 0.01;
@@ -245,6 +248,7 @@
                 renderer.render(scene, camera);
             }
             animateDiagram();
+
             window.addEventListener('resize', () => {
                 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
                 camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -255,14 +259,14 @@
         // Updated 3D Astronaut Background
         function init3DBackground() {
             const bgCanvas = document.getElementById('threejs-bg');
+            if (!bgCanvas) return; // Prevent errors if canvas is missing
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
 
             // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
             directionalLight.position.set(5, 5, 5);
             scene.add(directionalLight);
@@ -295,13 +299,14 @@
                     astronautModel.rotation.set(0, Math.PI, 0); // Face camera
                     console.log('Astronaut loaded:', astronautModel);
 
-                    // Check scene for blue objects after loading
-                    scene.children.forEach((child, index) => {
+                    // Remove any blue objects from the scene
+                    for (let i = scene.children.length - 1; i >= 0; i--) {
+                        const child = scene.children[i];
                         if (child.isMesh && child.material && (child.material.color.getHex() === 0x0000ff || child.material.color.getHex() === 0x1e90ff)) {
                             scene.remove(child);
-                            console.log('Removed blue mesh from scene at index:', index);
+                            console.log('Removed blue mesh from background scene:', child);
                         }
-                    });
+                    }
                     console.log('Scene children after cleanup:', scene.children);
                 },
                 (progress) => {
@@ -312,7 +317,7 @@
                 }
             );
 
-            camera.position.set(0, 0, 10); // Camera fixed at z = 10
+            camera.position.set(0, 0, 10); // Fixed camera position
 
             // Animation loop
             function animate() {
@@ -320,10 +325,9 @@
                 if (astronautModel) {
                     astronautModel.position.z -= 0.05; // Move toward camera
                     if (astronautModel.position.z < -20) {
-                        astronautModel.position.z = 20; // Reset to behind camera
+                        astronautModel.position.z = 20; // Reset to behind
                     }
-                    // Add gentle rotation
-                    astronautModel.rotation.y += 0.01;
+                    astronautModel.rotation.y += 0.01; // Gentle rotation
                     astronautModel.rotation.x += 0.005;
                 }
                 renderer.render(scene, camera);
