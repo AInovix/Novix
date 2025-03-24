@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Novix AI Documentation">
     <title>Novix AI Documentation</title>
-    <!-- Three.js Core Library -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js" defer></script>
-    <!-- GLTFLoader for loading the astronaut model -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js" defer></script>
-    <!-- Marked.js for markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js" defer></script>
-    <!-- Highlight.js for code highlighting -->
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/lib/highlight.min.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/atom-one-dark.css">
     <style>
@@ -85,6 +81,11 @@
             top: 20px;
             overflow-y: auto;
         }
+        .sidebar h3 {
+            margin: 20px 0 10px;
+            color: var(--primary);
+            font-size: 1.2em;
+        }
         .nav-link {
             display: block;
             padding: 10px;
@@ -104,6 +105,7 @@
             padding: 20px;
             border-radius: 8px;
             backdrop-filter: blur(10px);
+            overflow-x: auto;
         }
         footer {
             grid-area: footer;
@@ -122,6 +124,21 @@
             background: #1a1a2e;
             padding: 10px;
             border-radius: 4px;
+        }
+        /* Table Styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+        th, td {
+            border: 1px solid var(--text-secondary);
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--surface);
+            color: var(--text);
         }
         @media (max-width: 768px) {
             .app-grid {
@@ -157,8 +174,35 @@
         </header>
         <nav class="sidebar">
             <a class="nav-link active" data-md="README.md">Home</a>
-            <a class="nav-link" data-md="1-getting-started/1-quick-start-guide.md">Quick Start</a>
-            <a class="nav-link" data-md="2-api-reference/api.md">API Reference</a>
+            <h3>Getting Started</h3>
+            <a class="nav-link" data-md="1-getting-started/1-quick-start-guide.md">Quick Start Guide</a>
+            <a class="nav-link" data-md="1-getting-started/2-environment.md">Environment</a>
+            <a class="nav-link" data-md="1-getting-started/3-examples.md">Examples</a>
+            <a class="nav-link" data-md="1-getting-started/4-considerations.md">Considerations</a>
+            <a class="nav-link" data-md="1-getting-started/5-support.md">Support</a>
+            <h3>Concepts</h3>
+            <a class="nav-link" data-md="concepts/1. core concept.md">Core Concept</a>
+            <a class="nav-link" data-md="concepts/2. architecture.md">Architecture</a>
+            <a class="nav-link" data-md="concepts/3. providers.md">Providers</a>
+            <a class="nav-link" data-md="concepts/4. agents.md">Agents</a>
+            <a class="nav-link" data-md="concepts/5. chat completions.md">Chat Completions</a>
+            <a class="nav-link" data-md="concepts/6. extension commands.md">Extension Commands</a>
+            <a class="nav-link" data-md="concepts/7. prompts.md">Prompts</a>
+            <a class="nav-link" data-md="concepts/8. chains.md">Chains</a>
+            <a class="nav-link" data-md="concepts/9. conversations.md">Conversations</a>
+            <a class="nav-link" data-md="concepts/10. agent training.md">Agent Training</a>
+            <a class="nav-link" data-md="concepts/11. agent interactions.md">Agent Interactions</a>
+            <a class="nav-link" data-md="concepts/12. extensions.md">Extensions</a>
+            <h3>Providers</h3>
+            <a class="nav-link" data-md="providers/1. anthropic claude.md">Anthropic Claude</a>
+            <a class="nav-link" data-md="providers/2. azure.md">Azure</a>
+            <a class="nav-link" data-md="providers/3. deepseek.md">Deepseek</a>
+            <a class="nav-link" data-md="providers/4. ezLocalai.md">ezLocalai</a>
+            <a class="nav-link" data-md="providers/5. google gemini.md">Google Gemini</a>
+            <a class="nav-link" data-md="providers/6. openAI.md">OpenAI</a>
+            <a class="nav-link" data-md="providers/7. xAI grok.md">xAI Grok</a>
+            <a class="nav-link" data-md="providers/8. hugging face.md">Hugging Face</a>
+            <a class="nav-link" data-md="providers/9. gpt4Free.md">GPT4Free</a>
         </nav>
         <main>
             <div class="content-card">
@@ -226,7 +270,7 @@
             });
         }
 
-        // 3D Diagram (isolated to #threejs-diagram)
+        // 3D Diagram
         function init3DDiagram() {
             const canvas = document.getElementById('threejs-diagram');
             if (!canvas) return;
@@ -234,13 +278,11 @@
             const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
             renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-
             const geometry = new THREE.BoxGeometry(1, 1, 1);
             const material = new THREE.MeshBasicMaterial({ color: 0x1e90ff });
             const cube = new THREE.Mesh(geometry, material);
             scene.add(cube);
             camera.position.z = 5;
-
             function animateDiagram() {
                 requestAnimationFrame(animateDiagram);
                 cube.rotation.x += 0.01;
@@ -248,7 +290,6 @@
                 renderer.render(scene, camera);
             }
             animateDiagram();
-
             window.addEventListener('resize', () => {
                 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
                 camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -256,21 +297,18 @@
             });
         }
 
-        // 3D Astronaut Background (No Blue Block)
+        // 3D Background
         function init3DBackground() {
             const bgCanvas = document.getElementById('threejs-bg');
             if (!bgCanvas) return;
-
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
-
             scene.add(new THREE.AmbientLight(0xffffff, 0.5));
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
             directionalLight.position.set(5, 5, 5);
             scene.add(directionalLight);
-
             const starsGeometry = new THREE.BufferGeometry();
             const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
             const starsVertices = [];
@@ -284,7 +322,6 @@
             starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
             const stars = new THREE.Points(starsGeometry, starsMaterial);
             scene.add(stars);
-
             let astronautModel;
             const loader = new THREE.GLTFLoader();
             loader.load(
@@ -294,27 +331,11 @@
                     scene.add(astronautModel);
                     astronautModel.position.set(0, 0, 0);
                     astronautModel.scale.set(2, 2, 2);
-                    astronautModel.rotation.set(0, 0, 0);
-                    console.log('Astronaut loaded:', astronautModel);
-
-                    scene.children.forEach(child => {
-                        if (child !== astronautModel && child !== stars && !child.isLight) {
-                            scene.remove(child);
-                            console.log('Removed unwanted object:', child);
-                        }
-                    });
-                    console.log('Scene contents after cleanup:', scene.children);
                 },
-                (progress) => {
-                    console.log(`Loading astronaut: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
-                },
-                (error) => {
-                    console.error('Error loading astronaut model:', error);
-                }
+                undefined,
+                (error) => console.error('Error loading astronaut:', error)
             );
-
             camera.position.set(0, 0, 10);
-
             window.addEventListener('scroll', () => {
                 if (astronautModel) {
                     const scrollY = window.scrollY;
@@ -322,13 +343,11 @@
                     astronautModel.rotation.y = scrollY / 200;
                 }
             });
-
             function animate() {
                 requestAnimationFrame(animate);
                 renderer.render(scene, camera);
             }
             animate();
-
             window.addEventListener('resize', () => {
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -336,40 +355,38 @@
             });
         }
 
-        // Dynamic Content Loading with Debugging
+        // Content Loading
         async function loadContent(mdFile) {
-            console.log('Attempting to load:', mdFile);
             try {
                 const response = await fetch(mdFile);
-                console.log('Fetch response:', response);
-                if (!response.ok) {
-                    console.error('Fetch failed with status:', response.status);
-                    throw new Error('File not found');
-                }
+                if (!response.ok) throw new Error('File not found');
                 const markdown = await response.text();
-                console.log('Markdown content:', markdown);
                 const html = marked.parse(markdown);
-                console.log('Parsed HTML:', html);
                 document.getElementById('content').innerHTML = html;
             } catch (error) {
-                console.error('Error:', error);
                 document.getElementById('content').innerHTML = 'Error loading content.';
             }
         }
 
-        // Search Functionality
+        // Search Index
         let searchIndex = [];
         async function buildSearchIndex() {
-            const files = ['README.md', '1-getting-started/1-quick-start-guide.md', '2-api-reference/api.md'];
+            const files = Array.from(document.querySelectorAll('.nav-link')).map(link => link.dataset.md);
             for (const file of files) {
-                const response = await fetch(file);
-                const text = await response.text();
-                searchIndex.push({ file, content: text.toLowerCase() });
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) continue;
+                    const text = await response.text();
+                    searchIndex.push({ file, content: text.toLowerCase() });
+                } catch (error) {
+                    console.error(`Error fetching ${file}:`, error);
+                }
             }
             document.getElementById('search-bar').addEventListener('input', (e) => {
                 const query = e.target.value.toLowerCase();
                 const results = searchIndex.filter(item => item.content.includes(query));
                 console.log('Search results:', results.map(r => r.file));
+                // Add UI for results if desired
             });
         }
 
@@ -395,7 +412,7 @@
             loadContent(document.querySelector('.nav-link.active').dataset.md);
             buildSearchIndex();
             initParticles();
-            // init3DDiagram(); // Comment out if removing blue box from diagram area
+            init3DDiagram();
             init3DBackground();
         });
     </script>
