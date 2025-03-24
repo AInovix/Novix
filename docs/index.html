@@ -229,7 +229,7 @@
         // 3D Diagram (isolated to #threejs-diagram)
         function init3DDiagram() {
             const canvas = document.getElementById('threejs-diagram');
-            if (!canvas) return; // Prevent errors if canvas is missing
+            if (!canvas) return;
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
@@ -256,22 +256,24 @@
             });
         }
 
-        // Updated 3D Astronaut Background
+        // 3D Astronaut Background (No Blue Block)
         function init3DBackground() {
             const bgCanvas = document.getElementById('threejs-bg');
-            if (!bgCanvas) return; // Prevent errors if canvas is missing
+            if (!bgCanvas) return;
+
+            // Initialize Scene, Camera, and Renderer
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
 
-            // Lighting
+            // Add Lighting
             scene.add(new THREE.AmbientLight(0xffffff, 0.5));
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
             directionalLight.position.set(5, 5, 5);
             scene.add(directionalLight);
 
-            // Stars
+            // Add Stars
             const starsGeometry = new THREE.BufferGeometry();
             const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
             const starsVertices = [];
@@ -286,55 +288,55 @@
             const stars = new THREE.Points(starsGeometry, starsMaterial);
             scene.add(stars);
 
-            // Load astronaut
+            // Load Astronaut Model
             let astronautModel;
             const loader = new THREE.GLTFLoader();
             loader.load(
-                'models/astronaut.gltf',
+                'models/astronaut.gltf', // Ensure this path matches your file location
                 (gltf) => {
                     astronautModel = gltf.scene;
                     scene.add(astronautModel);
-                    astronautModel.position.set(0, 0, 20); // Start behind camera
-                    astronautModel.scale.set(2, 2, 2); // Ensure visibility
-                    astronautModel.rotation.set(0, Math.PI, 0); // Face camera
-                    console.log('Astronaut loaded:', astronautModel);
+                    astronautModel.position.set(0, 0, 0); // Center the astronaut
+                    astronautModel.scale.set(2, 2, 2); // Make it visible
+                    astronautModel.rotation.set(0, 0, 0); // Reset rotation
 
-                    // Remove any blue objects from the scene
-                    for (let i = scene.children.length - 1; i >= 0; i--) {
-                        const child = scene.children[i];
-                        if (child.isMesh && child.material && (child.material.color.getHex() === 0x0000ff || child.material.color.getHex() === 0x1e90ff)) {
+                    // Clean up the scene: Remove anything that isn’t the astronaut, stars, or lights
+                    scene.children.forEach(child => {
+                        if (child !== astronautModel && child !== stars && !child.isLight) {
                             scene.remove(child);
-                            console.log('Removed blue mesh from background scene:', child);
+                            console.log('Removed unwanted object:', child);
                         }
-                    }
-                    console.log('Scene children after cleanup:', scene.children);
+                    });
+                    console.log('Scene contents after cleanup:', scene.children);
                 },
                 (progress) => {
-                    console.log(`Loading: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
+                    console.log(`Loading astronaut: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
                 },
                 (error) => {
-                    console.error('Error loading astronaut:', error);
+                    console.error('Error loading astronaut model:', error);
                 }
             );
 
-            camera.position.set(0, 0, 10); // Fixed camera position
+            // Set Camera Position
+            camera.position.set(0, 0, 10);
 
-            // Animation loop
+            // Scroll-Based Animation for Astronaut
+            window.addEventListener('scroll', () => {
+                if (astronautModel) {
+                    const scrollY = window.scrollY;
+                    astronautModel.position.z = 10 - scrollY / 100; // Move forward/backward
+                    astronautModel.rotation.y = scrollY / 200; // Rotate as you scroll
+                }
+            });
+
+            // Animation Loop
             function animate() {
                 requestAnimationFrame(animate);
-                if (astronautModel) {
-                    astronautModel.position.z -= 0.05; // Move toward camera
-                    if (astronautModel.position.z < -20) {
-                        astronautModel.position.z = 20; // Reset to behind
-                    }
-                    astronautModel.rotation.y += 0.01; // Gentle rotation
-                    astronautModel.rotation.x += 0.005;
-                }
                 renderer.render(scene, camera);
             }
             animate();
 
-            // Resize handler
+            // Handle Window Resize
             window.addEventListener('resize', () => {
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 camera.aspect = window.innerWidth / window.innerHeight;
