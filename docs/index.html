@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Novix AI Documentation">
     <title>Novix AI Documentation</title>
+    <!-- Three.js Core Library -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js" defer></script>
+    <!-- GLTFLoader for loading the astronaut model -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js" defer></script>
+    <!-- Marked.js for markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js" defer></script>
+    <!-- Highlight.js for code highlighting -->
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/lib/highlight.min.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/atom-one-dark.css">
     <style>
@@ -80,11 +84,6 @@
             position: sticky;
             top: 20px;
             overflow-y: auto;
-        }
-        .sidebar h3 {
-            margin: 20px 0 10px;
-            color: var(--primary);
-            font-size: 1.2em;
         }
         .nav-link {
             display: block;
@@ -355,7 +354,7 @@
             });
         }
 
-        // Content Loading
+        // Content Loading with Code Highlighting
         async function loadContent(mdFile) {
             try {
                 const response = await fetch(mdFile);
@@ -363,6 +362,10 @@
                 const markdown = await response.text();
                 const html = marked.parse(markdown);
                 document.getElementById('content').innerHTML = html;
+                // Highlight all code blocks
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
             } catch (error) {
                 document.getElementById('content').innerHTML = 'Error loading content.';
             }
