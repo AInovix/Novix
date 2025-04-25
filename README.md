@@ -1,3 +1,7 @@
+---
+icon: galaxy
+---
+
 # Novix: Next-Gen AI Automation Platform
 
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](https://opensource.org/licenses/MIT)[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge)](https://python.org)[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)](https://docker.com)[![X](https://img.shields.io/badge/X-000000?style=for-the-badge\&logo=x\&logoColor=white)](https://x.com/ainovix)

@@ -1,14 +1,18 @@
-## To use the chatbot:
+---
+icon: user-robot
+---
+
+# To use the chatbot:
 
 1. **Start the services:**
 
 ```bash
 docker-compose up
 ```
+
 2. **Access interfaces:**
 
 * Chat UI: http://localhost:8501
-
 * Voice API: Use the VoiceEngine class in your code
 
 Example usage in code:

@@ -1,11 +1,11 @@
 # Table of contents
 
 * [Novix: Next-Gen AI Automation Platform](README.md)
-* [Contribution Guide 🌟](CONTRIBUTING.md)
+* [Contribution Guide ](CONTRIBUTING.md)
 * [1- Getting Started](1-getting-started/README.md)
-  * [Novix - Quick Start Guide 🚀](1-getting-started/1-quick-start-guide.md)
+  * [Novix - Quick Start Guide ](1-getting-started/1-quick-start-guide.md)
   * [Environment Variables Configuration Guide](1-getting-started/2-environment.md)
-  * [Novix - Example Use Cases 🚀](1-getting-started/3-examples.md)
+  * [Novix - Example Use Cases ](1-getting-started/3-examples.md)
   * [Novix Deployment Considerations & Distribution Guide](1-getting-started/4-considerations.md)
   * [Support](1-getting-started/5-support.md)
 * [2- Concepts](2.-concepts/README.md)
@@ -36,4 +36,4 @@
 * [Novix Project Dashboard](project-dashboard.md)
 * [To use the chatbot:](to-use.md)
 * [novix-app](novix-app.md)
-* [playground-usage](playground-usage.md)
+* [Playground-usage](playground-usage.md)

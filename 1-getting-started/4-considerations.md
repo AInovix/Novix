@@ -1,8 +1,13 @@
+---
+icon: box-taped
+---
+
 # Novix Deployment Considerations & Distribution Guide
 
 ## 🧠 LLM Operational Considerations
 
 ### Context Window Management
+
 ![Token Limit Analogy](https://placehold.co/800x200?text=Token%20Limits%20Analogy%20-%20Like%20a%20Speed%20Reader)
 
 ```python
@@ -14,16 +19,19 @@ chunks = adaptive_chunker(document, model="gpt-4")
 for chunk in chunks:
     response = process_chunk(chunk)
 ```
-Token Limit Strategies  
---------------------------------------------------------------------------  
-| Scenario           | Challenge                   | Solution                        |
-|--------------------|-----------------------------|---------------------------------|
-| Full Book Analysis | Exceeds context window      | Implement RAG architecture      |
-| Specific Queries   | Requires precision          | Metadata tagging system         |
-| Real-time Processing | Latency issues           | Streaming token handling        |
---------------------------------------------------------------------------  
+
+## Token Limit Strategies
+
+| Scenario             | Challenge              | Solution                   |
+| -------------------- | ---------------------- | -------------------------- |
+| Full Book Analysis   | Exceeds context window | Implement RAG architecture |
+| Specific Queries     | Requires precision     | Metadata tagging system    |
+| Real-time Processing | Latency issues         | Streaming token handling   |
+
+***
 
 Local Model Constraints
+
 ```mermaid
 graph LR
 A[Local Model] --> B(Text Generation)
@@ -32,17 +40,22 @@ A --> D((Limited Reasoning))
 D --> E[Predefined Chains]
 D --> F[Command Restrictions]
 ```
-Capability Matrix  
-------------------------------------------------  
-| Feature            | Local Model | Cloud Model |
-|--------------------|-------------|-------------|
-| Text Generation    | ✅ Excellent | ✅ Excellent |
-| Complex Reasoning  | ⚠️ Limited   | ✅ Strong    |
-| Command Execution  | ❌ Restricted| ✅ Allowed   |
-| Offline Operation  | ✅ Supported | ❌ Requires API |
-------------------------------------------------
+
+## Capability Matrix
+
+| Feature           | Local Model  | Cloud Model    |
+| ----------------- | ------------ | -------------- |
+| Text Generation   | ✅ Excellent  | ✅ Excellent    |
+| Complex Reasoning | ⚠️ Limited   | ✅ Strong       |
+| Command Execution | ❌ Restricted | ✅ Allowed      |
+| Offline Operation | ✅ Supported  | ❌ Requires API |
+
+***
+
 ## 📦 ISO Distribution Pipeline
+
 Automated Build System
+
 ```bash
 # Build ISO with Packer
 packer build -var 'iso_checksum=sha256:...' novix-agent.json
@@ -50,7 +63,9 @@ packer build -var 'iso_checksum=sha256:...' novix-agent.json
 # Generate checksum
 sha256sum output/novix-agent.iso > sha256sums.txt
 ```
+
 Packer Template (novix-agent.json)
+
 ```json
 {
   "builders": [{
@@ -66,21 +81,19 @@ Packer Template (novix-agent.json)
   }]
 }
 ```
+
 Playbook.com Deployment Checklist:
+
 1. ISO Variants
 
 * Novix-Base.iso (Minimal Agent)
-
 * Novix-Docker.iso (Container Runtime)
-
 * Novix-GPU.iso (CUDA Enabled)
 
 2. Security Measures
 
 * Signed GPG manifests
-
 * Air-gapped build process
-
 * Ephemeral build environments
 
 3. User Verification Flow
@@ -90,16 +103,21 @@ Playbook.com Deployment Checklist:
 gpg --verify novix-agent.iso.sig
 sha256sum -c sha256sums.txt
 ```
-## 🛠️ Support Framework  
-**Multi-Tier Support Channels**  
-| Level | Channel           | Response Time | Scope             |
-|-------|-------------------|---------------|-------------------|
-| 1️⃣    | Community Forum   | 24-48h        | General Q&A       |
-| 2️⃣    | Discord Support   | <12h          | Technical Issues  |
-| 3️⃣    | Enterprise SLA    | <1h           | Critical Systems  |
+
+## 🛠️ Support Framework
+
+**Multi-Tier Support Channels**
+
+| Level | Channel         | Response Time | Scope            |
+| ----- | --------------- | ------------- | ---------------- |
+| 1️⃣   | Community Forum | 24-48h        | General Q\&A     |
+| 2️⃣   | Discord Support | <12h          | Technical Issues |
+| 3️⃣   | Enterprise SLA  | <1h           | Critical Systems |
 
 Issue Reporting Protocol
+
 * Reproduction Template
+
 ```bash
   **Environment**:
 - Novix Version: [0.4.2]
@@ -117,6 +135,7 @@ Issue Reporting Protocol
 
 **Logs**:
 ```
+
 novix-agent --debug 2>&1 | tee debug.log
 
 2. Escalation Path
@@ -129,12 +148,15 @@ graph TD
     D --> E[Security Audit]
     D --> F[Hotfix Branch]
 ```
+
 ## 🔄 Update Management
+
 ```bash
 # Secure update process
 novix-cli update --channel stable \
     --verify-signature \
     --rollback-on-error
 ```
-Update Architecture
+
+Update Architecture\
 Update Flow

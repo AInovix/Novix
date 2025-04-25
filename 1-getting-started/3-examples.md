@@ -1,17 +1,22 @@
-# Novix - Example Use Cases 🚀
+---
+icon: shuttle-space
+---
+
+# Novix - Example Use Cases&#x20;
 
 Explore practical implementations of Novix through these demonstrated scenarios. Contribute your own examples via [pull requests](https://github.com/AInovix/Novix/pulls)!
 
----
+***
 
 ## 🤖 Chatbot Implementation
 
-**GitHub**: [Chatbot Example](https://github.com/AInovix/Novix/blob/main/novix/chatbot.py)  
+**GitHub**: [Chatbot Example](../novix/chatbot.py)\
 **Features**:
-- 🧠 **Context Retention**: Maintains last 5 interactions
-- 🔄 **Zero Retraining**: Persistent learning across sessions
-- 💾 **Storage**: Conversations saved in `Novix/conversations`
-- 🖥️ **Web UI**: Built-in Streamlit interface
+
+* 🧠 **Context Retention**: Maintains last 5 interactions
+* 🔄 **Zero Retraining**: Persistent learning across sessions
+* 💾 **Storage**: Conversations saved in `Novix/conversations`
+* 🖥️ **Web UI**: Built-in Streamlit interface
 
 ```python
 # Sample conversation flow
@@ -22,15 +27,16 @@ response = agent.chat("Hello! How can I help?")
 print(response)
 ```
 
----
+***
 
 ## 🎙️ Voice-Activated Assistant
 
-**GitHub**: [Voice Chat Example](https://github.com/AInovix/Novix/blob/main/novix/voice.py)  
+**GitHub**: [Voice Chat Example](../novix/voice.py)\
 **Capabilities**:
-- 🎧 Wake Word Detection ("chat", "instruct")
-- 🔊 Real-time Speech Processing
-- 📢 Audio Responses
+
+* 🎧 Wake Word Detection ("chat", "instruct")
+* 🔊 Real-time Speech Processing
+* 📢 Audio Responses
 
 ```python
 # Voice interaction setup
@@ -40,16 +46,17 @@ engine = VoiceEngine()
 engine.listen(wake_words=["chat", "instruct"])
 ```
 
----
+***
 
 ## ⚡ Smart Automation Chains
 
 ### Core Automation Types
-| Chain Type       | Description                          | Use Case                  |
-|------------------|--------------------------------------|---------------------------|
-| **Smart Chat**   | Dynamic dialog flows                 | Customer support          |
-| **Smart Task**   | Scheduled operations                 | Data backups              |
-| **Task Chain**   | Multi-step workflows                 | ETL pipelines             |
+
+| Chain Type     | Description          | Use Case         |
+| -------------- | -------------------- | ---------------- |
+| **Smart Chat** | Dynamic dialog flows | Customer support |
+| **Smart Task** | Scheduled operations | Data backups     |
+| **Task Chain** | Multi-step workflows | ETL pipelines    |
 
 ```python
 # Create automated workflow
@@ -61,17 +68,18 @@ pipeline.add_step("data_processing", clean_and_transform)
 pipeline.execute()
 ```
 
----
+***
 
 ## 🌐 Multi-Modal API Integration
 
 ### Supported Input Types
-| Type              | Example                              | Processing                |
-|-------------------|--------------------------------------|---------------------------|
-| Text              | `"Analyze this document"`            | NLP models                |
-| Image URL         | `https://example.com/image.jpg`      | Vision models             |
-| Web Content       | `https://news.com/latest`            | Web scraping              |
-| Audio Files       | `base64_audio_data`                  | Speech-to-text            |
+
+| Type        | Example                         | Processing     |
+| ----------- | ------------------------------- | -------------- |
+| Text        | `"Analyze this document"`       | NLP models     |
+| Image URL   | `https://example.com/image.jpg` | Vision models  |
+| Web Content | `https://news.com/latest`       | Web scraping   |
+| Audio Files | `base64_audio_data`             | Speech-to-text |
 
 ```python
 import openai
@@ -92,14 +100,15 @@ response = openai.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
----
+***
 
 ## 👁️ Computer Vision Integration
 
 **Key Features**:
-- 🖼️ Image Analysis
-- 📸 Multi-modal Input
-- 🔍 Feature Detection
+
+* 🖼️ Image Analysis
+* 📸 Multi-modal Input
+* 🔍 Feature Detection
 
 ```python
 # Vision model integration
@@ -115,11 +124,12 @@ response = openai.chat.completions.create(
 )
 ```
 
----
+***
 
 ## 🌍 Web Scraping & Data Ingestion
 
 **Workflow**:
+
 1. URL Submission
 2. Content Extraction
 3. Data Processing
@@ -138,29 +148,31 @@ response = openai.chat.completions.create(
 )
 ```
 
----
+***
 
 ## 🤝 Contribution Guidelines
 
 We welcome community additions! To contribute:
+
 1. Fork the repository
 2. Create feature branch
 3. Submit PR with:
-   - Example code
-   - Documentation
-   - Test cases
+   * Example code
+   * Documentation
+   * Test cases
 
-**Rewards**:  
+**Rewards**:\
 [![OSS Contributor](https://img.shields.io/badge/Contributor-OSS-green.svg)](https://opensource.org/licenses)
 
----
+***
 
 ## 🚀 Next Steps
 
 Explore endless possibilities:
-- Build custom agents
-- Create hybrid workflows
-- Integrate with enterprise systems
-- Develop novel AI applications
+
+* Build custom agents
+* Create hybrid workflows
+* Integrate with enterprise systems
+* Develop novel AI applications
 
 [![Documentation](https://img.shields.io/badge/Docs-Novix-blue)](https://github.com/AInovix/Novix/)
