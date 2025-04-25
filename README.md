@@ -82,16 +82,27 @@ python start.py
 
 ```mermaid
 graph TD
-  A[User Interface] --> B[Smart Instruct Engine]
-  B --> C{AI Providers}
-  C --> D[OpenAI]
-  C --> E[Hugging Face]
-  C --> F[Google Gemini]
-  C --> G[DeepSeek]
-  B --> H[Plugin System]
-  H --> I[Web Browsing]
-  H --> J[Voice I/O]
-  H --> K[Service Integrations]
+    A[User Interface] --> B[Smart Instruct Engine]
+    B --> C{AI Providers}
+    C --> D[OpenAI]
+    C --> E[Hugging Face]
+    C --> F[Google Gemini]
+    C --> G[DeepSeek]
+    C --> L[Anthropic Claude]
+    C --> M[xAI Grok]
+    B --> H[Plugin System]
+    H --> I[Web Browsing]
+    H --> J[Voice I/O]
+    H --> K[Service Integrations]
+
+    %% Styling for better visuals
+    classDef aiProviders fill:#E6E6FA,stroke:#000,stroke-width:2px;
+    class D,E,F,G,L,M aiProviders;
+    classDef pluginSystem fill:#CCE5FF,stroke:#000,stroke-width:2px;
+    class H,I,J,K pluginSystem;
+    class A,B aiProviders;
+
+
 ```
 
 ## 🤝 Contribute
