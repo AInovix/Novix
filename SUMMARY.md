@@ -31,7 +31,7 @@
   * [xAI Grok Provider: Enterprise AI Integration](3.-providers/7.-xai-grok.md)
   * [Hugging Face Provider: Enterprise AI Integration](3.-providers/8.-hugging-face.md)
   * [GPT4Free Integration for Novix](3.-providers/9.-gpt4free.md)
-* [Blockchain Integrations](4.-blockchain-integrations.md)
+* [Blockchain Integrations](4.-blockchain-integrations)
   * [Blockchain Integrations](blockchain-integration.md)
   * [Solana Integration](solana-integration.md)
   * [Other Blockchains](other-blockchains.md)
