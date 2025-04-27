@@ -31,7 +31,7 @@ print(response)
 
 ## 🎙️ Voice-Activated Assistant
 
-**GitHub**: [Voice Chat Example](../novix/voice.py)\
+**GitHub**: [Voice Chat Example](../novix-app/voice.py)\
 **Capabilities**:
 
 * 🎧 Wake Word Detection ("chat", "instruct")
