@@ -88,7 +88,7 @@ def get_raydium_token_price(token_mint):
 sol_price = get_raydium_token_price("So11111111111111111111111111111111111111112")  # SOL mint address
 print(f"SOL price: {sol_price}")
 ```
-For more advanced interactions, refer to the Raydium Documentation.
+For more advanced interactions, refer to the [Raydium Documentation](https://docs.raydium.io/raydium/traders/trade-api).
 
 **Pump.fun**
 Pump.fun provides PumpSwap, an AMM for tokens launched on their platform. Use third-party APIs like PumpPortal for data access.
@@ -108,7 +108,7 @@ print(token_data)
 Refer to [PumpPortal Documentation](https://pumpportal.fun/) for detailed API usage.
 
 **Meteora**
-Meteora offers dynamic liquidity solutions on Solana. For integration details, see the Meteora Documentation.
+Meteora offers dynamic liquidity solutions on Solana. For integration details, see the [Meteora Documentation](https://docs.meteora.ag/).
 Interacting with Meteora's DLMM pools involves sending transactions to their smart contracts using the solana-py library. For specific instructions, consult Meteora's documentation.
 
 ## Workflow Example
