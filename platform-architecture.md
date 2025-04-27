@@ -33,7 +33,8 @@ graph LR
         D --> K[Hugging Face]
         D --> L[ezLocalai]
         D --> M[GPT4Free]
-        D --> N[Bard]
+        D --> N[xAI Grok]
+        D --> P[Gemini]
         D --> O[Custom Providers]
         style I fill:#f9f,stroke:#333,stroke-width:2px
         style J fill:#f9f,stroke:#333,stroke-width:2px
@@ -41,83 +42,88 @@ graph LR
         style L fill:#f9f,stroke:#333,stroke-width:2px
         style M fill:#f9f,stroke:#333,stroke-width:2px
         style N fill:#f9f,stroke:#333,stroke-width:2px
+        style P fill:#f9f,stroke:#333,stroke-width:2px
         style O fill:#f9f,stroke:#333,stroke-width:2px
     end
     subgraph Extensions
-        E --> P[Web Scraper]
-        E --> Q[Database]
-        E --> R[API Integration]
-        E --> S[Custom Extensions]
-        E --> BlockchainInt[Blockchain Integration]
-        style P fill:#ccf,stroke:#333,stroke-width:2px
+        E --> Q[Web Scraper]
+        E --> R[Database]
+        E --> S[API Integration]
+        E --> T[Custom Extensions]
+        E --> U[Blockchain Integration]
+        subgraph BlockchainIntegration
+            U --> V[Solana]
+            V --> W[Raydium]
+            V --> X[PumpFun]
+            V --> Y[Meteora]
+            style V fill:#87cefa,stroke:#333,stroke-width:2px
+            style W fill:#87cefa,stroke:#333,stroke-width:2px
+            style X fill:#87cefa,stroke:#333,stroke-width:2px
+            style Y fill:#87cefa,stroke:#333,stroke-width:2px
+        end
         style Q fill:#ccf,stroke:#333,stroke-width:2px
         style R fill:#ccf,stroke:#333,stroke-width:2px
         style S fill:#ccf,stroke:#333,stroke-width:2px
-        style BlockchainInt fill:#ccf,stroke:#333,stroke-width:2px
+        style T fill:#ccf,stroke:#333,stroke-width:2px
+        style U fill:#87cefa,stroke:#333,stroke-width:2px
     end
     subgraph Memories
-        F --> T[Vector DB]
-        T --> U[GitHub Reader]
-        T --> V[Arxiv Reader]
-        T --> W[Web Scraper Reader]
-        T --> X[File Reader]
-        style T fill:#fcc,stroke:#333,stroke-width:2px
-        style U fill:#fcc,stroke:#333,stroke-width:2px
-        style V fill:#fcc,stroke:#333,stroke-width:2px
-        style W fill:#fcc,stroke:#333,stroke-width:2px
-        style X fill:#fcc,stroke:#333,stroke-width:2px
+        F --> Z[Vector DB]
+        Z --> AA[GitHub Reader]
+        Z --> AB[Arxiv Reader]
+        Z --> AC[Web Scraper Reader]
+        Z --> AD[File Reader]
+        style Z fill:#fcc,stroke:#333,stroke-width:2px
+        style AA fill:#fcc,stroke:#333,stroke-width:2px
+        style AB fill:#fcc,stroke:#333,stroke-width:2px
+        style AC fill:#fcc,stroke:#333,stroke-width:2px
+        style AD fill:#fcc,stroke:#333,stroke-width:2px
     end
     subgraph Chains
-        G --> Y[Chat with Code]
-        Y --> Z[Step 1: Command - Get Github Code]
-        Z --> AA{Output}
-        AA --> AB{STEP1}
-        AB --> AC[Step 2: Prompt - Chat with Code]
-        G --> AD[Generate Image]
-        AD --> AE[Step 1: Prompt - Novix SD Generator]
-        AE --> AF{Output}
-        AF --> AG{STEP1}
-        AG --> AH[Step 2: Command - Stable Diffusion]
-        G --> AI[Postgres Chat]
-        AI --> AJ[Step 1: Command - Get DB Schema]
-        AJ --> AK{Output}
-        AK --> AL{STEP1}
-        AL --> AM[Step 2: Prompt - PostgreSQLQuery]
-        AM --> AN{Output}
-        AN --> AO{STEP2}
-        AO --> AP[Step 3: Command - Custom SQL Query]
+        G --> AE[Chat with Code]
+        AE --> AF[Step 1: Command - Get Github Code]
+        AF --> AG{Output}
+        AG --> AH{STEP1}
+        AH --> AI[Step 2: Prompt - Chat with Code]
+        G --> AJ[Generate Image]
+        AJ --> AK[Step 1: Prompt - Novix SD Generator]
+        AK --> AL{Output}
+        AL --> AM{STEP1}
+        AM --> AN[Step 2: Command - Stable Diffusion]
+        G --> AO[Postgres Chat]
+        AO --> AP[Step 1: Command - Get DB Schema]
         AP --> AQ{Output}
-        AQ --> AR{STEP3}
-        AR --> AS[Step 4: Command - Make CSV]
-        G --> AT[Smart Chat]
-        AT --> AU[Step 1: Prompt - SmartChat-StepByStep]
-        AU --> AV{Output}
-        AV --> AW{STEP1}
-        AW --> AX[Step 2: Prompt - SmartChat-Researcher]
-        AX --> AY{Output}
-        AY --> AZ{STEP2}
-        AZ --> BA[Step 3: Prompt - SmartChat-Resolver]
-        G --> BB[Smart Instruct]
-        BB --> BC[Step 1: Prompt - SmartInstruct-StepByStep]
-        BC --> BD{Output}
-        BD --> BE{STEP1}
-        BE --> BF[Step 2: Prompt - SmartInstruct-Researcher]
-        BF --> BG{Output}
-        BG --> BH{STEP2}
-        BH --> BI[Step 3: Prompt - SmartInstruct-Resolver]
-        G --> BJ[Solve Math Problem]
-        BJ --> BK[Step 1: Prompt - Translate Math to Python]
-        BK --> BL{Output}
-        BL --> BM{STEP1}
-        BM --> BN[Step 2: Command - Execute Python Code]
-        G --> BO[Custom Chains]
-        BO --> BP[Unlimited Steps]
-        style Y fill:#cfc,stroke:#333,stroke-width:2px
-        style Z fill:#cfc,stroke:#333,stroke-width:2px
-        style AA fill:#cfc,stroke:#333,stroke-width:2px
-        style AB fill:#cfc,stroke:#333,stroke-width:2px
-        style AC fill:#cfc,stroke:#333,stroke-width:2px
-        style AD fill:#cfc,stroke:#333,stroke-width:2px
+        AQ --> AR{STEP1}
+        AR --> AS[Step 2: Prompt - PostgreSQLQuery]
+        AS --> AT{Output}
+        AT --> AU{STEP2}
+        AU --> AV[Step 3: Command - Custom SQL Query]
+        AV --> AW{Output}
+        AW --> AX{STEP3}
+        AX --> AY[Step 4: Command - Make CSV]
+        G --> AZ[Smart Chat]
+        AZ --> BA[Step 1: Prompt - SmartChat-StepByStep]
+        BA --> BB{Output}
+        BB --> BC{STEP1}
+        BC --> BD[Step 2: Prompt - SmartChat-Researcher]
+        BD --> BE{Output}
+        BE --> BF{STEP2}
+        BF --> BG[Step 3: Prompt - SmartChat-Resolver]
+        G --> BH[Smart Instruct]
+        BH --> BI[Step 1: Prompt - SmartInstruct-StepByStep]
+        BI --> BJ{Output}
+        BJ --> BK{STEP1}
+        BK --> BL[Step 2: Prompt - SmartInstruct-Researcher]
+        BL --> BM{Output}
+        BM --> BN{STEP2}
+        BN --> BO[Step 3: Prompt - SmartInstruct-Resolver]
+        G --> BP[Solve Math Problem]
+        BP --> BQ[Step 1: Prompt - Translate Math to Python]
+        BQ --> BR{Output}
+        BR --> BS{STEP1}
+        BS --> BT[Step 2: Command - Execute Python Code]
+        G --> BU[Custom Chains]
+        BU --> BV[Unlimited Steps]
         style AE fill:#cfc,stroke:#333,stroke-width:2px
         style AF fill:#cfc,stroke:#333,stroke-width:2px
         style AG fill:#cfc,stroke:#333,stroke-width:2px
@@ -156,43 +162,44 @@ graph LR
         style BN fill:#cfc,stroke:#333,stroke-width:2px
         style BO fill:#cfc,stroke:#333,stroke-width:2px
         style BP fill:#cfc,stroke:#333,stroke-width:2px
+        style BQ fill:#cfc,stroke:#333,stroke-width:2px
+        style BR fill:#cfc,stroke:#333,stroke-width:2px
+        style BS fill:#cfc,stroke:#333,stroke-width:2px
+        style BT fill:#cfc,stroke:#333,stroke-width:2px
+        style BU fill:#cfc,stroke:#333,stroke-width:2px
+        style BV fill:#cfc,stroke:#333,stroke-width:2px
     end
     subgraph Prompts
-        H --> BQ[Default Prompts]
-        H --> BR[Custom Prompts]
-        style BQ fill:#ccf,stroke:#333,stroke-width:2px
-        style BR fill:#ccf,stroke:#333,stroke-width:2px
+        H --> BW[Default Prompts]
+        H --> BX[Custom Prompts]
+        style BW fill:#ccf,stroke:#333,stroke-width:2px
+        style BX fill:#ccf,stroke:#333,stroke-width:2px
     end
     subgraph InteractionFlow
-        C --> BS[Interaction/Prompt]
-        BS --> BT[Conversation History Injection]
-        BS --> BU[LLM Inference]
-        BU --> BV[Command Injection]
-        BU --> BW[Provider Processing]
-        BV --> BX[Extension Execution]
-        BW --> BY[Output to User]
-        style BS fill:#fcc,stroke:#333,stroke-width:2px
-        style BT fill:#fcc,stroke:#333,stroke-width:2px
-        style BU fill:#fcc,stroke:#333,stroke-width:2px
-        style BV fill:#fcc,stroke:#333,stroke-width:2px
-        style BW fill:#fcc,stroke:#333,stroke-width:2px
-        style BX fill:#fcc,stroke:#333,stroke-width:2px
+        C --> BY[Interaction/Prompt]
+        BY --> BZ[Conversation History Injection]
+        BY --> CA[LLM Inference]
+        CA --> CB[Command Injection]
+        CA --> CC[Provider Processing]
+        CB --> CD[Extension Execution]
+        CC --> CE[Output to User]
         style BY fill:#fcc,stroke:#333,stroke-width:2px
+        style BZ fill:#fcc,stroke:#333,stroke-width:2px
+        style CA fill:#fcc,stroke:#333,stroke-width:2px
+        style CB fill:#fcc,stroke:#333,stroke-width:2px
+        style CC fill:#fcc,stroke:#333,stroke-width:2px
+        style CD fill:#fcc,stroke:#333,stroke-width:2px
+        style CE fill:#fcc,stroke:#333,stroke-width:2px
     end
-    AC --> BU
-    AH --> BU
-    AM --> BU
-    AP --> BU
-    AS --> BU
-    AU --> BU
-    AX --> BU
-    BA --> BU
-    BC --> BU
-    BF --> BU
-    BI --> BU
-    BK --> BU
-    BN --> BU
-    E --> BZ[Commands]
-    BZ --> BV
-    style BZ fill:#ccf,stroke:#333,stroke-width:2px
+    AI --> CA
+    AN --> CA
+    AS --> CA
+    AV --> CA
+    AY --> CA
+    BG --> CA
+    BO --> CA
+    BT --> CA
+    E --> CF[Commands]
+    CF --> CB
+    style CF fill:#ccf,stroke:#333,stroke-width:2px
 ```
