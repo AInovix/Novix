@@ -2,7 +2,7 @@ const CACHE_NAME = 'novix-docs-cache-v1';
 const urlsToCache = [
     '/',
     '/index.html',
-    // Add static assets here
+    
 ];
 
 self.addEventListener('install', event => {
