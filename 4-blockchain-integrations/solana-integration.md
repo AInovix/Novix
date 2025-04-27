@@ -1,3 +1,7 @@
+---
+icon: globe
+---
+
 # Solana Integration
 
 ## Introduction
@@ -15,21 +19,29 @@ First, install the `solana` Python library, which provides a convenient way to i
 ```bash
 pip install solana
 ```
+
 ### Configuration
+
 Set up a connection to a Solana RPC endpoint. For development, use the Devnet.
+
 ```python
 
 from solana.rpc.api import Client
 
 client = Client("[invalid url, do not cite])
 ```
+
 For production, use the Mainnet endpoint.
+
 ```python
 
 client = Client("[invalid url, do not cite])
 ```
+
 ### Managing Wallet Keys
+
 Securely manage your wallet's private keys using environment variables or a secure vault. Here's an example using environment variables:
+
 ```python
 
 import os
@@ -38,11 +50,16 @@ from solana.keypair import Keypair
 private_key = os.getenv("SOLANA_PRIVATE_KEY")
 keypair = Keypair.from_secret_key(bytes.fromhex(private_key))
 ```
+
 Never hardcode private keys in your code.
+
 ## Interacting with Solana
+
 ### Basic Operations
-**Checking Balances**
+
+**Checking Balances**\
 Check the balance of a Solana account:
+
 ```python
 
 from solana.publickey import PublicKey
@@ -51,8 +68,10 @@ public_key = PublicKey("your_public_key_here")
 balance = client.get_balance(public_key)
 print(f"Balance: {balance['result']['value'] / 1e9} SOL")
 ```
-**Sending Transactions**
+
+**Sending Transactions**\
 Send SOL from one account to another:
+
 ```python
 
 from solana.transaction import Transaction
@@ -71,9 +90,12 @@ transaction = Transaction().add(
 response = client.send_transaction(transaction, keypair)
 print(f"Transaction ID: {response['result']}")
 ```
+
 ## Interacting with DEXs
-**Raydium**
+
+**Raydium**\
 Raydium is a leading DEX on Solana. You can fetch token prices using their API.
+
 ```python
 
 import requests
@@ -88,10 +110,12 @@ def get_raydium_token_price(token_mint):
 sol_price = get_raydium_token_price("So11111111111111111111111111111111111111112")  # SOL mint address
 print(f"SOL price: {sol_price}")
 ```
+
 For more advanced interactions, refer to the [Raydium Documentation](https://docs.raydium.io/raydium/traders/trade-api).
 
-**Pump.fun**
+**Pump.fun**\
 Pump.fun provides PumpSwap, an AMM for tokens launched on their platform. Use third-party APIs like PumpPortal for data access.
+
 ```python
 
 import requests
@@ -105,14 +129,17 @@ def get_pump_fun_token_data(token_address):
 token_data = get_pump_fun_token_data("your_token_address_here")
 print(token_data)
 ```
+
 Refer to [PumpPortal Documentation](https://pumpportal.fun/) for detailed API usage.
 
-**Meteora**
-Meteora offers dynamic liquidity solutions on Solana. For integration details, see the [Meteora Documentation](https://docs.meteora.ag/).
+**Meteora**\
+Meteora offers dynamic liquidity solutions on Solana. For integration details, see the [Meteora Documentation](https://docs.meteora.ag/).\
 Interacting with Meteora's DLMM pools involves sending transactions to their smart contracts using the solana-py library. For specific instructions, consult Meteora's documentation.
 
 ## Workflow Example
+
 Below is a sequence diagram illustrating how an AI agent in Novix interacts with the Solana blockchain to monitor token prices and execute trades.
+
 ```mermaid
 
 sequenceDiagram
@@ -129,21 +156,26 @@ sequenceDiagram
     RPC-->>Extension: Transaction ID
     Extension-->>Agent: Confirm trade
 ```
+
 ## Advanced Use Cases
+
 ### AI-Driven Trading Strategies
+
 Use Novix's AI capabilities to create agents that analyze market data from Raydium or Pump.fun, predict price movements, and automatically execute trades when conditions are met.
+
 ### Automated Liquidity Provision
+
 Configure agents to manage liquidity pools on Meteora or Raydium by adding or removing liquidity based on real-time market analysis.
+
 ### Real-Time On-Chain Data Analysis
+
 Access Solana's blockchain data through RPC calls to perform real-time analysis of transaction patterns, wallet behaviors, or smart contract interactions.
+
 ### Security Considerations
-- Private Key Management: Use secure methods like environment variables or hardware wallets.
 
-- Transaction Verification: Always verify transaction details before signing and sending.
-
-- Rate Limiting: Be mindful of API rate limits.
-
-- Error Handling: Implement robust error handling for failed transactions or network issues.
+* Private Key Management: Use secure methods like environment variables or hardware wallets.
+* Transaction Verification: Always verify transaction details before signing and sending.
+* Rate Limiting: Be mindful of API rate limits.
+* Error Handling: Implement robust error handling for failed transactions or network issues.
 
 By following these guidelines, you can integrate Solana into Novix effectively, unlocking new possibilities for AI and blockchain convergence.
-

@@ -1,3 +1,7 @@
+---
+icon: chart-candlestick
+---
+
 # Other Blockchains
 
 Novix is designed to be extensible, allowing integration with other blockchains beyond Solana. Each blockchain has unique characteristics, and we encourage the community to contribute new integrations.
@@ -18,9 +22,11 @@ Ethereum is known for its smart contract flexibility but has higher gas fees. To
 ```bash
 pip install web3
 ```
+
 Configure an RPC endpoint and manage wallet keys similarly to Solana. For details, refer to the [web3.py Documentation](https://web3py.readthedocs.io/en/stable/).
 
 ## Community Contributions
+
 We welcome contributions for integrating other blockchains like Binance Smart Chain, Polygon, or Avalanche. Please see our Contribution Guide for how to get involved.
 
 Blockchain Ecosystem

@@ -1,3 +1,7 @@
+---
+icon: link
+---
+
 # Blockchain Integrations
 
 Blockchain technology offers decentralized, secure, and transparent solutions that can be synergized with AI automation. By integrating blockchains like Solana into Novix, users can leverage AI to automate interactions with decentralized applications (dApps), manage digital assets, and analyze on-chain data in real-time.
