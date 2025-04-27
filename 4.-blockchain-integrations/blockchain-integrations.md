@@ -14,4 +14,18 @@ Solana is our primary blockchain integration due to its high performance, suppor
 
 Novix is designed to be extensible, allowing integration with other blockchains like Ethereum, Binance Smart Chain, or Polygon. Each blockchain has unique characteristics, and we encourage the community to contribute new integrations. For guidelines, see [Other Blockchains](other-blockchains.md).
 
-![AI and Blockchain Integration](https://unsplash.com/photos/ai-blockchain-integration)
+```mermaid
+flowchart LR
+    subgraph Blockchain [Blockchain Network]
+        direction TB
+        B1[Block 1] --> B2[Block 2] --> B3[Block 3] --> B4[Block 4]
+    end
+    subgraph AI [AI Agent]
+        direction TB
+        Q[Data Query] --> P[Data Processing] --> D[Decision Making] --> T[Transaction Creation]
+    end
+    AI -->|Query| B2
+    B2 -->|Data| AI
+    AI -->|Transaction| B4
+    B4 -->|Confirmation| AI
+```

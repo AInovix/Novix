@@ -1,11 +1,11 @@
 # Table of contents
 
 * [Novix: Next-Gen AI Automation Platform](README.md)
-* [Contribution Guide ](CONTRIBUTING.md)
+* [Contribution Guide](CONTRIBUTING.md)
 * [1- Getting Started](1-getting-started/README.md)
-  * [Novix - Quick Start Guide ](1-getting-started/1-quick-start-guide.md)
+  * [Novix - Quick Start Guide](1-getting-started/1-quick-start-guide.md)
   * [Environment Variables Configuration Guide](1-getting-started/2-environment.md)
-  * [Novix - Example Use Cases ](1-getting-started/3-examples.md)
+  * [Novix - Example Use Cases](1-getting-started/3-examples.md)
   * [Novix Deployment Considerations & Distribution Guide](1-getting-started/4-considerations.md)
   * [Support](1-getting-started/5-support.md)
 * [2- Concepts](2.-concepts/README.md)
@@ -31,7 +31,7 @@
   * [xAI Grok Provider: Enterprise AI Integration](3.-providers/7.-xai-grok.md)
   * [Hugging Face Provider: Enterprise AI Integration](3.-providers/8.-hugging-face.md)
   * [GPT4Free Integration for Novix](3.-providers/9.-gpt4free.md)
-* [Blockchain Integrations](4.-blockchain-integrations)
+* [Blockchain Integrations](blockchain-integrations/README.md)
   * [Blockchain Integrations](4.-blockchain-integrations/blockchain-integrations.md)
   * [Solana Integration](4.-blockchain-integrations/solana-integration.md)
   * [Other Blockchains](4.-blockchain-integrations/other-blockchains.md)
