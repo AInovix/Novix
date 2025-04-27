@@ -10,7 +10,7 @@ Explore practical implementations of Novix through these demonstrated scenarios.
 
 ## 🤖 Chatbot Implementation
 
-**GitHub**: [Chatbot Example](../novix/chatbot.py)\
+**GitHub**: [Chatbot Example](../novix-app/chatbot.py)\
 **Features**:
 
 * 🧠 **Context Retention**: Maintains last 5 interactions
