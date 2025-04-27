@@ -41,3 +41,4 @@
 * [To use the chatbot:](to-use.md)
 * [novix-app](novix-app.md)
 * [Playground-usage](playground-usage.md)
+* [Platform Architecture](platform-architecture.md)
