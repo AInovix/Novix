@@ -32,7 +32,7 @@
   * [Hugging Face Provider: Enterprise AI Integration](3.-providers/8.-hugging-face.md)
   * [GPT4Free Integration for Novix](3.-providers/9.-gpt4free.md)
 * [Blockchain Integrations](4.-blockchain-integrations)
-  * [Blockchain Integrations](4.-blockchain-integrations/blockchain-integration.md)
+  * [Blockchain Integrations](4.-blockchain-integrations/blockchain-integrations.md)
   * [Solana Integration](4.-blockchain-integrations/solana-integration.md)
   * [Other Blockchains](4.-blockchain-integrations/other-blockchains.md)
 * [docs](docs.md)
