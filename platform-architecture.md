@@ -2,6 +2,7 @@
 description: >-
   Below is a detailed diagram illustrating the architecture of the Novix AI
   platform, including its components and interactions.
+hidden: true
 ---
 
 # Platform Architecture
