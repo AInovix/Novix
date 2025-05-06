@@ -255,15 +255,15 @@ if analysis["action"] == "add_liquidity":
         print(f"Error adding liquidity: {e}")
 ```
 ### Security Best Practices
-**Private Key Management:** Use environment variables or secure vaults. Never hardcode keys.
+- **Private Key Management:** Use environment variables or secure vaults. Never hardcode keys.
 
-**Transaction Verification:** Always verify transaction details before signing.
+- **Transaction Verification:** Always verify transaction details before signing.
 
-**Rate Limiting:** Implement exponential backoff for API retries to handle rate limits.
+- **Rate Limiting:** Implement exponential backoff for API retries to handle rate limits.
 
-**Error Handling:** Use try-catch blocks to manage network failures and other exceptions.
+- **Error Handling:** Use try-catch blocks to manage network failures and other exceptions.
 
-**Data Encryption:** Ensure all data transmissions are over HTTPS and sensitive data is encrypted at rest.
+- **Data Encryption:** Ensure all data transmissions are over HTTPS and sensitive data is encrypted at rest.
 
 ### Expanding to Other Blockchains
 Novix’s extensible plugin system supports additional blockchains. For example, to integrate with Ethereum:
@@ -306,15 +306,15 @@ Novix provides RESTful API endpoints for blockchain operations:
 See [API Reference](/api/api-reference.md) for more.
 ### Tutorials
 ### Building an AI-Powered Trading Bot
-Set up your environment: Install necessary libraries and configure RPC endpoints.
+- Set up your environment: Install necessary libraries and configure RPC endpoints.
 
-Create a wallet: Generate a keypair and fund it with SOL on Devnet.
+- Create a wallet: Generate a keypair and fund it with SOL on Devnet.
 
-Fetch market data: Use Raydium API to get recent trades for a specific pair.
+- Fetch market data: Use Raydium API to get recent trades for a specific pair.
 
-Analyze with AI: Use Novix’s AIAgent to predict price movements based on trade data.
+- Analyze with AI: Use Novix’s AIAgent to predict price movements based on trade data.
 
-Execute trades: Send transactions to buy or sell based on the prediction.
+- Execute trades: Send transactions to buy or sell based on the prediction.
 
 For a full guide, see [Tutorials](/tutorials.md).
 ### Scalability Considerations
