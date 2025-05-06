@@ -325,7 +325,7 @@ Optimized Transaction Handling: Implementing smart transaction management to red
 
 Scalable Architecture: Designing the system to handle increasing numbers of users and transactions, possibly using techniques like sharding or layer-2 solutions.
 
-For more details, refer to our [Scalability Whitepaper](scalability-whitepaper.md).
+For more details, refer to our [Scalability Whitepaper](/scalability-whitepaper.md).
 ### Workflow Example
 Below is a sequence diagram illustrating how a Novix AI agent interacts with Solana for trade monitoring and execution:
 ```mermaid
