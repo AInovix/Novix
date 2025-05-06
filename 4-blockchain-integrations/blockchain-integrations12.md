@@ -316,7 +316,7 @@ Analyze with AI: Use Novix’s AIAgent to predict price movements based on trade
 
 Execute trades: Send transactions to buy or sell based on the prediction.
 
-For a full guide, see Tutorials (#tutorials).
+For a full guide, see Tutorials (#Novix/tutorials).
 ### Scalability Considerations
 Blockchain networks like Solana are designed for high throughput, but integrating AI with blockchain can introduce additional challenges. Novix addresses these through:
 Efficient Data Processing: Using AI to process and analyze blockchain data in real-time without overloading the network.
@@ -325,7 +325,7 @@ Optimized Transaction Handling: Implementing smart transaction management to red
 
 Scalable Architecture: Designing the system to handle increasing numbers of users and transactions, possibly using techniques like sharding or layer-2 solutions.
 
-For more details, refer to our Scalability Whitepaper (#scalability-whitepaper).
+For more details, refer to our Scalability Whitepaper (#Novix/scalability-whitepaper).
 ### Workflow Example
 Below is a sequence diagram illustrating how a Novix AI agent interacts with Solana for trade monitoring and execution:
 ```mermaid
