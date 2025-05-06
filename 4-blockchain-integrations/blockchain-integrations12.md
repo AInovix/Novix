@@ -303,7 +303,7 @@ Novix provides RESTful API endpoints for blockchain operations:
 
 **Response:** JSON with analysis results.
 
-See [API Reference](Novix/api/api-reference.md) for more.
+See [API Reference](/api/api-reference.md) for more.
 ### Tutorials
 ### Building an AI-Powered Trading Bot
 Set up your environment: Install necessary libraries and configure RPC endpoints.
